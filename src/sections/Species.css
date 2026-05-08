@@ -1,0 +1,244 @@
+/* ───────────────── SPECIES SECTION ───────────────── */
+
+.species {
+  background: #0d1f18;
+  padding: 100px 60px;
+}
+
+.species-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+}
+
+.section-tag-line {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal-bright);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--cream);
+}
+
+.section-title em {
+  color: var(--teal-light);
+  font-style: italic;
+}
+
+.btn-gold-sm {
+  background: var(--gold);
+  color: #fff;
+
+  padding: 12px 24px;
+
+  border-radius: 2px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition: background 0.2s;
+
+  white-space: nowrap;
+}
+
+.btn-gold-sm:hover {
+  background: var(--gold-light);
+}
+
+/* ───────────────── GRID ───────────────── */
+
+.species-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ───────────────── CARD ───────────────── */
+
+.species-card {
+  background: rgba(8, 80, 65, 0.2);
+
+  border: 1px solid rgba(29, 158, 117, 0.15);
+
+  border-radius: 2px;
+
+  overflow: hidden;
+
+  transition:
+    border-color 0.25s,
+    transform 0.25s;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.species-card:hover {
+  border-color: rgba(93, 202, 165, 0.4);
+
+  transform: translateY(-6px);
+}
+
+/* ───────────────── PHOTO ───────────────── */
+
+.species-img-wrap {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 3/2;
+
+  overflow: hidden;
+
+  background: var(--teal-deep);
+}
+
+.species-img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  display: block;
+
+  transition: transform 0.6s ease;
+}
+
+.species-card:hover .species-img {
+  transform: scale(1.08);
+}
+
+.species-img-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(8, 30, 20, 0.5) 100%
+  );
+}
+
+/* ───────────────── INFO ───────────────── */
+
+.species-info {
+  padding: 18px 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+}
+
+.species-name {
+  font-family: var(--font-display);
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: var(--cream);
+
+  margin-bottom: 4px;
+}
+
+.species-latin {
+  font-size: 12px;
+  font-style: italic;
+
+  color: var(--teal-light);
+
+  margin-bottom: 10px;
+}
+
+.species-desc {
+  font-size: 13px;
+
+  color: rgba(225, 245, 238, 0.55);
+
+  line-height: 1.6;
+
+  flex: 1;
+}
+
+/* ───────────────── RATING ───────────────── */
+
+.species-rating {
+  margin-top: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  flex-wrap: nowrap;
+}
+
+.stars {
+  color: var(--gold-light);
+
+  font-size: 13px;
+
+  letter-spacing: 2px;
+
+  white-space: nowrap;
+}
+
+.diff {
+  font-size: 11px;
+
+  color: var(--teal-light);
+
+  white-space: nowrap;
+
+  text-align: right;
+}
+
+/* ───────────────── MOBILE ───────────────── */
+
+@media (max-width: 992px) {
+
+  .species-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .species {
+    padding: 64px 24px;
+  }
+
+  .species-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .species-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .species-rating {
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 6px;
+  }
+
+}

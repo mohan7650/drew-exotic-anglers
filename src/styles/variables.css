@@ -1,0 +1,32 @@
+:root {
+  /* Confirmed Brand Palette */
+  --jungle:      #0B3D2E;  /* Deep Jungle - primary brand */
+  --amber:       #D4891A;  /* Warm Amber - CTA */
+  --slate-blue:  #4A7FA5;  /* Slate Blue */
+  --cream:       #FAF6EE;  /* Cream - card surface, body text */
+
+  /* Supporting palette (kept for design depth) */
+  --teal-deep:   #0B3D2E;
+  --teal-mid:    #0F6E56;
+  --teal-bright: #1D9E75;
+  --teal-light:  #5DCAA5;
+  --teal-mist:   #E1F5EE;
+  --gold:        #D4891A;
+  --gold-light:  #EF9F27;
+  --dark:        #0a1a14;
+  --dark-2:      #0d1f18;
+  --text-muted:  #9FE1CB;
+
+  /* Typography - confirmed brand system */
+  --font-display: 'Playfair Display', 'Adelle', Georgia, serif;
+  --font-body:    'Source Sans Pro', 'Lato', 'Barlow', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--dark);
+  color: #fff;
+  overflow-x: hidden;
+}

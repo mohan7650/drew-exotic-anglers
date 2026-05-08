@@ -1,0 +1,68 @@
+.about {
+  background: #0d1f18; padding: 100px 60px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+}
+.about-img-wrap { position: relative; }
+.about-img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+  border-radius: 2px; border: 1px solid rgba(29,158,117,0.2);
+}
+.about-badge {
+  position: absolute; bottom: -20px; right: -20px;
+  background: var(--amber); padding: 24px 28px;
+  border-radius: 2px; text-align: center;
+}
+.about-badge-num {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 700; color: #fff; line-height: 1;
+}
+.about-badge-text {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: rgba(255,255,255,0.8); margin-top: 4px;
+}
+/* Orvis Endorsed credential — Drew's most valuable credential, brief item #03 */
+.about-orvis {
+  position: absolute; top: -16px; left: -16px;
+  background: var(--cream); color: var(--jungle);
+  padding: 16px 18px; border-radius: 2px;
+  border: 2px solid var(--amber);
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.about-orvis-num {
+  font-family: var(--font-display);
+  font-size: 36px; font-weight: 700; color: var(--amber); line-height: 1;
+}
+.about-orvis-text {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--jungle); line-height: 1.2;
+}
+.section-tag-line {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--teal-bright); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px,4vw,52px); font-weight: 700;
+  line-height: 1.15; color: var(--cream); margin-bottom: 20px;
+}
+.section-title em { color: var(--teal-light); font-style: italic; }
+.about-text p {
+  font-size: 16px; font-weight: 300; line-height: 1.8;
+  color: rgba(225,245,238,0.65); margin-bottom: 20px;
+}
+.feature-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+.feature-list li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-size: 15px; color: var(--teal-mist);
+}
+.feature-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(29,158,117,0.15);
+  border: 1px solid rgba(93,202,165,0.3);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 14px;
+}
+@media (max-width: 768px) {
+  .about { grid-template-columns: 1fr; padding: 64px 24px; }
+}

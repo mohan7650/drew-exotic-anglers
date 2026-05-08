@@ -1,0 +1,422 @@
+.florida-trips {
+  background: var(--cream);
+  color: var(--jungle);
+  padding: 100px 60px;
+}
+
+.florida-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 60px;
+}
+
+.florida-header .section-tag-line {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+
+.florida-header .section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px,4vw,52px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--jungle);
+  margin-bottom: 20px;
+}
+
+.florida-header .section-title em {
+  color: var(--slate-blue);
+  font-style: italic;
+}
+
+.florida-header .section-sub {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(11,61,46,0.7);
+}
+
+.florida-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 48px;
+
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  align-items: start;
+}
+
+/* ───────────────── LEFT COLUMN ───────────────── */
+
+.florida-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* UPDATED IMAGE FIT */
+
+.florida-img {
+
+  width: 100%;
+
+  height: 340px;
+
+  object-fit: cover;
+
+  object-position: center top;
+
+  border-radius: 4px;
+
+  border:
+    1px solid rgba(11,61,46,0.1);
+
+  display: block;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.08);
+}
+
+.florida-info-block {
+  border-bottom: 1px solid rgba(11,61,46,0.12);
+  padding-bottom: 18px;
+}
+
+.florida-info-block:last-child {
+  border-bottom: none;
+}
+
+.florida-block-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+.florida-species {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.florida-pill {
+  background: rgba(74,127,165,0.12);
+  color: var(--slate-blue);
+
+  border:
+    1px solid rgba(74,127,165,0.3);
+
+  padding: 5px 12px;
+
+  border-radius: 2px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.florida-included {
+  list-style: none;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 8px;
+}
+
+.florida-included li {
+  font-size: 13.5px;
+  color: rgba(11,61,46,0.8);
+  font-weight: 400;
+}
+
+.florida-who {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(11,61,46,0.7);
+}
+
+/* ───────────────── RIGHT COLUMN ───────────────── */
+
+.florida-booking {
+  background: #fff;
+
+  border:
+    1px solid rgba(11,61,46,0.12);
+
+  border-radius: 4px;
+
+  padding: 28px;
+
+  box-shadow:
+    0 8px 32px rgba(11,61,46,0.08);
+
+  position: sticky;
+
+  top: 100px;
+}
+
+.florida-pricing {
+  margin-bottom: 24px;
+}
+
+.florida-pricing-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+
+.florida-pricing-list {
+  display: flex;
+  flex-direction: column;
+
+  border:
+    1px solid rgba(11,61,46,0.1);
+
+  border-radius: 2px;
+
+  overflow: hidden;
+}
+
+.florida-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 16px;
+
+  border-bottom:
+    1px solid rgba(11,61,46,0.07);
+
+  font-size: 13.5px;
+}
+
+.florida-price-row:last-child {
+  border-bottom: none;
+}
+
+.florida-price-row:nth-child(odd) {
+  background: rgba(11,61,46,0.02);
+}
+
+.florida-price-tier {
+  color: var(--jungle);
+  font-weight: 500;
+}
+
+.florida-price-amt {
+  color: var(--amber);
+  font-weight: 700;
+
+  font-family: var(--font-display);
+
+  font-size: 16px;
+}
+
+/* ───────────────── CALENDAR ───────────────── */
+
+.florida-calendar {
+  margin-bottom: 20px;
+
+  padding: 18px;
+
+  background: rgba(74,127,165,0.05);
+
+  border:
+    1px dashed rgba(74,127,165,0.3);
+
+  border-radius: 2px;
+}
+
+.florida-cal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: var(--slate-blue);
+
+  margin-bottom: 12px;
+}
+
+.florida-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.florida-cal-day {
+  background: #fff;
+
+  border:
+    1px solid rgba(11,61,46,0.12);
+
+  border-radius: 2px;
+
+  padding: 8px 4px;
+
+  cursor: pointer;
+
+  text-align: center;
+
+  font-family: inherit;
+
+  transition: all 0.15s;
+}
+
+.florida-cal-day:hover {
+  border-color: var(--amber);
+
+  background: rgba(212,137,26,0.05);
+}
+
+.florida-cal-day.selected {
+  background: var(--amber);
+
+  border-color: var(--amber);
+
+  color: #fff;
+}
+
+.cal-weekday {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  color: var(--amber);
+
+  opacity: 0.85;
+}
+
+.florida-cal-day.selected .cal-weekday {
+  color: #fff;
+  opacity: 1;
+}
+
+.cal-date {
+  font-family: var(--font-display);
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: var(--jungle);
+
+  line-height: 1.2;
+
+  margin-top: 2px;
+}
+
+.florida-cal-day.selected .cal-date {
+  color: #fff;
+}
+
+.cal-month {
+  font-size: 9px;
+
+  color: rgba(11,61,46,0.5);
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.06em;
+}
+
+.florida-cal-day.selected .cal-month {
+  color: rgba(255,255,255,0.85);
+}
+
+.florida-cal-note {
+  font-size: 11px;
+  font-style: italic;
+
+  color: rgba(11,61,46,0.55);
+
+  margin-top: 12px;
+}
+
+/* ───────────────── BUTTON ───────────────── */
+
+.btn-amber-full {
+  display: block;
+
+  background: var(--amber);
+
+  color: #fff;
+
+  text-align: center;
+
+  padding: 16px;
+
+  border-radius: 2px;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+  text-decoration: none;
+
+  transition: background 0.2s;
+
+  width: 100%;
+}
+
+.btn-amber-full:hover {
+  background: var(--gold-light);
+}
+
+.florida-trust {
+  font-size: 12px;
+
+  color: rgba(11,61,46,0.6);
+
+  text-align: center;
+
+  margin-top: 12px;
+
+  font-style: italic;
+}
+
+/* ───────────────── RESPONSIVE ───────────────── */
+
+@media (max-width: 900px) {
+
+  .florida-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .florida-booking {
+    position: static;
+  }
+
+  .florida-included {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .florida-trips {
+    padding: 64px 24px;
+  }
+
+  .florida-img {
+    height: 260px;
+  }
+}
