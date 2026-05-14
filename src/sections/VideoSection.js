@@ -15,14 +15,24 @@ export default function VideoSection() {
   return (
     <section id="gallery" className="video-section">
 
+      {/* GALLERY HEADER */}
       <div className="gallery-header">
-        <div className="section-tag-line center">From the River</div>
-        <h2 className="section-title">Real Catches, Real <em>Memories</em></h2>
+        <div className="section-tag-line center">
+          From the River
+        </div>
+
+        <h2 className="section-title">
+          Real Catches, Real <em>Memories</em>
+        </h2>
       </div>
 
+      {/* GALLERY */}
       <div className="gallery-grid">
         {galleryPhotos.map((photo, i) => (
-          <div key={i} className={`gallery-item ${photo.big ? 'gallery-item--big' : ''}`}>
+          <div
+            key={i}
+            className={`gallery-item ${photo.big ? 'gallery-item--big' : ''}`}
+          >
             <img
               src={photo.url}
               alt={photo.alt}
@@ -32,8 +42,11 @@ export default function VideoSection() {
                 e.target.parentNode.style.background = '#0F6E56';
               }}
             />
+
             <div className="gallery-overlay">
-              <span className="gallery-alt">{photo.alt}</span>
+              <span className="gallery-alt">
+                {photo.alt}
+              </span>
             </div>
           </div>
         ))}
@@ -43,33 +56,65 @@ export default function VideoSection() {
         All catches on the Urubaxi River — aboard the Kalua II with Capt Drew
       </p>
 
-      <div className="video-header">
-        <div className="section-tag-line center">Watch the Action</div>
-        <h2 className="section-title">See the <em>Urubaxi</em> in Action</h2>
+      {/* VIDEO HEADER */}
+      <div className="video-header center-video-header">
+
+        <div className="section-tag-line">
+          Watch the Action
+        </div>
+
+        <h2 className="section-title">
+          See the <em>Urubaxi</em> in Action
+        </h2>
+
         <p className="section-sub">
           Real footage. Real fish. Real clients having the time of their lives aboard the Kalua II.
         </p>
+
       </div>
 
-      <div className="video-frame">
-        <iframe
-          width="100%"
-          height="480"
-          src="https://www.youtube.com/embed/_ycYRB8875A"
-          title="Voyage across the Amazon — Capt Drew"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      </div>
+      {/* VIDEO + FOUNDER */}
+      <div className="video-section-wrapper">
 
-      <div className="video-footer">
-        
-          
-          
-        <a>
-          ▶ Subscribe to Capt Drew on YouTube
-        </a>
+        {/* VIDEO */}
+        <div className="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/_ycYRB8875A"
+            title="Voyage across the Amazon — Capt Drew"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+
+        {/* FOUNDER CARD */}
+        <div className="founder-card">
+
+          <div className="founder-small">
+            Founder’s Words
+          </div>
+
+          <blockquote className="founder-quote">
+            “This trip is the best guarantee for double-digit Peacock Bass at the best price in the world.”
+          </blockquote>
+
+          <div className="founder-name">
+            — Capt Drew Rodriguez
+          </div>
+
+          <div className="founder-role">
+            Founder & Head Guide · 10 Years Orvis Endorsed
+          </div>
+
+          <a
+            href="#contact"
+            className="founder-btn"
+          >
+            Plan My Expedition →
+          </a>
+
+        </div>
+
       </div>
 
     </section>

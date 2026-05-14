@@ -22,3 +22,8 @@
 @media (max-width: 768px) {
   .stats-bar { grid-template-columns: repeat(2,1fr); }
 }
+@media (max-width: 480px) {
+  .stat-item { padding: 24px 16px; }
+  .stat-num { font-size: 32px; }
+  .stat-label { font-size: 10px; }
+}
