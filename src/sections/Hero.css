@@ -294,3 +294,165 @@
     bottom: 24px;
   }
 }
+
+/* ── Hero Booking Card (absolutely positioned — does not affect hero layout) */
+
+.hero-cal-card {
+  position: absolute;
+  right: 5%;
+  top: 155px;
+  z-index: 4;
+
+  width: 360px;
+  background: rgba(5, 18, 12, 0.82);
+  border: 1px solid rgba(93, 202, 165, 0.16);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-radius: 4px;
+  padding: 26px;
+  color: #fff;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(93, 202, 165, 0.06);
+  animation: fadeUp 1.2s ease both;
+  animation-delay: 0.3s;
+}
+
+.hero-cal-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(93, 202, 165, 0.14);
+}
+
+.hero-cal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(250, 246, 238, 0.55);
+  margin-bottom: 12px;
+}
+
+.hero-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.hero-cal-day {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  padding: 7px 2px;
+  cursor: pointer;
+  text-align: center;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.hero-cal-day:hover {
+  background: rgba(93, 202, 165, 0.1);
+  border-color: rgba(93, 202, 165, 0.32);
+}
+
+.hero-cal-day.selected {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.hero-cal-weekday {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--teal-light);
+  opacity: 0.75;
+}
+
+.hero-cal-day.selected .hero-cal-weekday {
+  color: #fff;
+  opacity: 1;
+}
+
+.hero-cal-date {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.hero-cal-day.selected .hero-cal-date {
+  color: #fff;
+}
+
+.hero-cal-month {
+  font-size: 8px;
+  color: rgba(250, 246, 238, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hero-cal-day.selected .hero-cal-month {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-cal-note {
+  font-size: 10.5px;
+  font-style: italic;
+  color: rgba(250, 246, 238, 0.4);
+  margin-top: 12px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.hero-book-btn {
+  display: block;
+  background: var(--gold);
+  color: #fff;
+  text-align: center;
+  padding: 13px;
+  border-radius: 2px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  width: 100%;
+}
+
+.hero-book-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+.hero-cal-trust {
+  font-size: 10.5px;
+  color: rgba(250, 246, 238, 0.35);
+  text-align: center;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+@media (max-width: 1200px) {
+  .hero-cal-card {
+    width: 320px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-cal-card {
+    display: none;
+  }
+}
+
