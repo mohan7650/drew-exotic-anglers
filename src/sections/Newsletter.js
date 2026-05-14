@@ -1,17 +1,38 @@
 import React, { useState } from 'react';
 import './Newsletter.css';
 
-export default function Newsletter() {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+function encode(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+}
 
-  const handleSubmit = (e) => {
+export default function Newsletter() {
+  const [email, setEmail]         = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
-    // TODO: connect to Brevo list with Tier 3 segment tag per brief item #11
-    setSubmitted(true);
-    setEmail('');
-    setTimeout(() => setSubmitted(false), 5000);
+    setLoading(true);
+    setError(false);
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ 'form-name': 'newsletter', email }),
+      });
+      setSubmitted(true);
+      setEmail('');
+      setTimeout(() => setSubmitted(false), 6000);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,19 +47,46 @@ export default function Newsletter() {
             Tips, trip openings, and dispatches from the river. No spam. Unsubscribe anytime.
           </p>
         </div>
-        <form className="newsletter-form" onSubmit={handleSubmit}>
+
+        <form
+          className="newsletter-form"
+          name="newsletter"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+        >
+          <input type="hidden" name="form-name" value="newsletter" />
+          <input type="hidden" name="bot-field" />
+
           <input
             type="email"
+            name="email"
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            aria-label="Email address"
+            aria-label="Email address for newsletter"
+            disabled={loading || submitted}
           />
-          <button type="submit" className="newsletter-btn">
-            {submitted ? '✓ Subscribed!' : 'Subscribe →'}
+
+          <button
+            type="submit"
+            className="newsletter-btn"
+            disabled={loading || submitted}
+          >
+            {submitted ? '✓ Subscribed!' : loading ? 'Subscribing…' : 'Subscribe →'}
           </button>
         </form>
+
+        {error && (
+          <p className="newsletter-error" role="alert">
+            Something went wrong. Please try again or{' '}
+            <a href="https://wa.me/17863425791" target="_blank" rel="noopener noreferrer">
+              message Drew directly
+            </a>.
+          </p>
+        )}
       </div>
     </section>
   );

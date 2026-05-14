@@ -14,7 +14,16 @@ export default function Hero() {
   return (
     <section id="hero" className="hero">
       <div className="hero-bg">
-        <video autoPlay muted loop playsInline preload="auto">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/gallery/catch-1.jpg"
+          onError={(e) => { e.target.style.display = 'none'; }}
+          aria-hidden="true"
+        >
           <source src="/videos/hero_bg.mp4" type="video/mp4" />
         </video>
       </div>
@@ -70,6 +79,8 @@ export default function Hero() {
                 key={i}
                 className={`hero-cal-day${isSelected ? ' selected' : ''}`}
                 onClick={() => setSelectedDate(i)}
+                aria-label={`Select ${weekday} ${month} ${day}`}
+                aria-pressed={isSelected}
               >
                 <div className="hero-cal-weekday">{weekday}</div>
                 <div className="hero-cal-date">{day}</div>

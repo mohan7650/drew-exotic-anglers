@@ -8,10 +8,11 @@
 .navbar.scrolled {
   background: rgba(11,61,46,0.97);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 10px 40px;
 }
 
-/* Brand block: logo + DGS name + Orvis credential */
+/* Brand block */
 .nav-brand {
   display: flex; align-items: center; gap: 12px;
   text-decoration: none; flex-shrink: 0;
@@ -24,8 +25,7 @@
 .nav-brand-name {
   font-family: var(--font-display);
   font-size: 19px; letter-spacing: 0.01em; font-weight: 700;
-  color: var(--cream);
-  white-space: nowrap;
+  color: var(--cream); white-space: nowrap;
 }
 .nav-brand-name span { color: var(--gold-light); font-style: italic; font-weight: 400; }
 .nav-brand-credential {
@@ -34,6 +34,7 @@
   margin-top: 3px; white-space: nowrap;
 }
 
+/* Desktop nav links */
 .nav-links {
   display: flex; gap: 24px; list-style: none; flex-wrap: nowrap;
 }
@@ -43,6 +44,8 @@
   text-decoration: none; transition: color 0.2s; white-space: nowrap;
 }
 .nav-links a:hover { color: var(--gold-light); }
+
+/* Desktop CTA */
 .nav-cta {
   background: var(--amber); color: #fff;
   padding: 10px 20px; border-radius: 2px;
@@ -53,11 +56,127 @@
 }
 .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
+/* Hamburger button — mobile only */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-shrink: 0;
+  z-index: 101;
+}
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--cream);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+.hamburger--open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger--open .hamburger-line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.hamburger--open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(8, 35, 24, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 80px 32px 48px;
+  overflow-y: auto;
+}
+.mobile-menu--open {
+  display: flex;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.mobile-nav-links li a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 8vw, 40px);
+  font-weight: 700;
+  color: var(--cream);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(93,202,165,0.1);
+  transition: color 0.2s;
+}
+.mobile-nav-links li:last-child a { border-bottom: none; }
+.mobile-nav-links li a:hover { color: var(--gold-light); }
+
+.mobile-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 320px;
+  padding: 16px 32px;
+  background: var(--amber);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  transition: background 0.2s;
+}
+.mobile-cta:hover { background: var(--gold-light); }
+
+.mobile-whatsapp {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--teal-light);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.mobile-whatsapp:hover { color: var(--cream); }
+
+/* Responsive breakpoints */
 @media (max-width: 900px) {
   .nav-brand-credential { display: none; }
 }
+
 @media (max-width: 768px) {
   .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
   .navbar { padding: 12px 20px; }
   .dgs-logo-mark { width: 38px; height: 38px; }
   .nav-brand-name { font-size: 16px; }

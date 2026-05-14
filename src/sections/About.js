@@ -6,10 +6,11 @@ export default function About() {
     <section id="about" className="about">
       <div className="about-img-wrap">
         <img
-            className="about-img"
-            src="/images/gallery/captain.jpg"
-             alt="Capt Drew Rodriguez on the Amazon"
-             onError={e => { e.target.style.display='none'; }}
+          className="about-img"
+          src="/images/gallery/captain.jpg"
+          alt="Capt Drew Rodriguez on the Amazon"
+          loading="lazy"
+          onError={e => { e.target.style.display = 'none'; }}
         />
         <div className="about-badge">
           <div className="about-badge-num">22lb</div>

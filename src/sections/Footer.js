@@ -83,32 +83,28 @@ export default function Footer() {
 
           <div className="footer-social">
 
+            {/* TODO: replace href with real Instagram handle when available */}
             <a
-              href="#"
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="social-btn"
-              aria-label="Instagram"
+              aria-label="Drew's Guide Service on Instagram (coming soon)"
+              title="Instagram — coming soon"
             >
-
-              <span className="social-circle">
-                📷
-              </span>
-
-              
-
+              <span className="social-circle">📷</span>
             </a>
 
+            {/* TODO: replace href with real Facebook page URL when available */}
             <a
-              href="#"
+              href="https://www.facebook.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="social-btn"
-              aria-label="Facebook"
+              aria-label="Drew's Guide Service on Facebook (coming soon)"
+              title="Facebook — coming soon"
             >
-
-              <span className="social-circle">
-                📘
-              </span>
-
-             
-
+              <span className="social-circle">📘</span>
             </a>
 
             <a
@@ -116,15 +112,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="social-btn"
-              aria-label="YouTube"
+              aria-label="Drew's Guide Service on YouTube"
             >
-
-              <span className="social-circle">
-                ▶️
-              </span>
-
-              
-
+              <span className="social-circle">▶️</span>
             </a>
 
             <a
@@ -132,15 +122,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="social-btn social-btn--whatsapp"
-              aria-label="WhatsApp"
+              aria-label="Message Capt Drew on WhatsApp"
             >
-
-              <span className="social-circle">
-                💬
-              </span>
-
-              
-
+              <span className="social-circle">💬</span>
             </a>
 
           </div>

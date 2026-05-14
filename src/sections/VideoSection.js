@@ -37,6 +37,7 @@ export default function VideoSection() {
               src={photo.url}
               alt={photo.alt}
               className="gallery-img"
+              loading="lazy"
               onError={e => {
                 e.target.style.display = 'none';
                 e.target.parentNode.style.background = '#0F6E56';
@@ -80,8 +81,9 @@ export default function VideoSection() {
         <div className="video-frame">
           <iframe
             src="https://www.youtube.com/embed/_ycYRB8875A"
-            title="Voyage across the Amazon — Capt Drew"
+            title="Voyage across the Amazon — Capt Drew Rodriguez, Drew's Guide Service"
             frameBorder="0"
+            loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
@@ -95,7 +97,7 @@ export default function VideoSection() {
           </div>
 
           <blockquote className="founder-quote">
-            “This trip is the best guarantee for double-digit Peacock Bass at the best price in the world.”
+            “This trip is the best guarantee for double-digit Peacock Bass at the best price in the world.I couldn't stress that enough.”
           </blockquote>
 
           <div className="founder-name">

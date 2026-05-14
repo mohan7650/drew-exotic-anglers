@@ -36,6 +36,7 @@ export default function Tours() {
               className="tour-img"
               src={t.img}
               alt={t.name}
+              loading="lazy"
               onError={(e) => (e.target.style.display = 'none')}
             />
 

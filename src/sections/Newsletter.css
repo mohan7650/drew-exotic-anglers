@@ -210,14 +210,28 @@
   white-space: nowrap;
 }
 
-.newsletter-btn:hover {
-
+.newsletter-btn:hover:not(:disabled) {
   background: var(--gold-light);
-
   transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(212,137,26,0.22);
+}
 
-  box-shadow:
-    0 10px 24px rgba(212,137,26,0.22);
+.newsletter-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.newsletter-error {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: #ff9a7b;
+  margin-top: -16px;
+  line-height: 1.6;
+}
+
+.newsletter-error a {
+  color: var(--teal-light);
+  text-decoration: underline;
 }
 
 /* ───────────────── TESTIMONIALS ───────────────── */
