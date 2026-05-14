@@ -15,7 +15,7 @@ export default function Newsletter() {
   };
 
   return (
-    <section className="newsletter">
+    <section id="newsletter" className="newsletter">
       <div className="newsletter-inner">
         <div className="newsletter-text">
           <div className="section-tag-line">Stay In the Loop</div>

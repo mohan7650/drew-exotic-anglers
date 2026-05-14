@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import StatsBar from './sections/StatsBar';
@@ -7,7 +8,7 @@ import WhyUs from './sections/WhyUs';
 import About from './sections/About';
 import Tours from './sections/Tours';
 import FloridaTrips from './sections/FloridaTrips';
-import LocationMap from './sections/LocationMap';
+import LocationMap from './components/LocationMap/LocationMap';
 import Species from './sections/Species';
 import VideoSection from './sections/VideoSection';
 import Testimonials from './sections/Testimonials';
@@ -15,8 +16,9 @@ import Newsletter from './sections/Newsletter';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import TourDetails from './pages/TourDetails';
 
-function App() {
+function HomePage() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -32,20 +34,30 @@ function App() {
       <StatsBar />
       <SponsorBar />
       <WhyUs />
-      <About />
       <Tours />
+      <LocationMap />
+      <About />
       {/* Florida Day Trips between tours and gallery per brief item #05 */}
       <FloridaTrips />
-      <LocationMap />
       <Species />
       <VideoSection />
-      <Testimonials />
       {/* Newsletter signup above footer per brief item #11 */}
       <Newsletter />
       <Contact />
       <Footer />
       <WhatsAppButton />
     </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/tour/:slug" element={<TourDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
