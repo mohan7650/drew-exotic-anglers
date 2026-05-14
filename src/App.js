@@ -8,7 +8,7 @@ import WhyUs from './sections/WhyUs';
 import About from './sections/About';
 import Tours from './sections/Tours';
 import FloridaTrips from './sections/FloridaTrips';
-import LocationMap from './sections/LocationMap';
+import LocationMap from './components/LocationMap/LocationMap';
 import Species from './sections/Species';
 import VideoSection from './sections/VideoSection';
 import Testimonials from './sections/Testimonials';
@@ -34,14 +34,13 @@ function HomePage() {
       <StatsBar />
       <SponsorBar />
       <WhyUs />
-      <About />
       <Tours />
+      <LocationMap />
+      <About />
       {/* Florida Day Trips between tours and gallery per brief item #05 */}
       <FloridaTrips />
-      <LocationMap />
       <Species />
       <VideoSection />
-      <Testimonials />
       {/* Newsletter signup above footer per brief item #11 */}
       <Newsletter />
       <Contact />

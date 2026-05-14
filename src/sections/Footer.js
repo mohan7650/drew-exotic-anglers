@@ -151,28 +151,28 @@ export default function Footer() {
 
         <div className="footer-col">
 
-          <h4>
-            Expeditions
-          </h4>
+  <h4>
+    EXPEDITIONS
+  </h4>
 
-          <ul>
+  <ul>
 
-            {[
-              'Florida Day Trips',
-              'Urubaxi Full Week',
-              'Kalua II Trophy Hunt',
-              'Argentina Don Joaquin',
-              'Canada St Jean Salmon',
-              'Private Charter'
-            ].map(l => (
+    {[
+      'Urubaxi River · Brazil',
+      'Eco Lodge da Barra · Brazil',
+      'Xingu River · Brazil',
+      'Don Joaquin Lodge · Argentina',
+      'St Jean Salmon Lodge · Canada',
+      'South Florida · USA'
+    ].map(l => (
 
-              <li key={l}>
-                <a href="#tours">{l}</a>
-              </li>
+      <li key={l}>
+        <a href="#tours">{l}</a>
+      </li>
 
-            ))}
+    ))}
 
-          </ul>
+  </ul>
 
         </div>
 
