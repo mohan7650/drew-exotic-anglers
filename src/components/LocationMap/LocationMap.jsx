@@ -126,9 +126,7 @@ export default function LocationMap() {
         {/* HEADER */}
         <header className={styles.header}>
           <div className={styles.eyebrow}>
-            <span className={styles.eyebrowLine} />
-            <span className={styles.eyebrowText}>VI · Global Destinations</span>
-            <span className={styles.eyebrowLine} />
+            <span className={styles.titleBreak}> Global Destinations</span>
           </div>
           <h2 className={styles.title}>
             Choose Your 
