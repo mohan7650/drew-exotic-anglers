@@ -4,7 +4,7 @@ const tours = [
     tag: '🥇 Flagship Trip',
     name: 'Kalua 1, Jurubaxi River',
     desc: 'Experience exclusive Peacock Bass fishing deep in the Amazon with private river access and expert guides.',
-    meta: 'Fri → Fri · 8 Days • Max 8 Anglers',
+    meta: 'Fri → Fri · 7 Days • Max 8 Anglers',
 
     img: '/images/gallery/Tour_Kalua 1, Jurubaxi River.jpg',
 
