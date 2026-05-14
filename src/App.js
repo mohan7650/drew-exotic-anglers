@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import StatsBar from './sections/StatsBar';
@@ -15,8 +16,9 @@ import Newsletter from './sections/Newsletter';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import TourDetails from './pages/TourDetails';
 
-function App() {
+function HomePage() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -46,6 +48,17 @@ function App() {
       <Footer />
       <WhatsAppButton />
     </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/tour/:slug" element={<TourDetails />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
