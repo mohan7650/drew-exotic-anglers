@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './Contact.css';
 
+function encode(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+}
+
 // Live spot availability per brief item #06 — manually updatable scarcity signal
 const liveAvailability = [
   { trip: 'September 2026 · Urubaxi Full Week', spots: 2, total: 8 },
@@ -9,12 +15,45 @@ const liveAvailability = [
 ];
 
 export default function Contact() {
-  const [sent, setSent] = useState(false);
+  const [fields, setFields] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    tripType: 'Urubaxi Full Week (Fri–Fri)',
+    groupSize: 'Solo (1 angler)',
+    message: '',
+  });
+  const [sent, setSent]       = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFields(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 5000);
+    setLoading(true);
+    setError(false);
+
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({ 'form-name': 'contact', ...fields }),
+      });
+      setSent(true);
+      setFields({
+        firstName: '', lastName: '', email: '',
+        tripType: 'Urubaxi Full Week (Fri–Fri)',
+        groupSize: 'Solo (1 angler)', message: '',
+      });
+      setTimeout(() => setSent(false), 8000);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -22,25 +61,52 @@ export default function Contact() {
       <div className="contact-info">
         <div className="section-tag-line">Get in Touch</div>
         <h2 className="section-title">Reserve Your <em>Expedition.</em></h2>
-        <p className="section-sub">Ready to fish the Urubaxi? Call Capt Drew directly, message on WhatsApp, or fill out the form — Drew personally responds within 24 hours.</p>
+        <p className="section-sub">
+          Ready to fish the Urubaxi? Call Capt Drew directly, message on WhatsApp,
+          or fill out the form — Drew personally responds within 24 hours.
+        </p>
 
         {[
-          { icon:'📍', text:'Barcelos, Amazonas, Brazil — Base for Urubaxi River' },
-          { icon:'📞', text:'(786) 342-5791 — Capt Drew Direct' },
-          { icon:'💬', text:'WhatsApp: +1 (786) 342-5791 — Preferred for international clients', whatsapp: true },
-          { icon:'🌐', text:'drewsguideservice.com · Capt Drew Rodriguez' },
-          { icon:'🗓️', text:'Trips run Friday to Friday' },
+          { icon: '📍', text: 'Barcelos, Amazonas, Brazil — Base for Urubaxi River' },
+          { icon: '📞', text: '(786) 342-5791 — Capt Drew Direct', href: 'tel:7863425791' },
+          { icon: '💬', text: 'WhatsApp: +1 (786) 342-5791 — Preferred for international clients', whatsapp: true, href: 'https://wa.me/17863425791' },
+          { icon: '🌐', text: 'drewsguideservice.com · Capt Drew Rodriguez' },
+          { icon: '🗓️', text: 'Trips run Friday to Friday' },
         ].map(d => (
-          <div className={`contact-detail ${d.whatsapp ? 'contact-detail--whatsapp' : ''}`} key={d.text}>
-            <div className="contact-icon">{d.icon}</div>
-            <span>{d.text}</span>
+          <div
+            className={`contact-detail ${d.whatsapp ? 'contact-detail--whatsapp' : ''}`}
+            key={d.text}
+          >
+            <div className="contact-icon" aria-hidden="true">{d.icon}</div>
+            {d.href ? (
+              <a
+                href={d.href}
+                target={d.whatsapp ? '_blank' : undefined}
+                rel={d.whatsapp ? 'noopener noreferrer' : undefined}
+              >
+                {d.text}
+              </a>
+            ) : (
+              <span>{d.text}</span>
+            )}
           </div>
         ))}
       </div>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form
+        className="contact-form"
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="bot-field" />
+
         {/* Spot Availability scarcity trigger per brief item #06 */}
-        <div className="contact-scarcity">
+        <div className="contact-scarcity" aria-label="Live trip availability">
           <div className="scarcity-label">⚡ Live Spots Available</div>
           {liveAvailability.map(t => (
             <div className="scarcity-row" key={t.trip}>
@@ -54,22 +120,56 @@ export default function Contact() {
 
         <div className="form-row">
           <div className="form-group">
-            <label>First Name</label>
-            <input type="text" placeholder="John" required />
+            <label htmlFor="firstName">First Name</label>
+            <input
+              id="firstName"
+              type="text"
+              name="firstName"
+              placeholder="John"
+              value={fields.firstName}
+              onChange={handleChange}
+              required
+              autoComplete="given-name"
+            />
           </div>
           <div className="form-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="Smith" required />
+            <label htmlFor="lastName">Last Name</label>
+            <input
+              id="lastName"
+              type="text"
+              name="lastName"
+              placeholder="Smith"
+              value={fields.lastName}
+              onChange={handleChange}
+              required
+              autoComplete="family-name"
+            />
           </div>
         </div>
+
         <div className="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="john@example.com" required />
+          <label htmlFor="contactEmail">Email Address</label>
+          <input
+            id="contactEmail"
+            type="email"
+            name="email"
+            placeholder="john@example.com"
+            value={fields.email}
+            onChange={handleChange}
+            required
+            autoComplete="email"
+          />
         </div>
+
         <div className="form-row">
           <div className="form-group">
-            <label>Trip Type</label>
-            <select>
+            <label htmlFor="tripType">Trip Type</label>
+            <select
+              id="tripType"
+              name="tripType"
+              value={fields.tripType}
+              onChange={handleChange}
+            >
               <option>Urubaxi Full Week (Fri–Fri)</option>
               <option>Kalua II Trophy Hunt</option>
               <option>Jurubaxi River Special</option>
@@ -81,8 +181,13 @@ export default function Contact() {
             </select>
           </div>
           <div className="form-group">
-            <label>Group Size</label>
-            <select>
+            <label htmlFor="groupSize">Group Size</label>
+            <select
+              id="groupSize"
+              name="groupSize"
+              value={fields.groupSize}
+              onChange={handleChange}
+            >
               <option>Solo (1 angler)</option>
               <option>2 Anglers</option>
               <option>3–4 Anglers</option>
@@ -91,14 +196,26 @@ export default function Contact() {
             </select>
           </div>
         </div>
+
         <div className="form-group">
-          <label>Message</label>
-          <textarea placeholder="Tell Capt Drew your target species, preferred dates, and any questions…" rows={5} />
+          <label htmlFor="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Tell Capt Drew your target species, preferred dates, and any questions…"
+            rows={5}
+            value={fields.message}
+            onChange={handleChange}
+          />
         </div>
 
-        {/* Button text changed from 'Send Enquiry' to 'Reserve My Spot' per brief item #06 */}
-        <button className="form-submit" type="submit">
-          {sent ? '✓ Reservation Request Sent!' : 'Reserve My Spot →'}
+        {/* Button text per brief item #06 */}
+        <button
+          className="form-submit"
+          type="submit"
+          disabled={loading || sent}
+        >
+          {sent ? '✓ Reservation Request Sent!' : loading ? 'Sending…' : 'Reserve My Spot →'}
         </button>
 
         {/* Trust line per brief item #06 */}
@@ -106,7 +223,21 @@ export default function Contact() {
           Drew personally responds to every inquiry within 24 hours.
         </p>
 
-        {sent && <p className="form-success">Thank you! Capt Drew will be in touch within 24 hours.</p>}
+        {sent && (
+          <p className="form-success" role="alert">
+            Thank you! Capt Drew will be in touch within 24 hours.
+          </p>
+        )}
+
+        {error && (
+          <p className="form-error" role="alert">
+            Something went wrong. Please{' '}
+            <a href="https://wa.me/17863425791" target="_blank" rel="noopener noreferrer">
+              message Drew on WhatsApp
+            </a>{' '}
+            or call <a href="tel:7863425791">(786) 342-5791</a> directly.
+          </p>
+        )}
       </form>
     </section>
   );

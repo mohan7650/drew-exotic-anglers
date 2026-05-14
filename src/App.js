@@ -17,33 +17,38 @@ import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import TourDetails from './pages/TourDetails';
+import NotFound from './pages/NotFound';
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <>
+      <a href="#hero" className="skip-link">Skip to main content</a>
       <Navbar scrolled={scrolled} />
-      <Hero />
-      <StatsBar />
-      <SponsorBar />
-      <WhyUs />
-      <Tours />
-      <LocationMap />
-      <About />
-      {/* Florida Day Trips between tours and gallery per brief item #05 */}
-      <FloridaTrips />
-      <Species />
-      <VideoSection />
-      {/* Newsletter signup above footer per brief item #11 */}
-      <Newsletter />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <StatsBar />
+        <SponsorBar />
+        <WhyUs />
+        <Tours />
+        <LocationMap />
+        <About />
+        {/* Florida Day Trips between tours and gallery per brief item #05 */}
+        <FloridaTrips />
+        <Species />
+        <VideoSection />
+        
+        {/* Newsletter signup above footer per brief item #11 */}
+        <Newsletter />
+        <Contact />
+      </main>
       <Footer />
       <WhatsAppButton />
     </>
@@ -56,6 +61,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/tour/:slug" element={<TourDetails />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

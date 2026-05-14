@@ -4,20 +4,36 @@
   <head>
 
     <meta charset="utf-8" />
-
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0B3D2E" />
+    <meta name="robots" content="index, follow" />
 
     <meta
       name="description"
       content="Capt Drew Rodriguez — 10 Years Orvis Endorsed. Exclusive Peacock Bass fishing on the Urubaxi River, Amazon Brazil. Aboard the Kalua II. From the Canals to the World."
     />
 
-    <title>
-      Drew's Guide Service — Capt Drew Rodriguez · Orvis Endorsed
-    </title>
+    <!-- Canonical -->
+    <link rel="canonical" href="https://drewsguideservice.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://drewsguideservice.com/" />
+    <meta property="og:title" content="Drew's Guide Service — Orvis Endorsed Amazon & Florida Fishing" />
+    <meta property="og:description" content="Capt Drew Rodriguez — 10 Years Orvis Endorsed. Exclusive Peacock Bass on the Urubaxi River, Amazon Brazil. World's biggest fish. Private water. Nobody else gets in." />
+    <meta property="og:image" content="https://drewsguideservice.com/images/gallery/catch-1.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Drew's Guide Service" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Drew's Guide Service — Orvis Endorsed Amazon Fishing" />
+    <meta name="twitter:description" content="Exclusive Peacock Bass fishing on the Urubaxi River. 10 Years Orvis Endorsed. Capt Drew Rodriguez." />
+    <meta name="twitter:image" content="https://drewsguideservice.com/images/gallery/catch-1.jpg" />
+
+    <title>Drew's Guide Service — Capt Drew Rodriguez · Orvis Endorsed</title>
 
     <link
       rel="icon"
@@ -25,16 +41,58 @@
       href="%PUBLIC_URL%/images/gallery/dgs-logo.png"
     />
 
+    <!-- Font preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@300;400;600;700&family=Barlow:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
 
+    <!-- Structured Data: LocalBusiness -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Drew's Guide Service",
+      "description": "Capt Drew Rodriguez — 10 Years Orvis Endorsed fishing guide. Exclusive Amazon Peacock Bass expeditions and South Florida day trips.",
+      "url": "https://drewsguideservice.com",
+      "telephone": "+17863425791",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Miami",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://youtube.com/@captdrew1986",
+        "https://wa.me/17863425791"
+      ]
+    }
+    </script>
+
   </head>
 
   <body>
 
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
     <div id="root"></div>
+
+    <!-- Hidden static forms for Netlify bot detection (React SPA pattern) -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <select name="tripType"></select>
+      <select name="groupSize"></select>
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="newsletter" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+    </form>
 
   </body>
 
