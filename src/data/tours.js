@@ -7,6 +7,11 @@ const tours = [
     meta: 'Fri → Fri · 7 Days • Max 8 Anglers',
 
     img: '/images/gallery/Tour_Kalua 1, Jurubaxi River.jpg',
+      gallery: [
+    '/images/gallery/Tour_Kalua 1, Jurubaxi River.jpg',
+    '/images/gallery/Tour_details_kalau_photo_2.png',
+    '/images/gallery/Tour_details_kalau_photo_3.png',
+    ],
 
     fullDesc: `The Kalua 1 expedition takes you deep into the heart of the Brazilian Amazon aboard our premier vessel.
       You'll fish private stretches of the Jurubaxi River — water that rarely sees pressure — targeting trophy
@@ -30,7 +35,11 @@ const tours = [
     meta: '6 Fishing Days • All-Inclusive',
 
     img: '/images/gallery/Tour_Kalua 2, Jurubaxi River.PNG',
-
+     gallery: [
+    '/images/gallery/Tour_details_kalau2_photo_2.jpg',
+    '/images/gallery/Tour_Kalua 2, Jurubaxi River.PNG',
+    '/images/gallery/Tour_details_kalau2_photo_3.png',
+    ],
     fullDesc: `The Kalua 2 trip puts you on the sister vessel of our flagship expedition.`,
 
     details: [
@@ -51,6 +60,11 @@ const tours = [
     meta: 'Remote Adventure • Guided Trip',
 
     img: '/images/gallery/Tour_Brazil, Xingu River.JPG',
+    gallery: [
+    '/images/gallery/Tour_details_xingu_photo_1.jpg',
+    '/images/gallery/Tour_Brazil, Xingu River.JPG',
+    '/images/gallery/Tour_details_xingu_photo_2.jpg',
+    ],
 
     fullDesc: `The Xingu River expedition ventures into one of the Amazon's most dramatic and remote fisheries.`,
 
@@ -72,6 +86,11 @@ const tours = [
     meta: 'Eco Stay • Guided Fishing',
 
     img: '/images/gallery/Tour_Brazil, Eco Lodge da Barra.jpg',
+    gallery: [
+    '/images/gallery/Tour_details_Eco_photo_1.JPG',
+    '/images/gallery/Tour_Brazil, Eco Lodge da Barra.jpg',
+    '/images/gallery/Tour_details_Eco_photo_2.JPG',
+    ],
 
     fullDesc: `Eco Lodge da Barra blends sustainable luxury with world-class angling.`,
 
@@ -93,6 +112,11 @@ const tours = [
     meta: '7 Days • River Expedition',
 
     img: '/images/gallery/Tour_Argentina, Don Joaquin River Lodge.JPG',
+    gallery: [
+    '/images/gallery/Tour_details_argentina_photo_1.JPG',
+    '/images/gallery/Tour_Argentina, Don Joaquin River Lodge.JPG',
+    '/images/gallery/Tour_details_argentina_photo_2.JPG',
+    ],
 
     fullDesc: `Don Joaquin River Lodge sits on one of Argentina's premier Golden Dorado fisheries.`,
 
@@ -114,6 +138,11 @@ const tours = [
     meta: 'Private Club • Salmon Fishing',
 
     img: '/images/gallery/Tour_Canada, St Jean Salmon Club.jpg',
+    gallery: [
+    '/images/gallery/Tour_details_Canada_photo_1.JPG',
+    '/images/gallery/Tour_Canada, St Jean Salmon Club.jpg',
+    '/images/gallery/Tour_details_Canada_photo_2.JPG',
+    ],
 
     fullDesc: `The St Jean Salmon Club grants exclusive access to some of the finest Atlantic Salmon water in Eastern Canada.`,
 

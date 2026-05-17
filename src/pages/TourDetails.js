@@ -11,41 +11,82 @@ export default function TourDetails() {
     return (
       <div className="tour-details-not-found">
         <h2>Tour not found</h2>
-        <Link to="/" className="tour-details-back">← Back to Home</Link>
+        <Link to="/" className="tour-details-back">
+          ← Back to Home
+        </Link>
       </div>
     );
   }
 
   return (
     <div className="tour-details-page">
-      <div className="tour-details-hero" style={{ backgroundImage: `url(${tour.img})` }}>
+      <div
+        className="tour-details-hero"
+        style={{ backgroundImage: `url(${tour.img})` }}
+      >
         <div className="tour-details-hero-overlay">
-          <Link to="/#tours" className="tour-details-back">← All Expeditions</Link>
+          <Link to="/#tours" className="tour-details-back">
+            ← All Expeditions
+          </Link>
+
           <div className="tour-details-tag">{tour.tag}</div>
+
           <h1 className="tour-details-title">{tour.name}</h1>
+
           <p className="tour-details-meta">{tour.meta}</p>
         </div>
       </div>
 
       <div className="tour-details-body">
         <div className="tour-details-content">
+
+          {/* ABOUT */}
           <section className="tour-details-about">
             <h2>About This Trip</h2>
+
             <p>{tour.fullDesc}</p>
           </section>
 
+          {/* PHOTO GALLERY */}
+          <section className="tour-details-gallery">
+            <div className="gallery-header">
+              <h2>Expedition Gallery</h2>
+              <p>
+                Moments from the Jurubaxi River and the Kalua experience.
+              </p>
+            </div>
+
+            <div className="gallery-grid">
+
+  {tour.gallery?.map((image, index) => (
+
+    <img
+      key={index}
+      src={image}
+      alt={`${tour.name} ${index + 1}`}
+    />
+
+  ))}
+
+</div>
+          </section>
+
+          {/* TRIP DETAILS */}
           <section className="tour-details-info">
             <h2>Trip Details</h2>
+
             <ul className="tour-details-list">
               {tour.details.map(d => (
                 <li key={d.label}>
                   <span className="detail-label">{d.label}</span>
+
                   <span className="detail-value">{d.value}</span>
                 </li>
               ))}
             </ul>
           </section>
 
+          {/* CTA */}
           <div className="tour-details-cta">
             <a
               href="/#contact"
@@ -53,8 +94,15 @@ export default function TourDetails() {
             >
               Book Now
             </a>
-            <Link to="/#tours" className="tour-details-link">View All Expeditions</Link>
+
+            <Link
+              to="/#tours"
+              className="tour-details-link"
+            >
+              View All Expeditions
+            </Link>
           </div>
+
         </div>
       </div>
     </div>
