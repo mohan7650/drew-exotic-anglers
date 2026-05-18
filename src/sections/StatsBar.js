@@ -4,7 +4,7 @@ import './StatsBar.css';
 const stats = [
   { num: '20+', label: 'Species Available' },
   { num: '15+', label: 'Years on the Water' },
-  { num: '22lb', label: "Capt Drew's Personal Best" },
+  { num: '6', label: "Exclusive Lodge Partnerships" },
   { num: 'Small', label: 'Group Always' },
 ];
 

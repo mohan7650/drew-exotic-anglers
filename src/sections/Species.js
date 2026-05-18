@@ -4,50 +4,86 @@ import './Species.css';
 const species = [
 
   {
-    name: 'Giant Peacock Bass',
-    latin: 'Cichla temensis',
-    img: '/images/species/peacock-bass.jpg',
+    name: 'Payara',
+    latin: 'Hydrolycus scomberoides',
+    img: '/images/species/payara.jpg',
 
     desc:
-      "The apex predator of the Amazon. Violent topwater explosions, brutal runs, and true trophy-class fish. Capt Drew's personal best on the Urubaxi exceeds 22 lbs.",
+      "Known as the Vampire Fish of the Amazon, Payara are famous for their massive fangs, explosive strikes, and aggressive fights in fast-moving river systems.",
 
     stars: 5,
     diff: 'Advanced',
   },
 
   {
-    name: 'Everglades Largemouth Bass',
-    latin: 'Micropterus salmoides floridanus',
-    img: '/images/species/Everglades Largemouth Bass.jpg',
+    name: 'Red Tail Catfish',
+    latin: 'Phractocephalus hemioliopterus',
+    img: '/images/species/red-tail-catfish.jpg',
 
     desc:
-      "Apex predator of South Florida's canal systems. Famous for explosive surface strikes and heavy structure fights. Drew's personal best exceeds 10 lbs — a true Florida trophy bass.",
+      "One of the Amazon’s most powerful freshwater predators. Heavy runs, deep battles, and massive size make Red Tail Catfish an unforgettable catch.",
 
     stars: 4,
     diff: 'Intermediate',
   },
 
   {
-    name: 'Butterfly Peacock Bass',
-    latin: 'Cichla ocellaris',
-    img: '/images/gallery/catch-3.jpg',
+    name: 'Shovel Nose Catfish',
+    latin: 'Sorubim lima',
+    img: '/images/species/shovel-nose-catfish.jpg',
 
     desc:
-      "South Florida's most explosive freshwater gamefish. Aggressive, colorful, and perfect for light tackle action year-round in Miami's urban canal systems.",
+      "Fast-moving and highly active catfish species known for their long bodies and unique shovel-shaped snouts. Excellent action on live bait setups.",
 
-    stars: 4,
+    stars: 3,
     diff: 'All Levels',
   },
 
   {
-    name: 'Popoca Peacock Bass',
-    latin: 'Cichla monoculus',
-    img: '/images/species/Popoca.jpg',
+    name: 'Golden Dorado',
+    latin: 'Salminus brasiliensis',
+    img: '/images/species/golden-dorado.jpg',
 
     desc:
-      "Highly aggressive Amazon peacock bass species known for savage strikes and relentless fights. Frequently caught on surface lures throughout the Urubaxi system.",
+      "An aggressive South American predator famous for explosive topwater attacks, aerial jumps, and stunning golden coloration.",
 
-    stars: 3,
+    stars: 5,
+    diff: 'Advanced',
+  },
+
+  {
+    name: 'Hoplias Aimara',
+    latin: 'Hoplias aimara',
+    img: '/images/species/hoplias-aimara.jpg',
+
+    desc:
+      "Also called the Wolf Fish, this brutal apex predator is feared for its raw power, sharp teeth, and relentless fight in remote jungle waters.",
+
+    stars: 5,
+    diff: 'Expert',
+  },
+
+  {
+    name: 'Piranha',
+    latin: 'Pygocentrus nattereri',
+    img: '/images/species/piranha.jpg',
+
+    desc:
+      "The legendary razor-toothed predator of the Amazon. Aggressive strikes and nonstop action make Piranha fishing exciting for every angler.",
+
+    stars: 2,
+    diff: 'Beginner',
+  },
+
+  {
+    name: 'Atlantic Salmon',
+    latin: 'Salmo salar',
+    img: '/images/species/atlantic-salmon.jpg',
+
+    desc:
+      "One of the world’s most respected sport fish, Atlantic Salmon are known for their strength, endurance, and spectacular river runs.",
+
+    stars: 4,
     diff: 'Intermediate',
   },
 
