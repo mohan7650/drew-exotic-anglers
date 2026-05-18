@@ -3,6 +3,8 @@
 .species {
   background: #0d1f18;
   padding: 100px 60px;
+
+  overflow: hidden;
 }
 
 .species-header {
@@ -58,17 +60,41 @@
   background: var(--gold-light);
 }
 
-/* ───────────────── GRID ───────────────── */
+/* ───────────────── INFINITE SCROLL GRID ───────────────── */
 
 .species-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 20px;
+
+  width: max-content;
+
+  animation: scrollSpecies 35s linear infinite;
+}
+
+.species-grid:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollSpecies {
+
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+
 }
 
 /* ───────────────── CARD ───────────────── */
 
 .species-card {
+  min-width: 320px;
+  max-width: 320px;
+
+  flex-shrink: 0;
+
   background: rgba(8, 80, 65, 0.2);
 
   border: 1px solid rgba(29, 158, 117, 0.15);
@@ -209,22 +235,10 @@
 
 /* ───────────────── MOBILE ───────────────── */
 
-@media (max-width: 992px) {
-
-  .species-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-}
-
 @media (max-width: 768px) {
 
   .species {
     padding: 64px 24px;
-  }
-
-  .species-grid {
-    grid-template-columns: 1fr;
   }
 
   .species-header {
@@ -232,6 +246,11 @@
     align-items: flex-start;
 
     gap: 20px;
+  }
+
+  .species-card {
+    min-width: 280px;
+    max-width: 280px;
   }
 
   .species-rating {

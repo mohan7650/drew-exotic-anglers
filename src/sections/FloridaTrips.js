@@ -3,11 +3,10 @@ import './FloridaTrips.css';
 
 // Pricing tiers per brief item #05
 const pricing = [
-  { tier: 'Full Day · 1–2 Anglers',  price: '$900',  note: 'Standard rate' },
-  { tier: '3 Anglers',               price: '$1,000', note: '+$100' },
-  { tier: '4 Anglers (2 boats)',     price: '$1,100', note: 'Split boats' },
-  { tier: '5 Anglers (2 boats)',     price: '$1,200', note: 'Split boats' },
-  { tier: '6 Anglers (2 boats)',     price: '$1,300', note: 'Split boats' },
+  { tier: 'Full Day · 1–2 Anglers',  price: '$650',  note: 'Standard rate' },
+  { tier: '3 Anglers',               price: '$750', note: '+$100' },
+  { tier: '4 Anglers',               price: '$850', note: 'Split boats' },
+  
 ];
 
 const included = [

@@ -36,12 +36,12 @@ function HomePage() {
         <Hero />
         <StatsBar />
         <SponsorBar />
+        <FloridaTrips />
         <WhyUs />
         <Tours />
         <LocationMap />
         <About />
         {/* Florida Day Trips between tours and gallery per brief item #05 */}
-        <FloridaTrips />
         <Species />
         <VideoSection />
         
