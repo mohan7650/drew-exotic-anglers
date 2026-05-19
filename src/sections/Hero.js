@@ -20,7 +20,7 @@ export default function Hero() {
           loop
           playsInline
           preload="metadata"
-          poster="/images/gallery/catch-1.jpg"
+          poster="/images/gallery/catch-1.webp"
           onError={(e) => { e.target.style.display = 'none'; }}
           aria-hidden="true"
         >

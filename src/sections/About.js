@@ -7,7 +7,7 @@ export default function About() {
       <div className="about-img-wrap">
         <img
           className="about-img"
-          src="/images/gallery/About_drew.jpg"
+          src="/images/gallery/About_drew.webp"
           alt="Capt Drew Rodriguez on the Amazon"
           loading="lazy"
           onError={e => { e.target.style.display = 'none'; }}

@@ -6,7 +6,7 @@ const species = [
   {
     name: 'Payara',
     latin: 'Hydrolycus scomberoides',
-    img: '/images/species/payara.jpg',
+    img: '/images/species/payara.webp',
 
     desc:
       "Known as the Vampire Fish of the Amazon, Payara are famous for their massive fangs, explosive strikes, and aggressive fights in fast-moving river systems.",
@@ -18,7 +18,7 @@ const species = [
   {
     name: 'Red Tail Catfish',
     latin: 'Phractocephalus hemioliopterus',
-    img: '/images/species/red-tail-catfish.jpg',
+    img: '/images/species/Red Tail Catfish.webp',
 
     desc:
       "One of the Amazon’s most powerful freshwater predators. Heavy runs, deep battles, and massive size make Red Tail Catfish an unforgettable catch.",
@@ -30,7 +30,7 @@ const species = [
   {
     name: 'Shovel Nose Catfish',
     latin: 'Sorubim lima',
-    img: '/images/species/shovel-nose-catfish.jpg',
+    img: '/images/species/Shovel Nose Catfish.webp',
 
     desc:
       "Fast-moving and highly active catfish species known for their long bodies and unique shovel-shaped snouts. Excellent action on live bait setups.",
@@ -42,7 +42,7 @@ const species = [
   {
     name: 'Golden Dorado',
     latin: 'Salminus brasiliensis',
-    img: '/images/species/golden-dorado.jpg',
+    img: '/images/species/Golden Dorado.webp',
 
     desc:
       "An aggressive South American predator famous for explosive topwater attacks, aerial jumps, and stunning golden coloration.",
@@ -54,7 +54,7 @@ const species = [
   {
     name: 'Hoplias Aimara',
     latin: 'Hoplias aimara',
-    img: '/images/species/hoplias-aimara.jpg',
+    img: '/images/species/Hoplias Aimara.webp',
 
     desc:
       "Also called the Wolf Fish, this brutal apex predator is feared for its raw power, sharp teeth, and relentless fight in remote jungle waters.",
@@ -66,7 +66,7 @@ const species = [
   {
     name: 'Piranha',
     latin: 'Pygocentrus nattereri',
-    img: '/images/species/piranha.jpg',
+    img: '/images/species/Piranha.webp',
 
     desc:
       "The legendary razor-toothed predator of the Amazon. Aggressive strikes and nonstop action make Piranha fishing exciting for every angler.",
@@ -78,7 +78,7 @@ const species = [
   {
     name: 'Atlantic Salmon',
     latin: 'Salmo salar',
-    img: '/images/species/atlantic-salmon.jpg',
+    img: '/images/species/Atlantic Salmon.webp',
 
     desc:
       "One of the world’s most respected sport fish, Atlantic Salmon are known for their strength, endurance, and spectacular river runs.",

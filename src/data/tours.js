@@ -6,11 +6,11 @@ const tours = [
     desc: 'Experience exclusive Peacock Bass fishing deep in the Amazon with private river access and expert guides.',
     meta: 'Fri → Fri · 7 Days • Max 8 Anglers',
 
-    img: '/images/gallery/Tour_Kalua 1, Jurubaxi River.jpg',
+    img: '/images/gallery/Tour_Kalua 1, Jurubaxi River.webp',
       gallery: [
-    '/images/gallery/Tour_Kalua 1, Jurubaxi River.jpg',
-    '/images/gallery/Tour_details_kalau_photo_2.png',
-    '/images/gallery/Tour_details_kalau_photo_3.png',
+    '/images/gallery/Tour_Kalua 1, Jurubaxi River.webp',
+    '/images/gallery/Tour_details_kalau_photo_2.webp',
+    '/images/gallery/Tour_details_kalau_photo_3.webp',
     ],
 
     fullDesc: `The Kalua 1 expedition takes you deep into the heart of the Brazilian Amazon aboard our premier vessel.
@@ -34,11 +34,11 @@ const tours = [
     desc: 'Fish aboard the Kalua II targeting giant Peacock Bass in one of the best trophy fisheries in Brazil.',
     meta: '6 Fishing Days • All-Inclusive',
 
-    img: '/images/gallery/Tour_Kalua 2, Jurubaxi River.PNG',
+    img: '/images/gallery/Tour_Kalua 2, Jurubaxi River.webp',
      gallery: [
-    '/images/gallery/Tour_details_kalau2_photo_2.jpg',
-    '/images/gallery/Tour_Kalua 2, Jurubaxi River.PNG',
-    '/images/gallery/Tour_details_kalau2_photo_3.png',
+    '/images/gallery/Tour_details_kalau2_photo_2.webp',
+    '/images/gallery/Tour_Kalua 2, Jurubaxi River.webp',
+    '/images/gallery/Tour_details_kalau2_photo_3.webp',
     ],
     fullDesc: `The Kalua 2 trip puts you on the sister vessel of our flagship expedition.`,
 
@@ -59,11 +59,11 @@ const tours = [
     desc: 'Explore remote Amazon waters famous for explosive topwater action and unforgettable scenery.',
     meta: 'Remote Adventure • Guided Trip',
 
-    img: '/images/gallery/Tour_Brazil, Xingu River.JPG',
+    img: '/images/gallery/Tour_Brazil, Xingu River.webp',
     gallery: [
-    '/images/gallery/Tour_details_xingu_photo_1.jpg',
-    '/images/gallery/Tour_Brazil, Xingu River.JPG',
-    '/images/gallery/Tour_details_xingu_photo_2.jpg',
+    '/images/gallery/Tour_details_xingu_photo_1.webp',
+    '/images/gallery/Tour_Brazil, Xingu River.webppp',
+    '/images/gallery/Tour_details_xingu_photo_2.webp',
     ],
 
     fullDesc: `The Xingu River expedition ventures into one of the Amazon's most dramatic and remote fisheries.`,
@@ -85,11 +85,11 @@ const tours = [
     desc: 'Stay in a luxury eco lodge while fishing untouched rivers filled with exotic Amazon species.',
     meta: 'Eco Stay • Guided Fishing',
 
-    img: '/images/gallery/Tour_Brazil, Eco Lodge da Barra.jpg',
+    img: '/images/gallery/Tour_Brazil, Eco Lodge da Barra.webp',
     gallery: [
-    '/images/gallery/Tour_details_Eco_photo_1.JPG',
-    '/images/gallery/Tour_Brazil, Eco Lodge da Barra.jpg',
-    '/images/gallery/Tour_details_Eco_photo_2.JPG',
+    '/images/gallery/Tour_details_Eco_photo_1.webp',
+    '/images/gallery/Tour_Brazil, Eco Lodge da Barra.webp',
+    '/images/gallery/Tour_details_Eco_photo_2.webp',
     ],
 
     fullDesc: `Eco Lodge da Barra blends sustainable luxury with world-class angling.`,
@@ -111,11 +111,11 @@ const tours = [
     desc: 'Experience world-class Golden Dorado fishing in Argentina with premium lodge accommodations.',
     meta: '7 Days • River Expedition',
 
-    img: '/images/gallery/Tour_Argentina, Don Joaquin River Lodge.JPG',
+    img: '/images/gallery/Tour_Argentina, Don Joaquin River Lodge.webp',
     gallery: [
-    '/images/gallery/Tour_details_argentina_photo_1.JPG',
-    '/images/gallery/Tour_Argentina, Don Joaquin River Lodge.JPG',
-    '/images/gallery/Tour_details_argentina_photo_2.JPG',
+    '/images/gallery/Tour_details_argentina_photo_1.webp',
+    '/images/gallery/Tour_Argentina, Don Joaquin River Lodge.webp',
+    '/images/gallery/Tour_details_argentina_photo_2.webp',
     ],
 
     fullDesc: `Don Joaquin River Lodge sits on one of Argentina's premier Golden Dorado fisheries.`,
@@ -137,11 +137,11 @@ const tours = [
     desc: 'Fly fish for Atlantic Salmon in crystal-clear Canadian waters with exclusive private access.',
     meta: 'Private Club • Salmon Fishing',
 
-    img: '/images/gallery/Tour_Canada, St Jean Salmon Club.jpg',
+    img: '/images/gallery/Tour_Canada, St Jean Salmon Club.webp',
     gallery: [
-    '/images/gallery/Tour_details_Canada_photo_1.JPG',
-    '/images/gallery/Tour_Canada, St Jean Salmon Club.jpg',
-    '/images/gallery/Tour_details_Canada_photo_2.JPG',
+    '/images/gallery/Tour_details_Canada_photo_1.webp',
+    '/images/gallery/Tour_Canada, St Jean Salmon Club.webp',
+    '/images/gallery/Tour_details_Canada_photo_2.webp',
     ],
 
     fullDesc: `The St Jean Salmon Club grants exclusive access to some of the finest Atlantic Salmon water in Eastern Canada.`,

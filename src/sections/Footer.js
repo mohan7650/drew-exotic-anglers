@@ -8,7 +8,7 @@ function PeacockBassLogo() {
   return (
 
     <img
-      src="/images/gallery/dgs-logo.png"
+      src="/images/gallery/dgs-logo.webp"
       alt="Drew's Guide Service"
       className="footer-logo-mark"
     />
