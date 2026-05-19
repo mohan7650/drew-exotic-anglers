@@ -42,7 +42,7 @@ export default function FloridaTrips() {
         {/* LEFT — what's included */}
         <div className="florida-info">
           <img
-            src="/images/gallery/captain.jpg"
+            src="/images/gallery/captain.webp"
             alt="Capt Drew on Miami's canals"
             className="florida-img"
             onError={e => { e.target.style.display='none'; }}

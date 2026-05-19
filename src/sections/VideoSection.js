@@ -3,39 +3,39 @@ import './VideoSection.css';
 
 const galleryPhotos = [
   {
-    url: '/images/gallery/catch-1.jpg',
+    url: '/images/gallery/catch-1.webp',
     alt: 'Trophy Peacock Bass — Urubaxi River',
     big: true,
   },
 
   {
-    url: '/images/gallery/catch-2.jpg',
+    url: '/images/gallery/catch-2.webp',
     alt: 'Giant catch on the Kalua II',
   },
 
   {
-    url: '/images/gallery/catch-3.jpg',
+    url: '/images/gallery/catch-3.webp',
     alt: 'Double digit Peacock Bass',
   },
 
   {
-    url: '/images/gallery/catch-4.jpg',
+    url: '/images/gallery/catch-4.webp',
     alt: 'Capt Drew with trophy fish',
   },
 
   {
-    url: '/images/gallery/catch-5.jpg',
+    url: '/images/gallery/catch-5.webp',
     alt: 'Monster Peacock Bass',
   },
 
   {
-    url: '/images/gallery/catch-6.jpg',
+    url: '/images/gallery/catch-6.webp',
     alt: 'Urubaxi River catch',
     medium: true,
   },
 
   {
-    url: '/images/gallery/catch-7.jpg',
+    url: '/images/gallery/catch-7.webp',
     alt: 'Amazon fishing expedition',
     medium: true,
   },

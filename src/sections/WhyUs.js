@@ -3,7 +3,7 @@ import './WhyUs.css';
 
 const testimonials = [
   {
-    image: '/images/gallery/catch-1.jpg',
+    image: '/images/gallery/catch-1.webp',
     review:
       'Capt Drew put us on giants every single day. Best fishing experience of my life.',
     name: 'Michael R.',
@@ -11,7 +11,7 @@ const testimonials = [
     fish: '22LB PEACOCK BASS',
   },
   {
-    image: '/images/gallery/catch-2.jpg',
+    image: '/images/gallery/catch-2.webp',
     review:
       'The private river experience was unreal. Already planning our next trip back.',
     name: 'James T.',
@@ -19,7 +19,7 @@ const testimonials = [
     fish: '20LB PEACOCK BASS',
   },
   {
-    image: '/images/gallery/catch-3.jpg',
+    image: '/images/gallery/catch-3.webp',
     review:
       'World-class fishing, incredible hospitality, and trophy Peacock Bass every day.',
     name: 'Ryan C.',
@@ -27,7 +27,7 @@ const testimonials = [
     fish: '19LB PEACOCK BASS',
   },
   {
-    image: '/images/gallery/catch-4.jpg',
+    image: '/images/gallery/catch-4.webp',
     review:
       'Hands down the best Peacock Bass fishing experience we have ever had.',
     name: 'Chris M.',

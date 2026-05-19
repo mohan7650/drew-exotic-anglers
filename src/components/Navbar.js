@@ -34,7 +34,7 @@ export default function Navbar({ scrolled }) {
         {/* BRAND */}
         <a className="nav-brand" href="#hero" onClick={closeMenu}>
           <img
-            src="/images/gallery/dgs-logo.png"
+            src="/images/gallery/dgs-logo.webp"
             alt="Drew's Guide Service logo"
             className="dgs-logo-mark"
           />
