@@ -229,8 +229,8 @@
 
 .social-circle {
 
-  width: 38px;
-  height: 38px;
+  width: 44px;   /* WCAG 2.5.5 minimum 44×44px touch target */
+  height: 44px;
 
   border-radius: 50%;
 

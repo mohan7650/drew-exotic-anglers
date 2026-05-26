@@ -22,6 +22,7 @@ const locations = [
     season: 'Sept – Jan',
     species: ['Peacock Bass', 'Payara', 'Arowana'],
     price: 'On Request',
+    bookHref: '#contact',
   },
   {
     id: 'eco-lodge',
@@ -34,6 +35,7 @@ const locations = [
     season: 'Sept – Mar',
     species: ['Peacock Bass', 'Arapaima', 'Catfish'],
     price: 'On Request',
+    bookHref: '#contact',
   },
   {
     id: 'xingu',
@@ -46,6 +48,7 @@ const locations = [
     season: 'By Request',
     species: ['Peacock Bass', 'Arapaima', 'Payara'],
     price: 'On Request',
+    bookHref: '#contact',
   },
   {
     id: 'don-joaquin',
@@ -58,6 +61,7 @@ const locations = [
     season: 'Nov – Mar',
     species: ['Golden Dorado', 'Brown Trout', 'Rainbow'],
     price: 'On Request',
+    bookHref: '#contact',
   },
   {
     id: 'st-jean',
@@ -70,6 +74,7 @@ const locations = [
     season: 'Jun – Sep',
     species: ['Atlantic Salmon', 'Brook Trout'],
     price: 'On Request',
+    bookHref: '#contact',
   },
   {
     id: 'florida',
@@ -82,6 +87,7 @@ const locations = [
     season: 'Year-round',
     species: ['Peacock Bass', 'Largemouth', 'Snakehead'],
     price: '$900 · Day Trip',
+    bookHref: '#florida-day-trips',
   },
 ];
 
@@ -502,7 +508,7 @@ export default function LocationMap() {
                   </div>
                 </div>
 
-                <a href={`#book-${loc.id}`} className={styles.cta}>
+                <a href={loc.bookHref} className={styles.cta}>
                   <span className={styles.ctaText}>Reserve This Water</span>
                   <span className={styles.ctaArrow}>→</span>
                 </a>

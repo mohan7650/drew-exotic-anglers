@@ -180,6 +180,20 @@
   color: rgba(151,226,204,0.82);
 }
 
+/* STATUS */
+
+.tours-status {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(225, 245, 238, 0.5);
+  text-align: center;
+  padding: 40px 0;
+}
+
+.tours-status--error {
+  color: rgba(255, 120, 100, 0.8);
+}
+
 /* TABLET */
 
 @media (max-width: 1100px) {

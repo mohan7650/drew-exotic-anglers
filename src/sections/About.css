@@ -2,7 +2,9 @@
   background: #0d1f18; padding: 100px 60px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
 }
-.about-img-wrap { position: relative; }
+/* overflow:hidden clips the absolutely-positioned badges so they never
+   extend past the element boundary and cause page-level horizontal scroll */
+.about-img-wrap { position: relative; overflow: hidden; }
 .about-img {
   width: 100%; aspect-ratio: 4/5; object-fit: cover;
   border-radius: 2px; border: 1px solid rgba(29,158,117,0.2);
@@ -65,4 +67,29 @@
 }
 @media (max-width: 768px) {
   .about { grid-template-columns: 1fr; padding: 64px 24px; }
+}
+
+/* ── iPhone SE / small Android — pull badges inside the image boundary ── */
+@media (max-width: 480px) {
+  /* Badges used negative offsets to hang outside the image on desktop.
+     On narrow screens this caused horizontal scroll. Clamp them inward. */
+  .about-badge {
+    bottom: 0;
+    right: 0;
+    padding: 16px 18px;
+  }
+
+  .about-badge-num {
+    font-size: 28px;
+  }
+
+  .about-orvis {
+    top: 0;
+    left: 0;
+    padding: 10px 12px;
+  }
+
+  .about-orvis-num {
+    font-size: 26px;
+  }
 }

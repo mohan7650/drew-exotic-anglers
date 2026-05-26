@@ -435,6 +435,14 @@
 
 /* ───────────────── MOBILE ───────────────── */
 
+/* ── Tablet: 2-column testimonials — less cramped than 3, less wasted than 1 ── */
+@media (max-width: 900px) {
+  .testi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
 
   .newsletter {
@@ -457,8 +465,8 @@
   }
 
   .newsletter-btn {
-
     padding: 14px;
+    width: 100%;  /* ensure button fills the column-flex container */
   }
 
   .testimonials {
@@ -469,5 +477,16 @@
   .testi-grid {
 
     grid-template-columns: 1fr;
+  }
+}
+
+/* ── iPhone SE / small Android (360px) ── */
+@media (max-width: 480px) {
+  .newsletter {
+    padding: 44px 16px;
+  }
+
+  .newsletter-title {
+    font-size: clamp(24px, 7vw, 36px);
   }
 }

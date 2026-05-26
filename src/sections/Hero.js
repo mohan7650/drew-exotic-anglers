@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
 import './Hero.css';
 
 export default function Hero() {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [hero, setHero] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const today = new Date();
-  const days = Array.from({ length: 14 }, (_, i) => {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i + 1);
-    return d;
-  });
+  useEffect(() => {
+    const fetchHero = async () => {
+      const { data, error } = await supabase
+        .from('hero')
+        .select('*')
+        .single();
+
+      if (!error && data) setHero(data);
+      setLoading(false);
+    };
+
+    fetchHero();
+  }, []);
+
+  if (loading) {
+    return <section id="hero" className="hero" />;
+  }
+
+  if (!hero) {
+    return <section id="hero" className="hero" />;
+  }
 
   return (
     <section id="hero" className="hero">
+
       <div className="hero-bg">
         <video
           autoPlay
@@ -20,11 +38,11 @@ export default function Hero() {
           loop
           playsInline
           preload="metadata"
-          poster="/images/gallery/catch-1.webp"
+          poster={hero.poster_image}
           onError={(e) => { e.target.style.display = 'none'; }}
           aria-hidden="true"
         >
-          <source src="/videos/hero_bg.mp4" type="video/mp4" />
+          <source src={hero.background_video} type="video/mp4" />
         </video>
       </div>
 
@@ -34,27 +52,24 @@ export default function Hero() {
 
         <div className="hero-eyebrow">
           <span className="eyebrow-line" />
-          10 YEARS ORVIS ENDORSED · URUBAXI RIVER · 240 MILES PRIVATE WATER
+          {hero.eyebrow}
         </div>
 
-        <h1 className="hero-title">
-          From the Canals<br />
-          to the <em>World.</em>
-        </h1>
+        <h1 className="hero-title" dangerouslySetInnerHTML={{ __html: hero.title }} />
 
-        <p className="hero-sub">
-          Canada to Argentina. World-class fisheries across the Americas.<br />
-          Access you won't get anywhere else.
-        </p>
+        <p className="hero-sub" dangerouslySetInnerHTML={{ __html: hero.subtitle }} />
 
         <div className="hero-btns">
-          <a href="#tours" className="btn-gold">
-            Explore Tours
-          </a>
-
-          <a href="#florida" className="btn-ghost">
-            Book a Florida Day Trip
-          </a>
+          {hero.primary_cta_text && hero.primary_cta_link && (
+            <a href={hero.primary_cta_link} className="btn-gold">
+              {hero.primary_cta_text}
+            </a>
+          )}
+          {hero.secondary_cta_text && hero.secondary_cta_link && (
+            <a href={hero.secondary_cta_link} className="btn-ghost">
+              {hero.secondary_cta_text}
+            </a>
+          )}
         </div>
 
       </div>

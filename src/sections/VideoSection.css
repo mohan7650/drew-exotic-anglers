@@ -285,15 +285,13 @@
     opacity: 0;
   }
 
-
-
   .video-section-wrapper {
     grid-template-columns: 1fr;
     gap: 28px;
   }
 
   .video-frame iframe {
-    min-height: 280px;
+    min-height: 380px;
   }
 
   .founder-card {
@@ -305,4 +303,36 @@
     line-height: 1.7;
   }
 
+}
+
+/* ── Small tablet / large phone (600px) — single-column gallery ── */
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  /* Wider aspect ratio in single-col so images don't become too tall */
+  .gallery-item {
+    aspect-ratio: 16/9;
+  }
+}
+
+/* ── iPhone SE / small Android (480px) ── */
+@media (max-width: 480px) {
+  .video-section {
+    padding: 48px 16px;
+  }
+
+  .video-frame iframe {
+    min-height: 220px;
+  }
+
+  .founder-card {
+    padding: 24px 18px;
+  }
+
+  .founder-quote {
+    font-size: 18px;
+  }
 }

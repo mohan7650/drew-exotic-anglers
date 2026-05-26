@@ -21,9 +21,27 @@
 }
 @media (max-width: 768px) {
   .stats-bar { grid-template-columns: repeat(2,1fr); }
+
+  /* In 2-column layout the right-border on items 1 & 3 aligns correctly,
+     but items 2 & 4 (right column) keep an orphaned border. Remove all
+     vertical dividers and use the natural grid gap as separator instead. */
+  .stat-item { border-right: none; }
+
+  /* Re-apply a single centre divider via a pseudo-element on odd items */
+  .stat-item:nth-child(odd) {
+    border-right: 1px solid rgba(29,158,117,0.15);
+  }
 }
+
 @media (max-width: 480px) {
   .stat-item { padding: 24px 16px; }
   .stat-num { font-size: 32px; }
   .stat-label { font-size: 10px; }
+}
+
+/* ── 360px: stat numbers are still readable but very tight — compact further */
+@media (max-width: 380px) {
+  .stat-item { padding: 20px 10px; }
+  .stat-num { font-size: 28px; }
+  .stat-label { font-size: 9px; letter-spacing: 0.06em; }
 }

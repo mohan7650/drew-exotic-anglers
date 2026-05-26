@@ -1,10 +1,16 @@
 .hero {
   position: relative;
-  min-height: 112vh;
+  min-height: 100dvh; /* dvh = dynamic viewport height — iOS Safari-safe (excludes browser chrome) */
   display: flex;
   align-items: center;
   overflow: hidden;
   padding-bottom: 140px;
+}
+/* Fallback for browsers that don't support dvh (Safari < 15.4, Chrome < 108) */
+@supports not (min-height: 100dvh) {
+  .hero {
+    min-height: 100vh;
+  }
 }
 
 .hero-bg {
@@ -237,8 +243,11 @@
 
 @media (max-width: 992px) {
   .hero {
-    min-height: 105vh;
+    min-height: 100dvh;
     padding-bottom: 120px;
+  }
+  @supports not (min-height: 100dvh) {
+    .hero { min-height: 100vh; }
   }
 
   .hero-content {
@@ -292,6 +301,36 @@
 
   .hero-scroll {
     bottom: 24px;
+  }
+}
+
+/* ── iPhone SE (375px) / small Android (360px) ── */
+@media (max-width: 480px) {
+  .hero {
+    padding-bottom: 80px;
+  }
+
+  .hero-content {
+    padding: 90px 16px 0;
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 13vw, 60px);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    margin-bottom: 36px;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 24px;
+  }
+
+  .btn-gold,
+  .btn-ghost {
+    min-height: 48px;
+    padding: 14px 20px;
   }
 }
 
@@ -450,7 +489,9 @@
   }
 }
 
-@media (max-width: 992px) {
+/* Hide booking card at ≤1100px — below this width the card overlaps hero
+   text (text right edge ~760px, card left edge ~725px at 1100px). */
+@media (max-width: 1100px) {
   .hero-cal-card {
     display: none;
   }

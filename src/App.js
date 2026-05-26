@@ -11,7 +11,6 @@ import FloridaTrips from './sections/FloridaTrips';
 import LocationMap from './components/LocationMap/LocationMap';
 import Species from './sections/Species';
 import VideoSection from './sections/VideoSection';
-import Testimonials from './sections/Testimonials';
 import Newsletter from './sections/Newsletter';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';

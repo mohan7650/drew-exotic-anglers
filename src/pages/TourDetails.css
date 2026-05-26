@@ -279,7 +279,19 @@
   gap: 24px;
 }
 
-/* MOBILE */
+/* ── Tablet: 2-column gallery so images aren't tiny in 3-col nor wasted in 1-col ── */
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .gallery-grid img {
+    height: 260px;
+  }
+}
+
+/* ── Mobile ── */
 @media (max-width: 768px) {
 
   .tour-details-hero {
@@ -315,15 +327,45 @@
 
   .gallery-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .gallery-grid img {
-    height: 260px;
+    /* Use aspect-ratio instead of fixed height — adapts to any column width */
+    height: auto;
+    aspect-ratio: 4/3;
   }
 
   .tour-details-cta {
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
+  }
+}
+
+/* ── iPhone SE (375px) / small Android (360px) ── */
+@media (max-width: 480px) {
+  .tour-details-hero-overlay {
+    padding: 50px 16px 20px;
+  }
+
+  .tour-details-back {
+    top: 14px;
+    left: 16px;
+    font-size: 12px;
+  }
+
+  /* clamp min is 38px at 360px (38px is already readable for a title) */
+  .tour-details-title {
+    font-size: clamp(32px, 9vw, 56px);
+  }
+
+  .tour-details-body {
+    padding: 32px 16px;
+  }
+
+  .tour-details-btn {
+    width: 100%;
+    padding: 16px 24px;
   }
 }
