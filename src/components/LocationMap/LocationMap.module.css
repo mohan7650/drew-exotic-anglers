@@ -287,7 +287,9 @@
 
 /* Compass — gentle rotation */
 .compass {
-  transform-origin: 1880px 110px;
+  /* Previously: transform-origin: 1880px 110px — hard-coded pixels broke at
+     any viewport narrower than ~1900px. Using percentage-based origin instead. */
+  transform-origin: right bottom;
   transition: opacity 0.4s ease;
 }
 
@@ -505,10 +507,10 @@
 
 .panelClose {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
+  top: 10px;
+  right: 10px;
+  width: 44px;   /* WCAG 2.5.5 minimum 44×44px touch target */
+  height: 44px;
   border: 1px solid rgba(29, 158, 117, 0.25);
   background: transparent;
   color: rgba(168, 230, 200, 0.6);
@@ -745,4 +747,27 @@
   .panelDetail { padding: 26px 22px; }
   .panelName { font-size: 26px; }
   .metaGrid { grid-template-columns: 1fr; }
+}
+
+/* ── iPhone SE / small Android (480px) ── */
+@media (max-width: 480px) {
+  .section { padding: 48px 12px; }
+
+  .panelDefault { padding: 24px 16px; }
+  .panelDetail  { padding: 20px 16px; }
+
+  /* chip font 16px is too large on a narrow stacked panel — reduce */
+  .chip {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  /* chip hover padding-left increase would push content off edge on mobile */
+  .chip:hover {
+    padding-left: 14px;
+  }
+
+  .panelDefaultTitle {
+    font-size: 22px;
+  }
 }

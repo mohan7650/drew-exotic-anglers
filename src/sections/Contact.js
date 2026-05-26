@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAvailability } from '../hooks/useAvailability';
 import './Contact.css';
 
 function encode(data) {
@@ -7,14 +8,8 @@ function encode(data) {
     .join('&');
 }
 
-// Live spot availability per brief item #06 — manually updatable scarcity signal
-const liveAvailability = [
-  { trip: 'September 2026 · Urubaxi Full Week', spots: 2, total: 8 },
-  { trip: 'November 2026 · Kalua II Trophy Hunt', spots: 4, total: 8 },
-  { trip: 'January 2027 · Jurubaxi Special', spots: 6, total: 8 },
-];
-
 export default function Contact() {
+  const availability = useAvailability();
   const [fields, setFields] = useState({
     firstName: '',
     lastName: '',
@@ -106,17 +101,19 @@ export default function Contact() {
         <input type="hidden" name="bot-field" />
 
         {/* Spot Availability scarcity trigger per brief item #06 */}
-        <div className="contact-scarcity" aria-label="Live trip availability">
-          <div className="scarcity-label">⚡ Live Spots Available</div>
-          {liveAvailability.map(t => (
-            <div className="scarcity-row" key={t.trip}>
-              <span className="scarcity-trip">{t.trip}</span>
-              <span className={`scarcity-count ${t.spots <= 2 ? 'urgent' : ''}`}>
-                {t.spots} of {t.total} spots remaining
-              </span>
-            </div>
-          ))}
-        </div>
+        {availability.length > 0 && (
+          <div className="contact-scarcity" aria-label="Live trip availability">
+            <div className="scarcity-label">⚡ Live Spots Available</div>
+            {availability.map(t => (
+              <div className="scarcity-row" key={t.id}>
+                <span className="scarcity-trip">{t.trip}</span>
+                <span className={`scarcity-count ${t.spots <= 2 ? 'urgent' : ''}`}>
+                  {t.spots} of {t.total} spots remaining
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div className="form-row">
           <div className="form-group">

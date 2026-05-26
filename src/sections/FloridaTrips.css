@@ -225,6 +225,58 @@
   font-size: 16px;
 }
 
+/* ───────────────── AVAILABILITY ───────────────── */
+
+.florida-avail {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(11, 61, 46, 0.04);
+  border: 1px solid rgba(11, 61, 46, 0.12);
+  border-radius: 2px;
+}
+
+.florida-avail-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+.florida-avail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(11, 61, 46, 0.07);
+  gap: 12px;
+}
+
+.florida-avail-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.florida-avail-trip {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--jungle);
+  line-height: 1.4;
+}
+
+.florida-avail-spots {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(11, 61, 46, 0.6);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.florida-avail-spots--urgent {
+  color: #c0392b;
+}
+
 /* ───────────────── CALENDAR ───────────────── */
 
 .florida-calendar {
@@ -418,5 +470,52 @@
 
   .florida-img {
     height: 260px;
+  }
+}
+
+/* ── iPhone SE (375px) / small Android (360px) ── */
+@media (max-width: 480px) {
+  .florida-trips {
+    padding: 48px 16px;
+  }
+
+  /* Calendar: 7-column at 360px → each cell ~45px; tighten spacing + text */
+  .florida-cal-grid {
+    gap: 3px;
+  }
+
+  .florida-cal-day {
+    padding: 6px 2px;
+  }
+
+  .cal-date {
+    font-size: 14px;
+  }
+
+  .cal-weekday,
+  .cal-month {
+    font-size: 8px;
+  }
+
+  /* Availability rows: long trip names can overflow the flex row */
+  .florida-avail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .florida-avail-spots {
+    white-space: normal;
+  }
+
+  /* Booking card: tighten internal padding */
+  .florida-booking {
+    padding: 20px 16px;
+  }
+
+  /* Species pills: tighten so "Clown Knifefish" doesn't overflow */
+  .florida-pill {
+    font-size: 11px;
+    padding: 4px 8px;
   }
 }

@@ -1,35 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase';
 import './About.css';
 
 export default function About() {
+  const [about, setAbout] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      const { data, error } = await supabase
+        .from('about')
+        .select('*')
+        .single();
+
+      if (!error && data) setAbout(data);
+      setLoading(false);
+    };
+
+    fetchAbout();
+  }, []);
+
+  if (loading || !about) {
+    return <section id="about" className="about" />;
+  }
+
   return (
     <section id="about" className="about">
+
       <div className="about-img-wrap">
         <img
           className="about-img"
-          src="/images/gallery/About_drew.webp"
+          src={about.image_url}
           alt="Capt Drew Rodriguez on the Amazon"
           loading="lazy"
           onError={e => { e.target.style.display = 'none'; }}
         />
         <div className="about-badge">
-          <div className="about-badge-num">22lb</div>
-          <div className="about-badge-text">Personal Best</div>
+          <div className="about-badge-num">{about.badge_number}</div>
+          <div className="about-badge-text">{about.badge_text}</div>
         </div>
-        {/* Orvis credential mark — most valuable credential per brief item #03 */}
         <div className="about-orvis">
-          <div className="about-orvis-num">10</div>
-          <div className="about-orvis-text">Years<br/>Orvis<br/>Endorsed</div>
+          <div className="about-orvis-num">{about.orvis_number}</div>
+          <div
+            className="about-orvis-text"
+            dangerouslySetInnerHTML={{ __html: about.orvis_text }}
+          />
         </div>
       </div>
-      <div className="about-text">
-        <div className="section-tag-line">Meet Your Guide</div>
-        <h2 className="section-title">From the Canals<br /><em>to the World.</em></h2>
 
-        {/* Bio rewritten in Drew's first-person voice per brief item #20 */}
-        <p>I grew up in Miami with a fishing rod in my hand. By the time I was twelve I'd caught more giant Peacock Bass in the South Florida canals than most anglers will land in a lifetime. That's where this all started — and where I still run day trips today.</p>
-        <p>For the last ten years I've been Orvis Endorsed — the only endorsed guide on this roster. That endorsement isn't bought; it's earned, and it gets renewed on results. I'm also a U.S. Coast Guard licensed captain and fully insured. When you book with me, I'm the one in the boat — every trip, no exceptions.</p>
-        <p>The Amazon is where I take that obsession to its limit. I run week-long expeditions on the Urubaxi aboard the Kalua II — 240 miles of private river where most fish have never seen a lure. From the canals to the world. That's the whole story.</p>
+      <div className="about-text">
+        <div className="section-tag-line">{about.eyebrow}</div>
+        <h2
+          className="section-title"
+          dangerouslySetInnerHTML={{ __html: about.title }}
+        />
+        <div dangerouslySetInnerHTML={{ __html: about.description }} />
 
         <ul className="feature-list">
           {[
@@ -46,7 +71,14 @@ export default function About() {
             </li>
           ))}
         </ul>
+
+        {about.cta_text && about.cta_link && (
+          <a href={about.cta_link} className="btn-gold">
+            {about.cta_text}
+          </a>
+        )}
       </div>
+
     </section>
   );
 }
