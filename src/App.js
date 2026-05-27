@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Public site
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import StatsBar from './sections/StatsBar';
@@ -17,6 +19,13 @@ import Footer from './sections/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import TourDetails from './pages/TourDetails';
 import NotFound from './pages/NotFound';
+
+// Admin auth architecture
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/admin/ProtectedRoute';
+import AdminLayout from './components/admin/AdminLayout';
+import LoginPage from './pages/admin/LoginPage';
+import DashboardPage from './pages/admin/DashboardPage';
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +52,7 @@ function HomePage() {
         {/* Florida Day Trips between tours and gallery per brief item #05 */}
         <Species />
         <VideoSection />
-        
+
         {/* Newsletter signup above footer per brief item #11 */}
         <Newsletter />
         <Contact />
@@ -57,11 +66,27 @@ function HomePage() {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/tour/:slug" element={<TourDetails />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          {/* ── Public site */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/tour/:slug" element={<TourDetails />} />
+
+          {/* ── Admin: public login */}
+          <Route path="/admin/login" element={<LoginPage />} />
+
+          {/* ── Admin: protected area */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<DashboardPage />} />
+              {/* Phase 2+ CRUD routes will nest here */}
+            </Route>
+          </Route>
+
+          {/* ── 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
