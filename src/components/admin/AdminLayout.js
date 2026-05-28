@@ -4,11 +4,11 @@ import { useAuth } from '../../contexts/AuthContext';
 import './AdminLayout.css';
 
 const NAV_ITEMS = [
-  { to: '/admin', label: 'Dashboard', icon: '◈', end: true },
-  // Phase 2+ — uncomment as CRUD pages are built
-  // { to: '/admin/tours', label: 'Tours', icon: '🎣' },
-  // { to: '/admin/species', label: 'Species', icon: '🐟' },
-  // { to: '/admin/gallery', label: 'Gallery', icon: '🖼' },
+  { to: '/admin',       label: 'Dashboard', icon: '◈', end: true },
+  { to: '/admin/tours', label: 'Tours',     icon: '🎣' },
+  // Phase 3+ — uncomment as CRUD pages are built
+  // { to: '/admin/species',  label: 'Species',  icon: '🐟' },
+  // { to: '/admin/gallery',  label: 'Gallery',  icon: '🖼' },
   // { to: '/admin/messages', label: 'Messages', icon: '✉' },
 ];
 

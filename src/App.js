@@ -26,6 +26,8 @@ import ProtectedRoute from './components/admin/ProtectedRoute';
 import AdminLayout from './components/admin/AdminLayout';
 import LoginPage from './pages/admin/LoginPage';
 import DashboardPage from './pages/admin/DashboardPage';
+import ToursListPage from './pages/admin/tours/ToursListPage';
+import TourFormPage from './pages/admin/tours/TourFormPage';
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -79,7 +81,11 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<DashboardPage />} />
-              {/* Phase 2+ CRUD routes will nest here */}
+              {/* ── Phase 2: Tours management */}
+              <Route path="tours"          element={<ToursListPage />} />
+              <Route path="tours/new"      element={<TourFormPage />} />
+              <Route path="tours/:id/edit" element={<TourFormPage />} />
+              {/* Phase 3+ CRUD routes will nest here */}
             </Route>
           </Route>
 

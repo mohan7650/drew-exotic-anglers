@@ -1,0 +1,131 @@
+.tfp-page { max-width: 920px; }
+
+/* ── Save error banner */
+.tfp-save-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(220,53,53,0.1);
+  border: 1px solid rgba(220,53,53,0.25);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #f87171;
+  margin-bottom: 24px;
+}
+
+/* ── Form */
+.tfp-form { display: flex; flex-direction: column; gap: 28px; }
+
+/* ── Two-column layout (image + fields) */
+.tfp-two-col {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.tfp-col--fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Section fieldset */
+.tfp-section {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 20px 20px 22px;
+  background: rgba(255,255,255,0.01);
+}
+
+.tfp-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 6px;
+  margin-bottom: 16px;
+}
+
+.tfp-stack { display: flex; flex-direction: column; gap: 16px; }
+
+/* 3-column grid for trip details */
+.tfp-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* ── Form actions */
+.tfp-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.tfp-btn-cancel {
+  padding: 11px 22px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.tfp-btn-cancel:hover:not(:disabled) {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--cream);
+}
+.tfp-btn-cancel:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.tfp-btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  background: var(--amber);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.tfp-btn-save:hover:not(:disabled) {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+.tfp-btn-save:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* Inline spinner */
+.tfp-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: tfp-spin 0.65s linear infinite;
+}
+@keyframes tfp-spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive */
+@media (max-width: 700px) {
+  .tfp-two-col { grid-template-columns: 1fr; }
+  .tfp-grid-3  { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .tfp-grid-3 { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tfp-spinner { animation: none; }
+}
