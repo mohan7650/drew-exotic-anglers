@@ -34,8 +34,7 @@ export default function StatsEditor({ initialItems }) {
       isHydrated.current = true;
       setItems(initialItems.map(withKey));
     }
-  }, [initialItems]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [initialItems]); 
   // ── Mutations ──────────────────────────────────────────────────────────────
 
   function update(index, field, value) {
