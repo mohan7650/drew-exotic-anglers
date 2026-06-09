@@ -37,7 +37,6 @@ export default function About() {
           <div className="about-badge-text">{about.badge_text}</div>
         </div>
         <div className="about-orvis">
-          <div className="about-orvis-num">{about.orvis_number}</div>
           <div
             className="about-orvis-text"
             dangerouslySetInnerHTML={{ __html: about.orvis_text }}

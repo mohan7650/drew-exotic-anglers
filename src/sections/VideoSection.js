@@ -1,30 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import { getVideoSection } from '../services/videoSectionService';
 import './VideoSection.css';
 
+// Hardcoded fallbacks — shown when Supabase data is unavailable
+const FB = {
+  eyebrow:     'Watch the Action',
+  title:       'See the <em>Urubaxi</em> in Action',
+  subtitle:    'Real footage. Real fish. Real clients having the time of their lives aboard the Kalua II.',
+  video_url:   'https://www.youtube.com/embed/_ycYRB8875A',
+  description: '"This trip is the best guarantee for double-digit Peacock Bass at the best price in the world. I couldn\'t stress that enough."',
+  cta_text:    'Plan My Expedition →',
+  cta_link:    '#contact',
+};
+
 export default function VideoSection() {
-  const [photos, setPhotos] = useState([]);
+  const [photos,  setPhotos]  = useState([]);
+  const [vsData,  setVsData]  = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Gallery fetch — unchanged
     const fetchGallery = async () => {
       const { data, error } = await supabase
         .from('gallery')
         .select('id, image_url, alt');
-
       if (!error && data) setPhotos(data);
       setLoading(false);
     };
 
     fetchGallery();
+
+    // Video section content — fail silently, fallbacks handle missing data
+    getVideoSection()
+      .then(data => setVsData(data))
+      .catch(() => {});
   }, []);
+
+  const vs = vsData ?? {};
 
   return (
     <section id="gallery" className="video-section">
 
       {/* GALLERY HEADER */}
       <div className="gallery-header">
-        <div className="section-tag-line center">From the River</div>
+        <div className="section-tag-line center">From the Glades</div>
         <h2 className="section-title">
           Real Catches, Real <em>Memories</em>
         </h2>
@@ -61,14 +81,12 @@ export default function VideoSection() {
 
       {/* VIDEO HEADER */}
       <div className="video-header center-video-header">
-        <div className="section-tag-line">Watch the Action</div>
-        <h2 className="section-title">
-          See the <em>Urubaxi</em> in Action
-        </h2>
-        <p className="section-sub">
-          Real footage. Real fish. Real clients having the
-          time of their lives aboard the Kalua II.
-        </p>
+        <div className="section-tag-line">{vs.eyebrow || FB.eyebrow}</div>
+        <h2
+          className="section-title"
+          dangerouslySetInnerHTML={{ __html: vs.title || FB.title }}
+        />
+        <p className="section-sub">{vs.subtitle || FB.subtitle}</p>
       </div>
 
       {/* VIDEO + FOUNDER */}
@@ -77,7 +95,7 @@ export default function VideoSection() {
         {/* VIDEO */}
         <div className="video-frame">
           <iframe
-            src="https://www.youtube.com/embed/_ycYRB8875A"
+            src={vs.video_url || FB.video_url}
             title="Voyage across the Amazon — Capt Drew Rodriguez, Drew's Guide Service"
             frameBorder="0"
             loading="lazy"
@@ -90,16 +108,14 @@ export default function VideoSection() {
         <div className="founder-card">
           <div className="founder-small">Founder's Words</div>
           <blockquote className="founder-quote">
-            "This trip is the best guarantee for double-digit
-            Peacock Bass at the best price in the world.
-            I couldn't stress that enough."
+            {vs.description || FB.description}
           </blockquote>
           <div className="founder-name">— Capt Drew Rodriguez</div>
           <div className="founder-role">
-            Founder & Head Guide · 10 Years Orvis Endorsed
+            Founder &amp; Head Guide · 10 Years Orvis Endorsed
           </div>
-          <a href="#contact" className="founder-btn">
-            Plan My Expedition →
+          <a href={vs.cta_link || FB.cta_link} className="founder-btn">
+            {vs.cta_text || FB.cta_text}
           </a>
         </div>
 

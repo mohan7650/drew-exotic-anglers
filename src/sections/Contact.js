@@ -66,7 +66,7 @@ export default function Contact() {
           { icon: '📞', text: '(786) 342-5791 — Capt Drew Direct', href: 'tel:7863425791' },
           { icon: '💬', text: 'WhatsApp: +1 (786) 342-5791 — Preferred for international clients', whatsapp: true, href: 'https://wa.me/17863425791' },
           { icon: '🌐', text: 'drewsguideservice.com · Capt Drew Rodriguez' },
-          { icon: '🗓️', text: 'Trips run Friday to Friday' },
+          { icon: '🗓️', text: 'Trips run 7 days' },
         ].map(d => (
           <div
             className={`contact-detail ${d.whatsapp ? 'contact-detail--whatsapp' : ''}`}
