@@ -1,0 +1,10 @@
+.aap-page { max-width: 960px; }
+
+/* Icon emoji input inside FeaturesEditor */
+.feat-input--icon {
+  width: 52px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 15px;
+  padding: 6px 4px;
+}

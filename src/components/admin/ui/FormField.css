@@ -1,0 +1,74 @@
+.ff-root {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ff-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.ff-required { color: var(--amber); }
+
+/* Shared control styles */
+.ff-control {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 10px 13px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--cream);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ff-control::placeholder { color: rgba(255,255,255,0.22); }
+
+.ff-control:focus {
+  border-color: var(--amber);
+  background: rgba(255,255,255,0.06);
+}
+
+.ff-control:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Textarea extra height */
+.ff-control--textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.5;
+}
+
+/* Select arrow */
+.ff-control--select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239FE1CB' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+/* Error state */
+.ff-root--error .ff-control {
+  border-color: #e74c3c;
+}
+
+.ff-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.4;
+}
+
+.ff-error {
+  font-size: 12px;
+  color: #f87171;
+}

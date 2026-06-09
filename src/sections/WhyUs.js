@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { listActiveTestimonials } from '../services/testimonialsService';
 import './WhyUs.css';
 
 function StarRating({ rating }) {
@@ -13,20 +13,13 @@ function StarRating({ rating }) {
 
 export default function WhyUs() {
   const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading,      setLoading]      = useState(true);
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      const { data, error } = await supabase
-        .from('testimonials')
-        .select('id, image_url, review, name, location, rating')
-        .order('created_at', { ascending: true });
-
-      if (!error && data) setTestimonials(data);
-      setLoading(false);
-    };
-
-    fetchTestimonials();
+    listActiveTestimonials()
+      .then(setTestimonials)
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const visible = testimonials.length > 0;
@@ -55,10 +48,10 @@ export default function WhyUs() {
         <div className="testimonial-slider">
           <div className="testimonial-track">
 
+            {/* Duplicate array for seamless infinite scroll */}
             {[...testimonials, ...testimonials].map((t, i) => (
               <div className="testimonial-card" key={i}>
 
-                {/* TOP IMAGE */}
                 <div
                   className="testimonial-image"
                   style={{
@@ -69,7 +62,6 @@ export default function WhyUs() {
                   }}
                 />
 
-                {/* BOTTOM CONTENT */}
                 <div className="testimonial-bottom">
 
                   <div className="quote-icon">"</div>

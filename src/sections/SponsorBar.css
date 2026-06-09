@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 
-/* LABEL */
+/* ── Label ──────────────────────────────────────────────────────────────── */
 .sponsor-label {
   font-size: 10px;
   font-weight: 700;
@@ -32,14 +32,14 @@
   white-space: nowrap;
 }
 
-/* DEFAULT PILLS */
+/* ── Base pill (default variant) ─────────────────────────────────────────── */
 .sponsor-pill {
   padding: 7px 14px;
 
   border: 1px solid rgba(93, 202, 165, 0.14);
   border-radius: 2px;
 
-  background: rgba(255,255,255,0.015);
+  background: rgba(255, 255, 255, 0.015);
 
   font-size: 11px;
   font-weight: 600;
@@ -52,60 +52,58 @@
 
   transition:
     border-color 0.2s ease,
-    background 0.2s ease,
-    transform 0.18s ease;
+    background   0.2s ease,
+    transform    0.18s ease;
 }
 
 .sponsor-pill:hover {
   border-color: rgba(93, 202, 165, 0.28);
-
-  background: rgba(255,255,255,0.03);
-
+  background: rgba(255, 255, 255, 0.03);
   transform: translateY(-1px);
 }
 
-/* ORVIS */
-.sponsor-orvis {
-  border-color: rgba(212, 137, 26, 0.3);
-
-  background: rgba(212, 137, 26, 0.06);
-
-  color: var(--cream);
-
-  font-weight: 700;
+/* ── Gold variant — orange/gold featured style ───────────────────────────── */
+.sponsor-pill--gold {
+  border-color: rgba(212, 137, 26, 0.35);
+  background:   rgba(212, 137, 26, 0.08);
+  color:        rgba(239, 159, 39, 0.92);
+  font-weight:  700;
 }
 
-/* GOLD */
-.sponsor-gold {
-  border-color: rgba(212, 137, 26, 0.2);
-
-  color: rgba(239, 159, 39, 0.82);
-
-  font-weight: 700;
+.sponsor-pill--gold:hover {
+  border-color: rgba(212, 137, 26, 0.55);
+  background:   rgba(212, 137, 26, 0.14);
 }
 
-/* MOBILE */
+/* ── Light variant — white/light featured style ──────────────────────────── */
+.sponsor-pill--light {
+  border-color: rgba(250, 246, 238, 0.3);
+  background:   rgba(250, 246, 238, 0.06);
+  color:        rgba(250, 246, 238, 0.92);
+  font-weight:  700;
+}
+
+.sponsor-pill--light:hover {
+  border-color: rgba(250, 246, 238, 0.5);
+  background:   rgba(250, 246, 238, 0.1);
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-
   .sponsor-bar {
     flex-wrap: wrap;
-
     padding: 16px 18px;
-
     gap: 8px;
   }
 
   .sponsor-label {
     width: 100%;
-
     text-align: center;
-
     margin-bottom: 6px;
   }
 
   .sponsor-pill {
     font-size: 10px;
-
     padding: 7px 12px;
   }
 }

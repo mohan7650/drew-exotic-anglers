@@ -41,7 +41,7 @@ export default function Newsletter() {
         <div className="newsletter-text">
           <div className="section-tag-line">Stay In the Loop</div>
           <h2 className="newsletter-title">
-            Get Drew's <em>Fishing Intel.</em>
+            Get onboard with  <em>Drewsletter.</em>
           </h2>
           <p className="newsletter-sub">
             Tips, trip openings, and dispatches from the river. No spam. Unsubscribe anytime.

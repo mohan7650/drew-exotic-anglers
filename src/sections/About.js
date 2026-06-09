@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { getAbout, getFeatures } from '../services/aboutService';
 import './About.css';
 
 export default function About() {
-  const [about, setAbout] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [about,    setAbout]    = useState(null);
+  const [features, setFeatures] = useState([]);
+  const [loading,  setLoading]  = useState(true);
 
   useEffect(() => {
-    const fetchAbout = async () => {
-      const { data, error } = await supabase
-        .from('about')
-        .select('*')
-        .single();
-
-      if (!error && data) setAbout(data);
-      setLoading(false);
-    };
-
-    fetchAbout();
+    Promise.all([getAbout(), getFeatures(true)])
+      .then(([aboutData, featureData]) => {
+        setAbout(aboutData);
+        setFeatures(featureData);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   if (loading || !about) {
@@ -56,21 +53,16 @@ export default function About() {
         />
         <div dangerouslySetInnerHTML={{ __html: about.description }} />
 
-        <ul className="feature-list">
-          {[
-            ['🏆', '10 Years Orvis Endorsed — earned, not bought, renewed on results'],
-            ['⚓', 'U.S. Coast Guard Licensed Captain · Fully Insured'],
-            ['🚢', 'Live aboard the Kalua II — 57ft floating hotel with A/C suites'],
-            ['🏞️', 'Exclusive access to the Urubaxi River — 240 miles, max 8 anglers ever'],
-            ['🐟', '99% catch-and-release in partnership with indigenous communities'],
-            ['🍽️', 'Truly all-inclusive: flights, lodging, meals, drinks, tackle & licences'],
-          ].map(([icon, text]) => (
-            <li key={text}>
-              <div className="feature-icon">{icon}</div>
-              <span>{text}</span>
-            </li>
-          ))}
-        </ul>
+        {features.length > 0 && (
+          <ul className="feature-list">
+            {features.map(f => (
+              <li key={f.id}>
+                <div className="feature-icon">{f.icon}</div>
+                <span>{f.feature_text}</span>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {about.cta_text && about.cta_link && (
           <a href={about.cta_link} className="btn-gold">

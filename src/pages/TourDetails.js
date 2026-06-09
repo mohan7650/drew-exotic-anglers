@@ -60,13 +60,14 @@ export default function TourDetails() {
       </div>
     );
   }
-
+console.log('tour id:', tour.id);
+console.log('gallery:', gallery);
   return (
     <div className="tour-details-page">
 
       <div
         className="tour-details-hero"
-        style={{ backgroundImage: `url(${tour.image_url})` }}
+        
       >
         <div className="tour-details-hero-overlay">
           <Link to="/#tours" className="tour-details-back">← All Expeditions</Link>

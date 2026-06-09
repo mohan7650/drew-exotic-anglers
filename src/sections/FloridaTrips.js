@@ -9,7 +9,7 @@ const included = [
   'All tackle and bait provided',
   'Bottled water and ice',
   'Catch photography',
-  'Fishing licence covered',
+  'Lunch Provided',
 ];
 
 export default function FloridaTrips() {
@@ -62,9 +62,8 @@ export default function FloridaTrips() {
             <div className="florida-species">
               <span className="florida-pill">Peacock Bass</span>
               <span className="florida-pill">Largemouth</span>
-              <span className="florida-pill">Snakehead</span>
-              <span className="florida-pill">Clown Knifefish</span>
-              <span className="florida-pill">+20 More</span>
+              <span className="florida-pill">Native</span>
+              <span className="florida-pill">Exotics </span>
             </div>
           </div>
           <div className="florida-info-block">
