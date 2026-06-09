@@ -37,6 +37,7 @@ import TestimonialsFormPage from './pages/admin/testimonials/TestimonialsFormPag
 import FloridaDayTripsListPage from './pages/admin/florida-day-trips/FloridaDayTripsListPage';
 import FloridaDayTripsFormPage from './pages/admin/florida-day-trips/FloridaDayTripsFormPage';
 import VideoSectionAdminPage from './pages/admin/video-section/VideoSectionAdminPage';
+import GalleryAdminPage from './pages/admin/gallery/GalleryAdminPage';
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -112,6 +113,8 @@ function App() {
               <Route path="florida-day-trips/:id/edit"    element={<FloridaDayTripsFormPage />} />
               {/* ── Video Section CMS */}
               <Route path="video-section" element={<VideoSectionAdminPage />} />
+              {/* ── Gallery CMS */}
+              <Route path="gallery" element={<GalleryAdminPage />} />
             </Route>
           </Route>
 

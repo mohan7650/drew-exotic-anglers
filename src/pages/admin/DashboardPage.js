@@ -27,8 +27,6 @@ export default function DashboardPage() {
         <h2 className="dashboard-section-heading">Phase 2 — Coming Soon</h2>
         <ul className="dashboard-feature-list">
           {[
-            'Tours management',
-            'Species catalogue',
             'Gallery uploads',
             'Enquiry inbox',
             'Newsletter subscribers',
