@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { listTours } from '../services/toursService';
 import './Tours.css';
 
 export default function Tours() {
-  const [tours, setTours] = useState([]);
+  const [tours,   setTours]   = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error,   setError]   = useState(null);
 
   useEffect(() => {
-    const fetchTours = async () => {
-      const { data, error } = await supabase
-        .from('tours')
-        .select('id, slug, title, tag, meta, image_url')
-        .order('created_at', { ascending: true });
-
-      if (error) {
-        setError(error.message);
-      } else {
-        setTours(data || []);
-      }
-      setLoading(false);
-    };
-
-    fetchTours();
+    listTours()
+      .then(setTours)
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
   }, []);
 
   return (

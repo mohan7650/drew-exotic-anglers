@@ -1,57 +1,33 @@
 import { supabase } from '../lib/supabase';
 import { uploadImage, deleteImages, extractStoragePath } from './storageService';
 
-const TABLE  = 'tours';
-const BUCKET = 'tour-images';
-
-// ── Slug helper ────────────────────────────────────────────────────────────
-export function slugify(str) {
-  return (str ?? '')
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
+const TABLE  = 'species';
+const BUCKET = 'species-images';
 
 // ── Read ───────────────────────────────────────────────────────────────────
 
-export async function listTours() {
+export async function listSpecies() {
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, slug, title, tag, meta, image_url, sort_order, created_at')
+    .select('id, name, latin_name, description, image_url, sort_order, active, stars, difficulty, created_at')
     .order('sort_order', { ascending: true })
     .order('created_at', { ascending: true });
-
-  // sort_order column may not exist yet — fall back to created_at only
-  if (error && error.message.includes('sort_order')) {
-    const { data: fallback, error: fallbackError } = await supabase
-      .from(TABLE)
-      .select('id, slug, title, tag, meta, image_url, created_at')
-      .order('created_at', { ascending: true });
-    if (fallbackError) throw new Error(fallbackError.message);
-    return (fallback ?? []).map((t, i) => ({ ...t, sort_order: i + 1 }));
-  }
-
   if (error) throw new Error(error.message);
   return data ?? [];
 }
 
-// ── Reorder ────────────────────────────────────────────────────────────────
-
-export async function reorderTours(updates) {
-  // updates: [{ id, sort_order }, ...]
-  const results = await Promise.all(
-    updates.map(({ id, sort_order }) =>
-      supabase.from(TABLE).update({ sort_order }).eq('id', id)
-    )
-  );
-  const failed = results.find(r => r.error);
-  if (failed) throw new Error(failed.error.message);
+export async function listActiveSpecies() {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('id, name, latin_name, description, image_url, stars, difficulty')
+    .eq('active', true)
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true });
+  if (error) throw new Error(error.message);
+  return data ?? [];
 }
 
-export async function getTour(id) {
+export async function getSpecies(id) {
   const { data, error } = await supabase
     .from(TABLE)
     .select('*')
@@ -63,7 +39,7 @@ export async function getTour(id) {
 
 // ── Create ─────────────────────────────────────────────────────────────────
 
-export async function createTour(fields, imageFile) {
+export async function createSpecies(fields, imageFile) {
   let image_url = fields.image_url ?? '';
 
   if (imageFile) {
@@ -84,7 +60,7 @@ export async function createTour(fields, imageFile) {
 
 // ── Update ─────────────────────────────────────────────────────────────────
 
-export async function updateTour(id, fields, imageFile, oldImageUrl) {
+export async function updateSpecies(id, fields, imageFile, oldImageUrl) {
   let image_url = fields.image_url ?? oldImageUrl ?? '';
 
   if (imageFile) {
@@ -92,7 +68,6 @@ export async function updateTour(id, fields, imageFile, oldImageUrl) {
     const path = `${id}-${Date.now()}.${ext}`;
     image_url  = await uploadImage(BUCKET, imageFile, path);
 
-    // Clean up old file from storage (best-effort, never blocks the update)
     const oldPath = extractStoragePath(oldImageUrl, BUCKET);
     if (oldPath) deleteImages(BUCKET, [oldPath]).catch(() => {});
   }
@@ -110,11 +85,23 @@ export async function updateTour(id, fields, imageFile, oldImageUrl) {
 
 // ── Delete ─────────────────────────────────────────────────────────────────
 
-export async function deleteTour(id, imageUrl) {
+export async function deleteSpecies(id, imageUrl) {
   const { error } = await supabase.from(TABLE).delete().eq('id', id);
   if (error) throw new Error(error.message);
 
-  // Best-effort storage cleanup
   const path = extractStoragePath(imageUrl, BUCKET);
   if (path) deleteImages(BUCKET, [path]).catch(() => {});
+}
+
+// ── Reorder ────────────────────────────────────────────────────────────────
+
+export async function reorderSpecies(updates) {
+  // updates: [{ id, sort_order }, ...]
+  const results = await Promise.all(
+    updates.map(({ id, sort_order }) =>
+      supabase.from(TABLE).update({ sort_order }).eq('id', id)
+    )
+  );
+  const failed = results.find(r => r.error);
+  if (failed) throw new Error(failed.error.message);
 }

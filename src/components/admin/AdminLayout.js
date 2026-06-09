@@ -4,8 +4,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import './AdminLayout.css';
 
 const NAV_ITEMS = [
-  { to: '/admin',       label: 'Dashboard', icon: '◈', end: true },
-  { to: '/admin/tours', label: 'Tours',     icon: '🎣' },
+  { to: '/admin',        label: 'Dashboard', icon: '◈',  end: true },
+  { to: '/admin/hero',   label: 'Hero',      icon: '◎' },
+  { to: '/admin/tours',  label: 'Tours',     icon: '🎣' },
+  { to: '/admin/about',   label: 'About',   icon: '👤' },
+  { to: '/admin/species',       label: 'Species',      icon: '🐟' },
+  { to: '/admin/testimonials',  label: 'Testimonials', icon: '⭐' },
   // Phase 3+ — uncomment as CRUD pages are built
   // { to: '/admin/species',  label: 'Species',  icon: '🐟' },
   // { to: '/admin/gallery',  label: 'Gallery',  icon: '🖼' },

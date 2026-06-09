@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { listActiveSpecies } from '../services/speciesService';
 import './Species.css';
 
 export default function Species() {
@@ -7,17 +7,10 @@ export default function Species() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSpecies = async () => {
-      const { data, error } = await supabase
-        .from('species')
-        .select('id, name, latin_name, image_url, description, stars, difficulty')
-        .order('created_at', { ascending: true });
-
-      if (!error && data) setSpecies(data);
-      setLoading(false);
-    };
-
-    fetchSpecies();
+    listActiveSpecies()
+      .then(setSpecies)
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -45,7 +38,6 @@ export default function Species() {
           return (
             <div className="species-card" key={s.id}>
 
-              {/* PHOTO */}
               <div className="species-img-wrap">
                 <img
                   src={s.image_url}
@@ -60,7 +52,6 @@ export default function Species() {
                 <div className="species-img-overlay" />
               </div>
 
-              {/* INFO */}
               <div className="species-info">
                 <div className="species-name">{s.name}</div>
                 <div className="species-latin">{s.latin_name}</div>
