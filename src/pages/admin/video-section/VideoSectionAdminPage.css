@@ -1,0 +1,19 @@
+.vsp-page { max-width: 960px; }
+
+/* ── Active checkbox */
+.vsp-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--cream);
+  cursor: pointer;
+  user-select: none;
+}
+.vsp-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--amber);
+  cursor: pointer;
+  flex-shrink: 0;
+}

@@ -29,7 +29,7 @@ export default function FeaturesEditor({ initialItems }) {
       isHydrated.current = true;
       setItems(initialItems.map(withKey));
     }
-  }, [initialItems]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [initialItems]); 
 
   function update(index, field, value) {
     setItems(prev => prev.map((item, i) => i === index ? { ...item, [field]: value } : item));

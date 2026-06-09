@@ -35,7 +35,7 @@ export default function PartnersEditor({ initialItems }) {
       isHydrated.current = true;
       setItems(initialItems.map(withKey));
     }
-  }, [initialItems]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [initialItems]); 
 
   // ── Mutations ──────────────────────────────────────────────────────────────
 

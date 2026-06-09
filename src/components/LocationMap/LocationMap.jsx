@@ -139,7 +139,7 @@ export default function LocationMap() {
             <span className={styles.titleBreak}> Destination.</span>
           </h2>
           <p className={styles.lede}>
-            Six waters, three continents, one obsession. Each destination has been fished, tested, and earned its place — Drew personally guides every flagship expedition.
+            Six waters, two continents, one obsession. Each destination has been fished, tested, and earned its place — Drew personally hosts every flagship expedition.
           </p>
         </header>
 

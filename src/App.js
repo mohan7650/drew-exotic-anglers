@@ -34,6 +34,9 @@ import SpeciesListPage from './pages/admin/species/SpeciesListPage';
 import SpeciesFormPage from './pages/admin/species/SpeciesFormPage';
 import TestimonialsListPage from './pages/admin/testimonials/TestimonialsListPage';
 import TestimonialsFormPage from './pages/admin/testimonials/TestimonialsFormPage';
+import FloridaDayTripsListPage from './pages/admin/florida-day-trips/FloridaDayTripsListPage';
+import FloridaDayTripsFormPage from './pages/admin/florida-day-trips/FloridaDayTripsFormPage';
+import VideoSectionAdminPage from './pages/admin/video-section/VideoSectionAdminPage';
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -103,6 +106,12 @@ function App() {
               <Route path="testimonials"             element={<TestimonialsListPage />} />
               <Route path="testimonials/new"         element={<TestimonialsFormPage />} />
               <Route path="testimonials/:id/edit"    element={<TestimonialsFormPage />} />
+              {/* ── Florida Day Trips CMS */}
+              <Route path="florida-day-trips"             element={<FloridaDayTripsListPage />} />
+              <Route path="florida-day-trips/new"         element={<FloridaDayTripsFormPage />} />
+              <Route path="florida-day-trips/:id/edit"    element={<FloridaDayTripsFormPage />} />
+              {/* ── Video Section CMS */}
+              <Route path="video-section" element={<VideoSectionAdminPage />} />
             </Route>
           </Route>
 

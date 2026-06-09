@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { getActiveFloridaDayTrip } from '../services/floridaDayTripsService';
 import { useAvailability } from '../hooks/useAvailability';
 import './FloridaTrips.css';
 
-const included = [
+// Fallback values shown when Supabase data is unavailable
+const FB_SPECIES  = ['Peacock Bass', 'Largemouth', 'Native', 'Exotics'];
+const FB_INCLUDED = [
   '8-hour full day on Miami canals',
   'Capt Drew personally guiding',
   'All tackle and bait provided',
@@ -13,8 +15,8 @@ const included = [
 ];
 
 export default function FloridaTrips() {
-  const [pricing, setPricing] = useState([]);
-  const availability          = useAvailability();
+  const [trip, setTrip]   = useState(null);
+  const availability      = useAvailability();
 
   // FareHarbor placeholder — date selector UI only, no backend
   const [selectedDate, setSelectedDate] = useState(null);
@@ -26,25 +28,35 @@ export default function FloridaTrips() {
   });
 
   useEffect(() => {
-    const fetchPricing = async () => {
-      const { data, error } = await supabase
-        .from('florida_pricing')
-        .select('id, tier, price, note')
-        .order('sort_order', { ascending: true });
-
-      if (!error && data) setPricing(data);
-    };
-
-    fetchPricing();
+    getActiveFloridaDayTrip()
+      .then(data => setTrip(data))
+      .catch(() => {}); // fail silently — fallbacks keep the section visible
   }, []);
+
+  // Read from JSONB columns; fall back to hardcoded defaults
+  const species  = Array.isArray(trip?.species)  ? trip.species.filter(Boolean)  : [];
+  const included = Array.isArray(trip?.includes) ? trip.includes.filter(Boolean) : [];
+  const pricing  = Array.isArray(trip?.pricing)  ? trip.pricing                  : [];
+
+  const displaySpecies  = species.length  > 0 ? species  : FB_SPECIES;
+  const displayIncluded = included.length > 0 ? included : FB_INCLUDED;
+  const ctaText         = trip?.cta_text         || 'Check Availability →';
+  const ctaLink         = trip?.cta_link         || '#contact';
+  const availTitle      = trip?.availability_title || '⚡ Live Expedition Availability';
 
   return (
     <section id="florida-day-trips" className="florida-trips">
 
       <div className="florida-header">
-        <div className="section-tag-line">Tier 1 · Florida Day Trips</div>
-        <h2 className="section-title">Fish South Florida<br /><em>with Capt Drew.</em></h2>
-        <p className="section-sub">Full-day freshwater trips on Miami's canals. Peacock Bass, Largemouth, and 20+ species. Local expertise. World-class fishing.</p>
+        <div className="section-tag-line">
+          {trip?.eyebrow || 'Tier 1 · Florida Day Trips'}
+        </div>
+        <h2 className="section-title">
+          {trip?.title || 'Fish South Florida with Capt Drew.'}
+        </h2>
+        <p className="section-sub">
+          {trip?.subtitle || 'Full-day freshwater trips on Miami\'s canals. Peacock Bass, Largemouth, and 20+ species. Local expertise. World-class fishing.'}
+        </p>
       </div>
 
       <div className="florida-grid">
@@ -52,7 +64,7 @@ export default function FloridaTrips() {
         {/* LEFT — what's included */}
         <div className="florida-info">
           <img
-            src="/images/gallery/captain.webp"
+            src={trip?.main_image || '/images/gallery/captain.webp'}
             alt="Capt Drew on Miami's canals"
             className="florida-img"
             onError={e => { e.target.style.display = 'none'; }}
@@ -60,21 +72,22 @@ export default function FloridaTrips() {
           <div className="florida-info-block">
             <div className="florida-block-label">Target Species</div>
             <div className="florida-species">
-              <span className="florida-pill">Peacock Bass</span>
-              <span className="florida-pill">Largemouth</span>
-              <span className="florida-pill">Native</span>
-              <span className="florida-pill">Exotics </span>
+              {displaySpecies.map(s => (
+                <span key={s} className="florida-pill">{s}</span>
+              ))}
             </div>
           </div>
           <div className="florida-info-block">
             <div className="florida-block-label">What's Included</div>
             <ul className="florida-included">
-              {included.map(i => <li key={i}>✓ {i}</li>)}
+              {displayIncluded.map(i => <li key={i}>✓ {i}</li>)}
             </ul>
           </div>
           <div className="florida-info-block">
             <div className="florida-block-label">Who It's For</div>
-            <p className="florida-who">All skill levels welcome — first-time anglers, families, and seasoned pros. Capt Drew matches the day to your group.</p>
+            <p className="florida-who">
+              {trip?.description || 'All skill levels welcome — first-time anglers, families, and seasoned pros. Capt Drew matches the day to your group.'}
+            </p>
           </div>
         </div>
 
@@ -84,7 +97,7 @@ export default function FloridaTrips() {
           {/* LIVE AVAILABILITY */}
           {availability.length > 0 && (
             <div className="florida-avail">
-              <div className="florida-avail-label">⚡ Live Expedition Availability</div>
+              <div className="florida-avail-label">{availTitle}</div>
               {availability.map(t => (
                 <div className="florida-avail-row" key={t.id}>
                   <span className="florida-avail-trip">{t.trip}</span>
@@ -101,9 +114,9 @@ export default function FloridaTrips() {
             <div className="florida-pricing-label">Transparent Pricing · No Hidden Fees</div>
             {pricing.length > 0 && (
               <div className="florida-pricing-list">
-                {pricing.map(p => (
-                  <div className="florida-price-row" key={p.id}>
-                    <span className="florida-price-tier">{p.tier}</span>
+                {pricing.map((p, i) => (
+                  <div className="florida-price-row" key={i}>
+                    <span className="florida-price-tier">{p.label}</span>
                     <span className="florida-price-amt">{p.price}</span>
                   </div>
                 ))}
@@ -139,10 +152,10 @@ export default function FloridaTrips() {
             <div className="florida-cal-note">Live booking calendar — instant confirmation via FareHarbor at launch.</div>
           </div>
 
-          <a href="#contact" className="btn-amber-full">
+          <a href={ctaLink} className="btn-amber-full">
             {selectedDate !== null
               ? `Reserve ${days[selectedDate].toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} →`
-              : 'Check Availability →'}
+              : ctaText}
           </a>
           <p className="florida-trust">Capt Drew personally responds to every inquiry within 24 hours.</p>
 

@@ -1,0 +1,240 @@
+.fdf-page { max-width: 920px; }
+
+/* ── Save error */
+.fdf-save-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(220,53,53,0.1);
+  border: 1px solid rgba(220,53,53,0.25);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #f87171;
+  margin-bottom: 24px;
+}
+
+/* ── Form */
+.fdf-form { display: flex; flex-direction: column; gap: 28px; }
+
+/* ── Two-column layout */
+.fdf-two-col {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.fdf-col--fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Fieldset sections */
+.fdf-section {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 20px 20px 22px;
+  background: rgba(255,255,255,0.01);
+}
+.fdf-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 6px;
+  margin-bottom: 16px;
+}
+
+/* ── Grids */
+.fdf-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.fdf-stack { display: flex; flex-direction: column; gap: 16px; }
+.fdf-mt    { margin-top: 16px; }
+
+/* ── Pricing row (label + price side by side) */
+.fdf-pricing-row {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 12px;
+  align-items: start;
+}
+
+/* ── Checkbox */
+.fdf-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  padding-top: 28px;
+}
+.fdf-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--cream);
+  cursor: pointer;
+  user-select: none;
+}
+.fdf-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--amber);
+  cursor: pointer;
+}
+
+/* ── Actions */
+.fdf-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 4px;
+}
+.fdf-btn-cancel {
+  padding: 11px 22px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.fdf-btn-cancel:hover:not(:disabled) {
+  border-color: rgba(255,255,255,0.3);
+  color: var(--cream);
+}
+.fdf-btn-cancel:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.fdf-btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 26px;
+  background: var(--amber);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.fdf-btn-save:hover:not(:disabled) {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+.fdf-btn-save:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+.fdf-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: fdf-spin 0.65s linear infinite;
+}
+@keyframes fdf-spin { to { transform: rotate(360deg); } }
+
+/* ── Repeater rows (species / includes / pricing) */
+.fdf-rep-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.fdf-rep-field   { flex: 1; }
+.fdf-rep-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: 1px;
+  flex-shrink: 0;
+}
+
+/* ── Repeater buttons */
+.fdf-rep-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 24px;
+  border-radius: 4px;
+  font-size: 9px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  padding: 0;
+  line-height: 1;
+}
+.fdf-rep-btn--move {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-muted);
+}
+.fdf-rep-btn--move:hover:not(:disabled) {
+  background: rgba(212,137,26,0.12);
+  border-color: rgba(212,137,26,0.3);
+  color: var(--amber);
+}
+.fdf-rep-btn--remove {
+  background: none;
+  border: 1px solid rgba(192,57,43,0.2);
+  color: #f87171;
+  font-size: 10px;
+}
+.fdf-rep-btn--remove:hover:not(:disabled) {
+  background: rgba(192,57,43,0.15);
+  border-color: rgba(192,57,43,0.4);
+}
+.fdf-rep-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+/* ── Pricing repeater — label + price in one row */
+.fdf-rep-pricing {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 12px;
+  align-items: start;
+}
+.fdf-rep-pricing-label { min-width: 0; }
+.fdf-rep-pricing-price { min-width: 0; }
+
+/* ── Add button */
+.fdf-rep-add {
+  align-self: flex-start;
+  padding: 7px 14px;
+  background: none;
+  border: 1px dashed rgba(212,137,26,0.35);
+  border-radius: 5px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--amber);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  letter-spacing: 0.04em;
+}
+.fdf-rep-add:hover:not(:disabled) {
+  background: rgba(212,137,26,0.08);
+  border-color: rgba(212,137,26,0.6);
+}
+.fdf-rep-add:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── Responsive */
+@media (max-width: 700px) {
+  .fdf-two-col          { grid-template-columns: 1fr; }
+  .fdf-grid-2           { grid-template-columns: 1fr; }
+  .fdf-pricing-row      { grid-template-columns: 1fr; }
+  .fdf-rep-pricing      { grid-template-columns: 1fr; }
+  .fdf-checkbox-wrap    { padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fdf-spinner { animation: none; }
+}
