@@ -32,6 +32,8 @@
   width: 100%;
   overflow: hidden;
   position: relative;
+  /* Reserve height during loading so content below doesn't shift */
+  min-height: 460px;
 }
 
 .testimonial-track {
@@ -40,6 +42,7 @@
   width: max-content;
 
   animation: scrollTestimonials 34s linear infinite;
+  will-change: transform;
 }
 
 .testimonial-track:hover {

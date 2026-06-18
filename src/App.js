@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// Public site
+// Public site — eagerly loaded (needed on first paint of the home page)
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import StatsBar from './sections/StatsBar';
@@ -17,27 +17,32 @@ import Newsletter from './sections/Newsletter';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-import TourDetails from './pages/TourDetails';
-import NotFound from './pages/NotFound';
 
-// Admin auth architecture
+// Auth shell is small — keep eager so ProtectedRoute works without suspense boundary
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/admin/ProtectedRoute';
-import AdminLayout from './components/admin/AdminLayout';
-import LoginPage from './pages/admin/LoginPage';
-import DashboardPage from './pages/admin/DashboardPage';
-import ToursListPage from './pages/admin/tours/ToursListPage';
-import TourFormPage from './pages/admin/tours/TourFormPage';
-import HeroAdminPage from './pages/admin/hero/HeroAdminPage';
-import AboutAdminPage from './pages/admin/about/AboutAdminPage';
-import SpeciesListPage from './pages/admin/species/SpeciesListPage';
-import SpeciesFormPage from './pages/admin/species/SpeciesFormPage';
-import TestimonialsListPage from './pages/admin/testimonials/TestimonialsListPage';
-import TestimonialsFormPage from './pages/admin/testimonials/TestimonialsFormPage';
-import FloridaDayTripsListPage from './pages/admin/florida-day-trips/FloridaDayTripsListPage';
-import FloridaDayTripsFormPage from './pages/admin/florida-day-trips/FloridaDayTripsFormPage';
-import VideoSectionAdminPage from './pages/admin/video-section/VideoSectionAdminPage';
-import GalleryAdminPage from './pages/admin/gallery/GalleryAdminPage';
+
+// Non-home routes — lazy loaded (split into separate chunks, not in initial bundle)
+const TourDetails   = lazy(() => import('./pages/TourDetails'));
+const NotFound      = lazy(() => import('./pages/NotFound'));
+
+// Admin routes — lazy loaded (users visiting the public site never download these)
+const AdminLayout              = lazy(() => import('./components/admin/AdminLayout'));
+const LoginPage                = lazy(() => import('./pages/admin/LoginPage'));
+const DashboardPage            = lazy(() => import('./pages/admin/DashboardPage'));
+const ToursListPage            = lazy(() => import('./pages/admin/tours/ToursListPage'));
+const TourFormPage             = lazy(() => import('./pages/admin/tours/TourFormPage'));
+const HeroAdminPage            = lazy(() => import('./pages/admin/hero/HeroAdminPage'));
+const AboutAdminPage           = lazy(() => import('./pages/admin/about/AboutAdminPage'));
+const SpeciesListPage          = lazy(() => import('./pages/admin/species/SpeciesListPage'));
+const SpeciesFormPage          = lazy(() => import('./pages/admin/species/SpeciesFormPage'));
+const TestimonialsListPage     = lazy(() => import('./pages/admin/testimonials/TestimonialsListPage'));
+const TestimonialsFormPage     = lazy(() => import('./pages/admin/testimonials/TestimonialsFormPage'));
+const FloridaDayTripsListPage  = lazy(() => import('./pages/admin/florida-day-trips/FloridaDayTripsListPage'));
+const FloridaDayTripsFormPage  = lazy(() => import('./pages/admin/florida-day-trips/FloridaDayTripsFormPage'));
+const VideoSectionAdminPage    = lazy(() => import('./pages/admin/video-section/VideoSectionAdminPage'));
+const GalleryAdminPage         = lazy(() => import('./pages/admin/gallery/GalleryAdminPage'));
+const TourGalleryPage          = lazy(() => import('./pages/admin/tours/TourGalleryPage'));
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -79,48 +84,43 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          {/* ── Public site */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/tour/:slug" element={<TourDetails />} />
+        <Suspense fallback={null}>
+          <Routes>
+            {/* ── Public site */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/tour/:slug" element={<TourDetails />} />
 
-          {/* ── Admin: public login */}
-          <Route path="/admin/login" element={<LoginPage />} />
+            {/* ── Admin: public login */}
+            <Route path="/admin/login" element={<LoginPage />} />
 
-          {/* ── Admin: protected area */}
-          <Route element={<ProtectedRoute />}>
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<DashboardPage />} />
-              {/* ── Phase 2: Tours management */}
-              <Route path="tours"          element={<ToursListPage />} />
-              <Route path="tours/new"      element={<TourFormPage />} />
-              <Route path="tours/:id/edit" element={<TourFormPage />} />
-              {/* ── Phase 4: Hero section CMS */}
-              <Route path="hero"           element={<HeroAdminPage />} />
-              {/* ── About section CMS */}
-              <Route path="about"                    element={<AboutAdminPage />} />
-              {/* ── Species CMS */}
-              <Route path="species"                  element={<SpeciesListPage />} />
-              <Route path="species/new"              element={<SpeciesFormPage />} />
-              <Route path="species/:id/edit"         element={<SpeciesFormPage />} />
-              {/* ── Testimonials CMS */}
-              <Route path="testimonials"             element={<TestimonialsListPage />} />
-              <Route path="testimonials/new"         element={<TestimonialsFormPage />} />
-              <Route path="testimonials/:id/edit"    element={<TestimonialsFormPage />} />
-              {/* ── Florida Day Trips CMS */}
-              <Route path="florida-day-trips"             element={<FloridaDayTripsListPage />} />
-              <Route path="florida-day-trips/new"         element={<FloridaDayTripsFormPage />} />
-              <Route path="florida-day-trips/:id/edit"    element={<FloridaDayTripsFormPage />} />
-              {/* ── Video Section CMS */}
-              <Route path="video-section" element={<VideoSectionAdminPage />} />
-              {/* ── Gallery CMS */}
-              <Route path="gallery" element={<GalleryAdminPage />} />
+            {/* ── Admin: protected area */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<DashboardPage />} />
+                <Route path="tours"               element={<ToursListPage />} />
+                <Route path="tours/new"           element={<TourFormPage />} />
+                <Route path="tours/:id/edit"      element={<TourFormPage />} />
+                <Route path="tours/:id/gallery"   element={<TourGalleryPage />} />
+                <Route path="hero"           element={<HeroAdminPage />} />
+                <Route path="about"                    element={<AboutAdminPage />} />
+                <Route path="species"                  element={<SpeciesListPage />} />
+                <Route path="species/new"              element={<SpeciesFormPage />} />
+                <Route path="species/:id/edit"         element={<SpeciesFormPage />} />
+                <Route path="testimonials"             element={<TestimonialsListPage />} />
+                <Route path="testimonials/new"         element={<TestimonialsFormPage />} />
+                <Route path="testimonials/:id/edit"    element={<TestimonialsFormPage />} />
+                <Route path="florida-day-trips"             element={<FloridaDayTripsListPage />} />
+                <Route path="florida-day-trips/new"         element={<FloridaDayTripsFormPage />} />
+                <Route path="florida-day-trips/:id/edit"    element={<FloridaDayTripsFormPage />} />
+                <Route path="video-section" element={<VideoSectionAdminPage />} />
+                <Route path="gallery" element={<GalleryAdminPage />} />
+              </Route>
             </Route>
-          </Route>
 
-          {/* ── 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* ── 404 */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </AuthProvider>
     </BrowserRouter>
   );

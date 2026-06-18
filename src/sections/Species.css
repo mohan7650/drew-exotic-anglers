@@ -80,6 +80,9 @@
   width: max-content;
 
   animation: scrollSpecies 35s linear infinite;
+  will-change: transform;
+  /* Reserve height so page doesn't shift when species cards load */
+  min-height: 380px;
 }
 
 .species-grid:hover {

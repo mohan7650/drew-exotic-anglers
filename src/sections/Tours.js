@@ -54,6 +54,8 @@ export default function Tours() {
               src={t.image_url}
               alt={t.title}
               loading="lazy"
+              width="400"
+              height="560"
               onError={(e) => (e.target.style.display = 'none')}
             />
 

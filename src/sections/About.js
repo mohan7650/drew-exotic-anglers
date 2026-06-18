@@ -30,6 +30,8 @@ export default function About() {
           src={about.image_url}
           alt="Capt Drew Rodriguez on the Amazon"
           loading="lazy"
+          width="400"
+          height="500"
           onError={e => { e.target.style.display = 'none'; }}
         />
         <div className="about-badge">

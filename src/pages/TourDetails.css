@@ -343,6 +343,69 @@
   }
 }
 
+/* ── Expedition Gallery Carousel (activates when > 3 images) ── */
+
+.tda-carousel {
+  width: 100%;
+  overflow: hidden;
+  /* Negative margin so slides bleed edge-to-edge inside the content column */
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+.tda-track {
+  display: flex;
+  gap: 16px;
+  /* max-content prevents the flex container from wrapping */
+  width: max-content;
+  animation: tdaScroll linear infinite;
+  will-change: transform;
+}
+
+.tda-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes tdaScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.tda-slide {
+  flex-shrink: 0;
+  width: 380px;
+  height: 260px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.tda-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 18px;
+  transition: transform 0.4s ease;
+}
+
+.tda-track:hover .tda-slide img {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .tda-slide {
+    width: 280px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tda-slide {
+    width: 220px;
+    height: 160px;
+  }
+}
+
 /* ── iPhone SE (375px) / small Android (360px) ── */
 @media (max-width: 480px) {
   .tour-details-hero-overlay {

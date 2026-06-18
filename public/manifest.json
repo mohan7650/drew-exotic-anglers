@@ -1,0 +1,17 @@
+{
+  "name": "Drew's Guide Service",
+  "short_name": "Drew's Guide",
+  "description": "Exclusive Amazon Peacock Bass fishing expeditions and South Florida freshwater day trips with Capt Drew Rodriguez — 10 Years Orvis Endorsed.",
+  "start_url": "/",
+  "display": "browser",
+  "theme_color": "#0B3D2E",
+  "background_color": "#05281c",
+  "icons": [
+    {
+      "src": "/images/gallery/dgs-logo.webp",
+      "type": "image/webp",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

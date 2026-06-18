@@ -44,6 +44,8 @@ export default function Species() {
                   alt={s.name}
                   className="species-img"
                   loading="lazy"
+                  width="320"
+                  height="213"
                   onError={e => {
                     e.target.style.display = 'none';
                     e.target.parentNode.style.background = '#0F6E56';

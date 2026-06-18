@@ -67,6 +67,9 @@ export default function FloridaTrips() {
             src={trip?.main_image || '/images/gallery/captain.webp'}
             alt="Capt Drew on Miami's canals"
             className="florida-img"
+            loading="lazy"
+            width="400"
+            height="260"
             onError={e => { e.target.style.display = 'none'; }}
           />
           <div className="florida-info-block">

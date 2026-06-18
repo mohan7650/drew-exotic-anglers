@@ -2,9 +2,44 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import './Hero.css';
 
+// Hardcoded fallback — renders immediately without any network request.
+// Supabase data overwrites this once it arrives.
+const FALLBACK = {
+  eyebrow: 'Amazon · Florida · Orvis Endorsed',
+  title: "The World's Greatest <em>Peacock Bass</em> Fishing.",
+  subtitle:
+    'Capt Drew Rodriguez. 10 Years Orvis Endorsed. Urubaxi River, Amazon Brazil. From the Canals to the World.',
+  primary_cta_text: 'Plan My Expedition',
+  primary_cta_link: '#contact',
+  secondary_cta_text: 'See Expeditions',
+  secondary_cta_link: '#tours',
+  poster_image: null,
+  background_video: null,
+};
+
+const CACHE_KEY = 'dgs_hero_v1';
+const CACHE_TTL = 10 * 60 * 1000; // 10 min
+
+function getCached() {
+  try {
+    const raw = sessionStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const { data, ts } = JSON.parse(raw);
+    if (Date.now() - ts < CACHE_TTL) return data;
+  } catch {}
+  return null;
+}
+
+function setCache(data) {
+  try {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data, ts: Date.now() }));
+  } catch {}
+}
+
 export default function Hero() {
-  const [hero, setHero] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Initialise from cache so repeat visits render with real data instantly.
+  // Falls back to FALLBACK so first-time visits still render immediately.
+  const [hero, setHero] = useState(() => getCached() || FALLBACK);
 
   useEffect(() => {
     const fetchHero = async () => {
@@ -12,38 +47,32 @@ export default function Hero() {
         .from('hero')
         .select('*')
         .single();
-
-      if (!error && data) setHero(data);
-      setLoading(false);
+      if (!error && data) {
+        setHero(data);
+        setCache(data);
+      }
     };
-
     fetchHero();
   }, []);
-
-  if (loading) {
-    return <section id="hero" className="hero" />;
-  }
-
-  if (!hero) {
-    return <section id="hero" className="hero" />;
-  }
 
   return (
     <section id="hero" className="hero">
 
       <div className="hero-bg">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={hero.poster_image}
-          onError={(e) => { e.target.style.display = 'none'; }}
-          aria-hidden="true"
-        >
-          <source src={hero.background_video} type="video/mp4" />
-        </video>
+        {hero.background_video && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={hero.poster_image || undefined}
+            onError={(e) => { e.target.style.display = 'none'; }}
+            aria-hidden="true"
+          >
+            <source src={hero.background_video} type="video/mp4" />
+          </video>
+        )}
       </div>
 
       <div className="hero-pattern" />
