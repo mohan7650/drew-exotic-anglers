@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NotFound.css';
 
 export default function NotFound() {
+  useEffect(() => {
+    document.title = '404 — Page Not Found · Drew\'s Guide Service';
+    const robots = document.querySelector('meta[name="robots"]');
+    const prev = robots?.getAttribute('content');
+    robots?.setAttribute('content', 'noindex, follow');
+    return () => {
+      robots?.setAttribute('content', prev || 'index, follow');
+      document.title = "Drew's Guide Service — Capt Drew Rodriguez · Orvis Endorsed";
+    };
+  }, []);
+
   return (
     <div className="not-found">
       <div className="not-found-inner">

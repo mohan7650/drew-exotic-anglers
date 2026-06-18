@@ -1,5 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
+
+// Slugs match sitemap.xml and the Supabase tours table
+const EXPEDITION_LINKS = [
+  { label: 'Urubaxi River · Brazil',        to: '/tour/kalua-1-jurubaxi-river' },
+  { label: 'Eco Lodge da Barra · Brazil',   to: '/tour/brazil-eco-lodge-da-barra' },
+  { label: 'Xingu River · Brazil',          to: '/tour/brazil-xingu-river' },
+  { label: 'Don Joaquin Lodge · Argentina', to: '/tour/argentina-don-joaquin-river-lodge' },
+  { label: 'St Jean Salmon Club · Canada',  to: '/tour/canada-st-jean-salmon-club' },
+  { label: 'South Florida Day Trips',       to: '/#florida-day-trips' },
+];
 
 /* SAME IMAGE LOGO AS NAVBAR */
 
@@ -135,28 +146,15 @@ export default function Footer() {
 
         <div className="footer-col">
 
-  <h4>
-    EXPEDITIONS
-  </h4>
+          <h4>EXPEDITIONS</h4>
 
-  <ul>
-
-    {[
-      'Urubaxi River · Brazil',
-      'Eco Lodge da Barra · Brazil',
-      'Xingu River · Brazil',
-      'Don Joaquin Lodge · Argentina',
-      'St Jean Salmon Lodge · Canada',
-      'South Florida · USA'
-    ].map(l => (
-
-      <li key={l}>
-        <a href="#tours">{l}</a>
-      </li>
-
-    ))}
-
-  </ul>
+          <ul>
+            {EXPEDITION_LINKS.map(({ label, to }) => (
+              <li key={to}>
+                <Link to={to}>{label}</Link>
+              </li>
+            ))}
+          </ul>
 
         </div>
 

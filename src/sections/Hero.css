@@ -5,6 +5,8 @@
   align-items: center;
   overflow: hidden;
   padding-bottom: 140px;
+  /* Static dark-green background visible immediately — before the video poster loads */
+  background-color: #05281c;
 }
 /* Fallback for browsers that don't support dvh (Safari < 15.4, Chrome < 108) */
 @supports not (min-height: 100dvh) {
@@ -59,6 +61,7 @@
   max-width: 820px;
   padding: 140px 60px 0;
   animation: fadeUp 1s ease both;
+  will-change: transform, opacity;
 }
 
 .hero-eyebrow {
@@ -205,6 +208,7 @@
   opacity: 0.6;
 
   animation: bounce 2.5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .scroll-line {

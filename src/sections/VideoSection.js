@@ -62,6 +62,8 @@ export default function VideoSection() {
                 alt={photo.alt || ''}
                 className="gallery-img"
                 loading="lazy"
+                width="400"
+                height="300"
                 onError={e => {
                   e.target.style.display = 'none';
                   e.target.parentNode.style.background = '#111';

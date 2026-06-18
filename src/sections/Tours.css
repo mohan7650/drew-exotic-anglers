@@ -59,6 +59,9 @@
   grid-template-columns: repeat(3, 1fr);
 
   gap: 20px;
+
+  /* Reserve height during loading so content below doesn't shift */
+  min-height: 580px;
 }
 
 /* CARD */

@@ -87,7 +87,7 @@
 }
 .tl-th--order   { width: 72px; text-align: center; }
 .tl-th--img     { width: 64px; }
-.tl-th--actions { width: 140px; text-align: right; }
+.tl-th--actions { width: 210px; text-align: right; }
 
 .tl-tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
 .tl-tr:last-child { border-bottom: none; }
@@ -170,6 +170,13 @@
   color: var(--cream);
 }
 .tl-btn--edit:hover { background: rgba(255,255,255,0.1); }
+
+.tl-btn--gallery {
+  background: rgba(29, 158, 117, 0.1);
+  border: 1px solid rgba(29, 158, 117, 0.2);
+  color: var(--teal-bright);
+}
+.tl-btn--gallery:hover { background: rgba(29, 158, 117, 0.2); }
 
 .tl-btn--delete {
   background: rgba(192,57,43,0.12);

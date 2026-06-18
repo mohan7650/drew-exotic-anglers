@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { to: '/admin/testimonials',        label: 'Testimonials',     icon: '⭐' },
   { to: '/admin/florida-day-trips',  label: 'Florida Day Trips', icon: '🌴' },
   { to: '/admin/video-section',      label: 'Video Section',     icon: '🎬' },
+  { to: '/admin/gallery',            label: 'Gallery',           icon: '🖼' },
   // Phase 3+ — uncomment as CRUD pages are built
   // { to: '/admin/species',  label: 'Species',  icon: '🐟' },
   // { to: '/admin/gallery',  label: 'Gallery',  icon: '🖼' },
