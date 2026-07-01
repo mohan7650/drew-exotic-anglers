@@ -1,35 +1,36 @@
 import React, { useState } from 'react';
 import './Newsletter.css';
 
-function encode(data) {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&');
-}
-
 export default function Newsletter() {
   const [email, setEmail]         = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading]     = useState(false);
-  const [error, setError]         = useState(false);
+  const [error, setError]         = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    setError(false);
+    setError('');
 
     try {
-      await fetch('/', {
+      const res = await fetch('/.netlify/functions/subscribe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'newsletter', email }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
       });
-      setSubmitted(true);
-      setEmail('');
-      setTimeout(() => setSubmitted(false), 6000);
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        setSubmitted(true);
+        setEmail('');
+        setTimeout(() => setSubmitted(false), 6000);
+      } else {
+        setError(data.message || 'Something went wrong. Please try again.');
+      }
     } catch {
-      setError(true);
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -50,15 +51,8 @@ export default function Newsletter() {
 
         <form
           className="newsletter-form"
-          name="newsletter"
-          method="POST"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
         >
-          <input type="hidden" name="form-name" value="newsletter" />
-          <input type="hidden" name="bot-field" />
-
           <input
             type="email"
             name="email"
@@ -81,9 +75,9 @@ export default function Newsletter() {
 
         {error && (
           <p className="newsletter-error" role="alert">
-            Something went wrong. Please try again or{' '}
+            {error}{' '}
             <a href="https://wa.me/17863425791" target="_blank" rel="noopener noreferrer">
-              message Drew directly
+              Message Drew directly
             </a>.
           </p>
         )}

@@ -207,6 +207,28 @@
   color: var(--cream);
 }
 
+/* FISH YOU'LL CHASE — embedded species section */
+.tds-species {
+  margin-bottom: 56px;
+  overflow: hidden;
+  overflow-x: clip;
+}
+
+.tds-species h2 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(93, 202, 165, 0.18);
+}
+
+.tds-species em {
+  color: var(--teal-light);
+  font-style: italic;
+}
+
 /* CTA */
 .tour-details-cta {
   display: flex;

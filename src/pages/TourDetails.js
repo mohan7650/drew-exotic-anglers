@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { listTourAssets } from '../services/tourAssetsService';
+import Species from '../sections/Species';
 import './TourDetails.css';
 
 // Seamless auto-scroll carousel for 4+ images.
@@ -249,6 +250,9 @@ export default function TourDetails() {
                 ))}
             </ul>
           </section>
+
+          {/* FISH YOU'LL CHASE */}
+          <Species embedded />
 
           {/* CTA */}
           <div className="tour-details-cta">
