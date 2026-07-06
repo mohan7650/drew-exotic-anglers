@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import { listTourAssets } from '../services/tourAssetsService';
+import { listTourDetails } from '../services/tourDetailsService';
+import { listTourSpecies } from '../services/tourSpeciesService';
 import Species from '../sections/Species';
 import './TourDetails.css';
 
@@ -53,10 +55,12 @@ function injectJsonLd(id, data) {
 
 export default function TourDetails() {
   const { slug } = useParams();
-  const [tour,    setTour]    = useState(null);
-  const [gallery, setGallery] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error,   setError]   = useState(null);
+  const [tour,        setTour]        = useState(null);
+  const [gallery,     setGallery]     = useState([]);
+  const [tourDetails,  setTourDetails]  = useState([]);
+  const [tourSpecies,  setTourSpecies]  = useState([]);
+  const [loading,     setLoading]     = useState(true);
+  const [error,       setError]       = useState(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -75,11 +79,17 @@ export default function TourDetails() {
         return;
       }
 
-      // Step 2 — fetch gallery from tour_assets (sequential: tour_id known only after step 1)
-      const assets = await listTourAssets(tourData.id).catch(() => []);
+      // Step 2 — fetch gallery, trip details, and fish in parallel
+      const [assets, details, species] = await Promise.all([
+        listTourAssets(tourData.id).catch(() => []),
+        listTourDetails(tourData.id).catch(() => []),
+        listTourSpecies(tourData.id).catch(() => []),
+      ]);
 
       setTour(tourData);
       setGallery(assets);
+      setTourDetails(details);
+      setTourSpecies(species);
       setLoading(false);
     };
 
@@ -229,43 +239,35 @@ export default function TourDetails() {
             </section>
           )}
 
-          {/* TRIP DETAILS */}
-          <section className="tour-details-info">
-            <h2>Trip Details</h2>
-            <ul className="tour-details-list">
-              {[
-                { label: 'Duration',       value: tour.duration },
-                { label: 'Departs',        value: tour.departs },
-                { label: 'Max Anglers',    value: tour.max_anglers },
-                { label: 'Target Species', value: tour.target_species },
-                { label: 'Style',          value: tour.style },
-                { label: 'Includes',       value: tour.includes },
-              ]
-                .filter(({ value }) => value != null && value !== '')
-                .map(({ label, value }) => (
-                  <li key={label}>
+          {/* TRIP DETAILS — CMS-driven from tour_details table */}
+          {tourDetails.length > 0 && (
+            <section className="tour-details-info">
+              <h2>Trip Details</h2>
+              <ul className="tour-details-list">
+                {tourDetails.map(({ id, label, value }) => (
+                  <li key={id}>
                     <span className="detail-label">{label}</span>
                     <span className="detail-value">{value}</span>
                   </li>
                 ))}
-            </ul>
-          </section>
+              </ul>
+            </section>
+          )}
 
-          {/* FISH YOU'LL CHASE */}
-          <Species embedded />
+          {/* FISH YOU'LL CHASE — shows only species linked to this tour */}
+          {tourSpecies.length > 0 && (
+            <Species embedded speciesList={tourSpecies} />
+          )}
 
           {/* CTA */}
           <div className="tour-details-cta">
-            {tour.booking_url && (
-              <a
-                href={tour.booking_url}
-                className="tour-details-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Book Now
-              </a>
-            )}
+            <Link
+              to="/booking-request"
+              state={{ expedition: tour.title }}
+              className="tour-details-btn"
+            >
+              Book Now
+            </Link>
             <Link to="/#tours" className="tour-details-link">
               View All Expeditions
             </Link>

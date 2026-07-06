@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getActiveFloridaDayTrip } from '../services/floridaDayTripsService';
 import { useAvailability } from '../hooks/useAvailability';
 import './FloridaTrips.css';
@@ -17,6 +18,7 @@ const FB_INCLUDED = [
 export default function FloridaTrips() {
   const [trip, setTrip]   = useState(null);
   const availability      = useAvailability();
+  const navigate           = useNavigate();
 
   // FareHarbor placeholder — date selector UI only, no backend
   const [selectedDate, setSelectedDate] = useState(null);
@@ -40,9 +42,18 @@ export default function FloridaTrips() {
 
   const displaySpecies  = species.length  > 0 ? species  : FB_SPECIES;
   const displayIncluded = included.length > 0 ? included : FB_INCLUDED;
-  const ctaText         = trip?.cta_text         || 'Check Availability →';
-  const ctaLink         = trip?.cta_link         || '#contact';
-  const availTitle      = trip?.availability_title || '⚡ Live Expedition Availability';
+  const ctaText    = trip?.cta_text || 'Check Availability →';
+  const availTitle = trip?.availability_title || '⚡ Live Expedition Availability';
+
+  function handleCheckAvailability() {
+    const state = { expedition: 'Florida Day Trip' };
+    if (selectedDate !== null) {
+      state.date = days[selectedDate].toLocaleDateString('en-US', {
+        weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+      });
+    }
+    navigate('/booking-request', { state });
+  }
 
   return (
     <section id="florida-day-trips" className="florida-trips">
@@ -155,11 +166,11 @@ export default function FloridaTrips() {
             <div className="florida-cal-note">Live booking calendar — instant confirmation via FareHarbor at launch.</div>
           </div>
 
-          <a href={ctaLink} className="btn-amber-full">
+          <button type="button" className="btn-amber-full" onClick={handleCheckAvailability}>
             {selectedDate !== null
               ? `Reserve ${days[selectedDate].toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} →`
               : ctaText}
-          </a>
+          </button>
           <p className="florida-trust">Capt Drew personally responds to every inquiry within 24 hours.</p>
 
         </div>

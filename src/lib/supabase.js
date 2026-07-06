@@ -10,7 +10,7 @@ const missing = [
   !key && 'REACT_APP_SUPABASE_ANON_KEY',
 ].filter(Boolean)
 
-if (missing.length) {
+if (missing.length) { 
   throw new Error(
     `Supabase is not configured. Missing variable${missing.length > 1 ? 's' : ''}:\n` +
     missing.map(v => `  • ${v}`).join('\n') +

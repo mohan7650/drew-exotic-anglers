@@ -3,8 +3,10 @@ import { listActiveSpecies } from '../services/speciesService';
 import './Species.css';
 
 function SpeciesCards({ species }) {
+  const useCarousel = species.length > 2;
+  const gridClass = useCarousel ? 'species-grid' : 'species-grid species-grid--static';
   return (
-    <div className="species-grid">
+    <div className={gridClass}>
       {species.map((s) => {
         const stars = Math.min(5, Math.max(0, Math.round(s.stars || 0)));
         return (

@@ -101,6 +101,16 @@
 
 }
 
+/* ───────────────── STATIC LAYOUT (1–2 cards) ───────────────── */
+
+.species-grid--static {
+  width: auto;
+  animation: none;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: unset;
+}
+
 /* ───────────────── CARD ───────────────── */
 
 .species-card {
