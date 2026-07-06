@@ -11,7 +11,7 @@ import About from './sections/About';
 import Tours from './sections/Tours';
 import FloridaTrips from './sections/FloridaTrips';
 import LocationMap from './components/LocationMap/LocationMap';
-import Species from './sections/Species';
+//import Species from './sections/Species';
 import VideoSection from './sections/VideoSection';
 import Newsletter from './sections/Newsletter';
 import Contact from './sections/Contact';
@@ -70,7 +70,7 @@ function HomePage() {
         <LocationMap />
         <About />
         {/* Florida Day Trips between tours and gallery per brief item #05 */}
-        <Species />
+        {/* <Species /> */}
         <VideoSection />
 
         {/* Newsletter signup above footer per brief item #11 */}
