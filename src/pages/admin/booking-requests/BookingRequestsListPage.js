@@ -274,7 +274,7 @@ export default function BookingRequestsListPage() {
               </div>
 
               <a
-                href={`mailto:${selected.email}?subject=Re: Your Drew Exotic Anglers Booking Request`}
+                href={`mailto:${selected.email}?subject=Re: Your Drew Guide Services Booking Request`}
                 className="brl-reply-btn"
               >
                 Reply to {selected.first_name} →
