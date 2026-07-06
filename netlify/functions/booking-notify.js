@@ -14,7 +14,7 @@ exports.handler = async (event) => {
 
   const apiKey         = process.env.BREVO_API_KEY;
   const senderEmail    = process.env.BREVO_SENDER_EMAIL;
-  const senderName     = process.env.BREVO_SENDER_NAME || 'Drew Guide Services';
+  const senderName     = process.env.BREVO_SENDER_NAME || "Drew's Guide Service";
   const drewEmail      = process.env.DREW_NOTIFICATION_EMAIL;
 
   if (!apiKey || !senderEmail || !drewEmail) {
@@ -96,7 +96,7 @@ exports.handler = async (event) => {
       </div>
 
       <div style="padding: 16px 32px; background: #f9f6ee; border-radius: 0 0 8px 8px; border: 1px solid #e5e5e5; border-top: none; text-align: center;">
-        <p style="margin: 0; font-size: 12px; color: #888;">Drew Guide Services · Admin Notification</p>
+        <p style="margin: 0; font-size: 12px; color: #888;">Drew's Guide Services · Admin Notification</p>
       </div>
     </div>
   `;
@@ -120,7 +120,7 @@ exports.handler = async (event) => {
           We received your request, ${booking.first_name}!
         </h2>
         <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #444;">
-          Thanks for contacting Drew Guide Services. We received your booking request for
+          Thanks for contacting Drew's Guide Service. We received your booking request for
           <strong>${booking.expedition || 'your expedition'}</strong>${booking.selected_date ? ` on <strong>${booking.selected_date}</strong>` : ''}.
         </p>
         <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #444;">
@@ -180,7 +180,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           sender:     { name: senderName, email: senderEmail },
           to:         [{ email: booking.email, name: customerName }],
-          subject:    'We received your booking request — Drew Guide Services',
+          subject: "We received your booking request — Drew's Guide Service",
           htmlContent: customerHtml,
         }),
         signal: AbortSignal.timeout(10000),
