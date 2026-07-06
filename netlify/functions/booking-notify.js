@@ -107,7 +107,7 @@ exports.handler = async (event) => {
     <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
       <div style="background: #0B3D2E; padding: 28px 32px; border-radius: 8px 8px 0 0; text-align: center;">
         <h1 style="margin: 0; color: #D4891A; font-size: 24px; letter-spacing: 0.04em;">
-          Drew Guide Services
+          Drew's Guide Services
         </h1>
         <p style="margin: 6px 0 0; color: rgba(250,246,238,0.7); font-size: 14px; letter-spacing: 0.06em;">
           WORLD-CLASS FISHING EXPEDITIONS
@@ -149,7 +149,7 @@ exports.handler = async (event) => {
 
       <div style="padding: 20px 32px; background: #0B3D2E; border-radius: 0 0 8px 8px; text-align: center;">
         <p style="margin: 0 0 4px; color: rgba(250,246,238,0.9); font-size: 14px; font-weight: 700;">
-          Drew Guide Services
+          Drew's Guide Service
         </p>
         <p style="margin: 0; font-size: 12px; color: rgba(250,246,238,0.5);">
           World-Class Fishing Expeditions
