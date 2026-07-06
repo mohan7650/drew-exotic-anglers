@@ -14,7 +14,7 @@ exports.handler = async (event) => {
 
   const apiKey         = process.env.BREVO_API_KEY;
   const senderEmail    = process.env.BREVO_SENDER_EMAIL;
-  const senderName     = process.env.BREVO_SENDER_NAME || 'Drew's Guide Services';
+  const senderName     = process.env.BREVO_SENDER_NAME || 'Drew Guide Services';
   const drewEmail      = process.env.DREW_NOTIFICATION_EMAIL;
 
   if (!apiKey || !senderEmail || !drewEmail) {
@@ -39,7 +39,7 @@ exports.handler = async (event) => {
           New Booking Request
         </h1>
         <p style="margin: 6px 0 0; color: rgba(250,246,238,0.7); font-size: 14px;">
-          Drew's Guide Services · ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          Drew Guide Services · ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
       </div>
 
@@ -96,7 +96,7 @@ exports.handler = async (event) => {
       </div>
 
       <div style="padding: 16px 32px; background: #f9f6ee; border-radius: 0 0 8px 8px; border: 1px solid #e5e5e5; border-top: none; text-align: center;">
-        <p style="margin: 0; font-size: 12px; color: #888;">Drew's Guide Services · Admin Notification</p>
+        <p style="margin: 0; font-size: 12px; color: #888;">Drew Guide Services · Admin Notification</p>
       </div>
     </div>
   `;
@@ -107,7 +107,7 @@ exports.handler = async (event) => {
     <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
       <div style="background: #0B3D2E; padding: 28px 32px; border-radius: 8px 8px 0 0; text-align: center;">
         <h1 style="margin: 0; color: #D4891A; font-size: 24px; letter-spacing: 0.04em;">
-          Drew's Guide Services
+          Drew Guide Services
         </h1>
         <p style="margin: 6px 0 0; color: rgba(250,246,238,0.7); font-size: 14px; letter-spacing: 0.06em;">
           WORLD-CLASS FISHING EXPEDITIONS
@@ -120,7 +120,7 @@ exports.handler = async (event) => {
           We received your request, ${booking.first_name}!
         </h2>
         <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #444;">
-          Thanks for contacting Drew's Guide Services. We received your booking request for
+          Thanks for contacting Drew Guide Services. We received your booking request for
           <strong>${booking.expedition || 'your expedition'}</strong>${booking.selected_date ? ` on <strong>${booking.selected_date}</strong>` : ''}.
         </p>
         <p style="margin: 0 0 24px; font-size: 15px; line-height: 1.7; color: #444;">
@@ -149,7 +149,7 @@ exports.handler = async (event) => {
 
       <div style="padding: 20px 32px; background: #0B3D2E; border-radius: 0 0 8px 8px; text-align: center;">
         <p style="margin: 0 0 4px; color: rgba(250,246,238,0.9); font-size: 14px; font-weight: 700;">
-          Drew's Guide Services
+          Drew Guide Services
         </p>
         <p style="margin: 0; font-size: 12px; color: rgba(250,246,238,0.5);">
           World-Class Fishing Expeditions
@@ -180,7 +180,7 @@ exports.handler = async (event) => {
         body: JSON.stringify({
           sender:     { name: senderName, email: senderEmail },
           to:         [{ email: booking.email, name: customerName }],
-          subject:    'We received your booking request — Drew's Guide Services',
+          subject:    'We received your booking request — Drew Guide Services',
           htmlContent: customerHtml,
         }),
         signal: AbortSignal.timeout(10000),
