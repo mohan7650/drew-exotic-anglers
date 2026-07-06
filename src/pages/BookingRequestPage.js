@@ -153,7 +153,7 @@ export default function BookingRequestPage() {
     return (
       <div className="brp-success-page">
         <nav className={`brp-nav${scrolled ? ' brp-nav--scrolled' : ''}`}>
-          <Link to="/" className="brp-nav-logo">Drew Guide services</Link>
+          <Link to="/" className="brp-nav-logo">Drew's Guide Services</Link>
         </nav>
         <div className="brp-success-wrap">
           <div className="brp-success-card">
@@ -181,7 +181,7 @@ export default function BookingRequestPage() {
     <div className="brp-page">
       {/* Minimal nav */}
       <nav className={`brp-nav${scrolled ? ' brp-nav--scrolled' : ''}`}>
-        <Link to="/" className="brp-nav-logo">Drew Guide services</Link>
+        <Link to="/" className="brp-nav-logo">Drew's Guide Services</Link>
         <Link to="/" className="brp-nav-back">← Back</Link>
       </nav>
 
