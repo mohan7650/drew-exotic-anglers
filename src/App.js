@@ -70,7 +70,7 @@ function HomePage() {
         <LocationMap />
         <About />
         {/* Florida Day Trips between tours and gallery per brief item #05 */}
-        <Species />
+        {/* <Species /> */}
         <VideoSection />
 
         {/* Newsletter signup above footer per brief item #11 */}
