@@ -195,6 +195,12 @@ export default function ToursListPage() {
                       >
                         Gallery
                       </Link>
+                      <Link
+                        to={`/admin/tours/${tour.id}/details`}
+                        className="tl-btn tl-btn--details"
+                      >
+                        Details
+                      </Link>
                       <button
                         className="tl-btn tl-btn--delete"
                         onClick={() => setDeleteTarget(tour)}

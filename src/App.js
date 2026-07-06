@@ -23,8 +23,9 @@ import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/admin/ProtectedRoute';
 
 // Non-home routes — lazy loaded (split into separate chunks, not in initial bundle)
-const TourDetails   = lazy(() => import('./pages/TourDetails'));
-const NotFound      = lazy(() => import('./pages/NotFound'));
+const TourDetails          = lazy(() => import('./pages/TourDetails'));
+const BookingRequestPage   = lazy(() => import('./pages/BookingRequestPage'));
+const NotFound             = lazy(() => import('./pages/NotFound'));
 
 // Admin routes — lazy loaded (users visiting the public site never download these)
 const AdminLayout              = lazy(() => import('./components/admin/AdminLayout'));
@@ -43,6 +44,8 @@ const FloridaDayTripsFormPage  = lazy(() => import('./pages/admin/florida-day-tr
 const VideoSectionAdminPage    = lazy(() => import('./pages/admin/video-section/VideoSectionAdminPage'));
 const GalleryAdminPage         = lazy(() => import('./pages/admin/gallery/GalleryAdminPage'));
 const TourGalleryPage          = lazy(() => import('./pages/admin/tours/TourGalleryPage'));
+const TourDetailsPage          = lazy(() => import('./pages/admin/tours/TourDetailsPage'));
+const BookingRequestsListPage  = lazy(() => import('./pages/admin/booking-requests/BookingRequestsListPage'));
 
 function HomePage() {
   const [scrolled, setScrolled] = useState(false);
@@ -89,6 +92,7 @@ function App() {
             {/* ── Public site */}
             <Route path="/" element={<HomePage />} />
             <Route path="/tour/:slug" element={<TourDetails />} />
+            <Route path="/booking-request" element={<BookingRequestPage />} />
 
             {/* ── Admin: public login */}
             <Route path="/admin/login" element={<LoginPage />} />
@@ -101,6 +105,7 @@ function App() {
                 <Route path="tours/new"           element={<TourFormPage />} />
                 <Route path="tours/:id/edit"      element={<TourFormPage />} />
                 <Route path="tours/:id/gallery"   element={<TourGalleryPage />} />
+                <Route path="tours/:id/details"   element={<TourDetailsPage />} />
                 <Route path="hero"           element={<HeroAdminPage />} />
                 <Route path="about"                    element={<AboutAdminPage />} />
                 <Route path="species"                  element={<SpeciesListPage />} />
@@ -114,6 +119,7 @@ function App() {
                 <Route path="florida-day-trips/:id/edit"    element={<FloridaDayTripsFormPage />} />
                 <Route path="video-section" element={<VideoSectionAdminPage />} />
                 <Route path="gallery" element={<GalleryAdminPage />} />
+                <Route path="booking-requests" element={<BookingRequestsListPage />} />
               </Route>
             </Route>
 

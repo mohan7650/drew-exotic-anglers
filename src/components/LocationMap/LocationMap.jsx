@@ -161,7 +161,7 @@ export default function LocationMap() {
             </div>
 
             <svg
-              viewBox="0 0 2000 857"
+              viewBox="80 0 820 857"
               xmlns="http://www.w3.org/2000/svg"
               className={styles.mapSvg}
               role="img"

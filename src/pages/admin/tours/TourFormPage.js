@@ -1,19 +1,22 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import AdminPageHeader from '../../../components/admin/ui/AdminPageHeader';
 import FormField from '../../../components/admin/ui/FormField';
 import ImageUpload from '../../../components/admin/ui/ImageUpload';
 import AdminSpinner from '../../../components/admin/AdminSpinner';
 import { getTour, createTour, updateTour, slugify } from '../../../services/toursService';
+import { listSpecies } from '../../../services/speciesService';
+import {
+  listTourSpeciesIds,
+  addTourSpecies,
+  removeTourSpecies,
+} from '../../../services/tourSpeciesService';
 import './TourFormPage.css';
-
-// ── Form field definitions ─────────────────────────────────────────────────
 
 const EMPTY = {
   title: '', slug: '', tag: '', meta: '',
   full_desc: '', gallery_desc: '',
-  duration: '', departs: '', max_anglers: '', target_species: '',
-  style: '', includes: '', booking_url: '', image_url: '',
+  booking_url: '', image_url: '',
 };
 
 function reducer(state, action) {
@@ -22,10 +25,143 @@ function reducer(state, action) {
   return state;
 }
 
-// ── Component ───────────────────────────────────────────────────────────────
+// ── Species selector (edit mode only) ──────────────────────────────────────
+function SpeciesSelector({ tourId }) {
+  const [allSpecies,      setAllSpecies]      = useState([]);
+  const [selectedIds,     setSelectedIds]     = useState(new Set());
+  const [loading,         setLoading]         = useState(true);
+  const [error,           setError]           = useState('');
+  const [togglingId,      setTogglingId]      = useState(null);
+  const [toggleError,     setToggleError]     = useState('');
 
+  const load = useCallback(async () => {
+    setError('');
+    try {
+      const [species, selections] = await Promise.all([
+        listSpecies(),
+        listTourSpeciesIds(tourId),
+      ]);
+      setAllSpecies(species);
+      setSelectedIds(new Set(selections.map(s => s.species_id)));
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [tourId]);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function handleToggle(speciesId) {
+    if (togglingId) return;
+    setTogglingId(speciesId);
+    setToggleError('');
+
+    const isSelected = selectedIds.has(speciesId);
+    // Optimistic update
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      isSelected ? next.delete(speciesId) : next.add(speciesId);
+      return next;
+    });
+
+    try {
+      if (isSelected) {
+        await removeTourSpecies(tourId, speciesId);
+      } else {
+        await addTourSpecies(tourId, speciesId);
+      }
+    } catch (e) {
+      // Revert optimistic update
+      setSelectedIds(prev => {
+        const next = new Set(prev);
+        isSelected ? next.add(speciesId) : next.delete(speciesId);
+        return next;
+      });
+      setToggleError(e.message);
+    } finally {
+      setTogglingId(null);
+    }
+  }
+
+  if (loading) {
+    return <p className="tfp-species-loading">Loading species…</p>;
+  }
+
+  if (error) {
+    return (
+      <p className="tfp-species-error">
+        ⚠ {error}
+        <button className="tfp-species-retry" onClick={load}>Retry</button>
+      </p>
+    );
+  }
+
+  const count = selectedIds.size;
+
+  return (
+    <div className="tfp-species-selector">
+      <p className="tfp-species-hint">
+        Select the species to feature in "The Fish You'll Chase" section on this tour's page.
+        Recommended: 2–3 species. {count > 0 && <strong>{count} selected</strong>}
+      </p>
+
+      {toggleError && (
+        <p className="tfp-species-error">⚠ {toggleError}</p>
+      )}
+
+      <div className="tfp-species-list">
+        {allSpecies.map(sp => {
+          const checked    = selectedIds.has(sp.id);
+          const isToggling = togglingId === sp.id;
+          const stars      = Math.min(5, Math.max(0, Math.round(sp.stars || 0)));
+
+          return (
+            <label
+              key={sp.id}
+              className={`tfp-species-row${checked ? ' tfp-species-row--checked' : ''}${isToggling ? ' tfp-species-row--toggling' : ''}`}
+            >
+              <input
+                type="checkbox"
+                className="tfp-species-checkbox"
+                checked={checked}
+                onChange={() => handleToggle(sp.id)}
+                disabled={!!togglingId}
+              />
+              {sp.image_url && (
+                <img
+                  src={sp.image_url}
+                  alt={sp.name}
+                  className="tfp-species-thumb"
+                  onError={e => { e.target.style.display = 'none'; }}
+                />
+              )}
+              <div className="tfp-species-info">
+                <span className="tfp-species-name">{sp.name}</span>
+                {sp.latin_name && (
+                  <span className="tfp-species-latin">{sp.latin_name}</span>
+                )}
+                {stars > 0 && (
+                  <span className="tfp-species-stars" aria-label={`${stars} stars`}>
+                    {'★'.repeat(stars)}{'☆'.repeat(5 - stars)}
+                  </span>
+                )}
+                {sp.difficulty && (
+                  <span className="tfp-species-diff">Difficulty: {sp.difficulty}</span>
+                )}
+              </div>
+              {isToggling && <span className="tfp-species-saving" aria-label="Saving">…</span>}
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── Main component ─────────────────────────────────────────────────────────
 export default function TourFormPage() {
-  const { id }    = useParams();          // undefined on /admin/tours/new
+  const { id }    = useParams();
   const isEdit    = Boolean(id);
   const navigate  = useNavigate();
 
@@ -33,24 +169,22 @@ export default function TourFormPage() {
   const [imageFile,   setImageFile]  = useState(null);
   const [slugTouched, setSlugTouched] = useState(false);
 
-  const [loading,     setLoading]    = useState(isEdit);
-  const [submitting,  setSubmitting] = useState(false);
-  const [errors,      setErrors]     = useState({});
-  const [saveError,   setSaveError]  = useState('');
+  const [loading,    setLoading]    = useState(isEdit);
+  const [submitting, setSubmitting] = useState(false);
+  const [errors,     setErrors]     = useState({});
+  const [saveError,  setSaveError]  = useState('');
 
-  // ── Load existing tour in edit mode
   useEffect(() => {
     if (!isEdit) return;
     getTour(id)
       .then((tour) => {
         dispatch({ type: 'SET_ALL', payload: { ...EMPTY, ...tour } });
-        setSlugTouched(true); // don't auto-overwrite existing slug
+        setSlugTouched(true);
       })
       .catch((e) => setSaveError(e.message))
       .finally(() => setLoading(false));
   }, [id, isEdit]);
 
-  // ── Auto-generate slug from title (create mode only)
   function handleTitleChange(value) {
     dispatch({ type: 'SET_FIELD', field: 'title', value });
     if (!slugTouched) {
@@ -62,7 +196,6 @@ export default function TourFormPage() {
     return (e) => dispatch({ type: 'SET_FIELD', field, value: e.target.value });
   }
 
-  // ── Validation
   function validate() {
     const errs = {};
     if (!fields.title.trim())  errs.title = 'Title is required.';
@@ -73,7 +206,6 @@ export default function TourFormPage() {
     return errs;
   }
 
-  // ── Submit
   async function handleSubmit(e) {
     e.preventDefault();
     setSaveError('');
@@ -83,19 +215,13 @@ export default function TourFormPage() {
     setSubmitting(true);
 
     const payload = {
-      title:          fields.title.trim(),
-      slug:           fields.slug.trim(),
-      tag:            fields.tag.trim(),
-      meta:           fields.meta.trim(),
-      full_desc:      fields.full_desc.trim(),
-      gallery_desc:   fields.gallery_desc.trim(),
-      duration:       fields.duration.trim(),
-      departs:        fields.departs.trim(),
-      max_anglers:    fields.max_anglers.trim(),
-      target_species: fields.target_species.trim(),
-      style:          fields.style.trim(),
-      includes:       fields.includes.trim(),
-      booking_url:    fields.booking_url.trim(),
+      title:        fields.title.trim(),
+      slug:         fields.slug.trim(),
+      tag:          fields.tag.trim(),
+      meta:         fields.meta.trim(),
+      full_desc:    fields.full_desc.trim(),
+      gallery_desc: fields.gallery_desc.trim(),
+      booking_url:  fields.booking_url.trim(),
     };
 
     try {
@@ -124,6 +250,26 @@ export default function TourFormPage() {
       {saveError && (
         <div className="tfp-save-error" role="alert">
           <span>⚠</span> {saveError}
+        </div>
+      )}
+
+      {/* Sub-page navigation (edit mode only) */}
+      {isEdit && (
+        <div className="tfp-subpages">
+          <Link to={`/admin/tours/${id}/gallery`} className="tfp-subpage-link">
+            <span className="tfp-subpage-icon">🖼</span>
+            <div>
+              <strong>Expedition Gallery</strong>
+              <span>Upload &amp; reorder gallery photos</span>
+            </div>
+          </Link>
+          <Link to={`/admin/tours/${id}/details`} className="tfp-subpage-link">
+            <span className="tfp-subpage-icon">📋</span>
+            <div>
+              <strong>Trip Details</strong>
+              <span>Add, edit &amp; reorder detail rows</span>
+            </div>
+          </Link>
         </div>
       )}
 
@@ -210,61 +356,6 @@ export default function TourFormPage() {
           </div>
         </fieldset>
 
-        {/* ── Section: Trip logistics */}
-        <fieldset className="tfp-section">
-          <legend className="tfp-section-title">Trip Details</legend>
-          <div className="tfp-grid-3">
-            <FormField
-              id="duration"
-              label="Duration"
-              value={fields.duration}
-              onChange={set('duration')}
-              placeholder="7 nights / 6 days fishing"
-              disabled={submitting}
-            />
-            <FormField
-              id="departs"
-              label="Departs"
-              value={fields.departs}
-              onChange={set('departs')}
-              placeholder="Manaus, Brazil"
-              disabled={submitting}
-            />
-            <FormField
-              id="max_anglers"
-              label="Max Anglers"
-              value={fields.max_anglers}
-              onChange={set('max_anglers')}
-              placeholder="6"
-              disabled={submitting}
-            />
-            <FormField
-              id="target_species"
-              label="Target Species"
-              value={fields.target_species}
-              onChange={set('target_species')}
-              placeholder="Peacock Bass, Arapaima, Payara"
-              disabled={submitting}
-            />
-            <FormField
-              id="style"
-              label="Style"
-              value={fields.style}
-              onChange={set('style')}
-              placeholder="Fly & Conventional"
-              disabled={submitting}
-            />
-            <FormField
-              id="includes"
-              label="Includes"
-              value={fields.includes}
-              onChange={set('includes')}
-              placeholder="Accommodation, meals, guides…"
-              disabled={submitting}
-            />
-          </div>
-        </fieldset>
-
         {/* ── Section: Booking */}
         <fieldset className="tfp-section">
           <legend className="tfp-section-title">Booking</legend>
@@ -278,6 +369,14 @@ export default function TourFormPage() {
             disabled={submitting}
           />
         </fieldset>
+
+        {/* ── Section: Fish You'll Chase (edit mode only — requires tour ID) */}
+        {isEdit && (
+          <fieldset className="tfp-section">
+            <legend className="tfp-section-title">Fish You'll Chase</legend>
+            <SpeciesSelector tourId={id} />
+          </fieldset>
+        )}
 
         {/* ── Actions */}
         <div className="tfp-actions">
