@@ -111,6 +111,13 @@ export async function updateTour(id, fields, imageFile, oldImageUrl) {
 // ── Delete ─────────────────────────────────────────────────────────────────
 
 export async function deleteTour(id, imageUrl) {
+  const childTables = ['tour_gallery', 'tour_assets', 'tour_fish', 'tour_details', 'tour_species'];
+
+  for (const table of childTables) {
+    const { error } = await supabase.from(table).delete().eq('tour_id', id);
+    if (error) throw new Error(`Failed to delete from ${table}: ${error.message}`);
+  }
+
   const { error } = await supabase.from(TABLE).delete().eq('id', id);
   if (error) throw new Error(error.message);
 
