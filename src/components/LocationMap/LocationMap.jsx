@@ -31,6 +31,7 @@ const locations = [
     flag: '🇧🇷',
     tag: 'Floating Lodge',
     cx: 670, cy: 510,
+    label_offset_x: -48, label_offset_y: 0,
     desc: 'A floating lodge experience targeting Peacock Bass and twenty-plus Amazonian species. Comfort-focused, ideal for first journeys into the basin.',
     season: 'Sept – Mar',
     species: ['Peacock Bass', 'Arapaima', 'Catfish'],
@@ -44,6 +45,7 @@ const locations = [
     flag: '🇧🇷',
     tag: 'Remote',
     cx: 715, cy: 515,
+    label_offset_x: 44, label_offset_y: 6,
     desc: 'Truly remote expedition fishing on the Xingu — trophy Peacock Bass and Arapaima in waters that see almost no other anglers.',
     season: 'By Request',
     species: ['Peacock Bass', 'Arapaima', 'Payara'],
@@ -354,8 +356,8 @@ export default function LocationMap() {
 
                       {/* Label */}
                       <text
-                        x={l.cx}
-                        y={l.cy + (l.cy > 500 ? 46 : -36)}
+                        x={l.cx + (l.label_offset_x || 0)}
+                        y={l.cy + (l.cy > 500 ? 46 : -36) + (l.label_offset_y || 0)}
                         textAnchor="middle"
                         fontSize="13"
                         fontFamily="'Cormorant Garamond', 'Playfair Display', serif"
