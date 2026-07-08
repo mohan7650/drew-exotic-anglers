@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import { useAvailability } from '../hooks/useAvailability';
 import './Contact.css';
 
-function encode(data) {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&');
-}
-
 export default function Contact() {
   const availability = useAvailability();
   const [fields, setFields] = useState({
@@ -32,11 +26,12 @@ export default function Contact() {
     setError(false);
 
     try {
-      await fetch('/', {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({ 'form-name': 'contact', ...fields }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(fields),
       });
+      if (!res.ok) throw new Error('Request failed');
       setSent(true);
       setFields({
         firstName: '', lastName: '', email: '',
@@ -90,15 +85,9 @@ export default function Contact() {
 
       <form
         className="contact-form"
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
         onSubmit={handleSubmit}
         noValidate
       >
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="hidden" name="bot-field" />
 
         {/* Spot Availability scarcity trigger per brief item #06 */}
         {availability.length > 0 && (
