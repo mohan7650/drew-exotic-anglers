@@ -133,7 +133,7 @@ export default function BookingRequestPage() {
       await createBookingRequest(payload);
 
       // Fire-and-forget email notification (non-blocking)
-      fetch('/.netlify/functions/booking-notify', {
+      fetch(`${process.env.REACT_APP_API_URL}/api/booking-notify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
