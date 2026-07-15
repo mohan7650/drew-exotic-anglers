@@ -1,53 +1,28 @@
 import React, { useState, useCallback } from 'react';
 import Cropper from 'react-easy-crop';
+import { getCroppedBlob } from '../../../utils/cropImage';
 import './CropModal.css';
 
-const ASPECT = 4 / 3;
-
-function createImage(url) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.addEventListener('load', () => resolve(img));
-    img.addEventListener('error', () => reject(new Error('Failed to load image for cropping')));
-    img.src = url;
-  });
-}
-
-async function getCroppedBlob(imageSrc, pixelCrop) {
-  const image = await createImage(imageSrc);
-  const canvas = document.createElement('canvas');
-  canvas.width = pixelCrop.width;
-  canvas.height = pixelCrop.height;
-  const ctx = canvas.getContext('2d');
-
-  ctx.drawImage(
-    image,
-    pixelCrop.x,
-    pixelCrop.y,
-    pixelCrop.width,
-    pixelCrop.height,
-    0,
-    0,
-    pixelCrop.width,
-    pixelCrop.height,
-  );
-
-  return new Promise((resolve, reject) => {
-    canvas.toBlob(
-      blob => (blob ? resolve(blob) : reject(new Error('Canvas export failed'))),
-      'image/webp',
-      0.92,
-    );
-  });
-}
-
-export default function CropModal({ imageSrc, onCancel, onApply }) {
-  const [crop, setCrop] = useState({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+/**
+ * Full-screen crop/position modal backed by react-easy-crop.
+ *
+ * Props:
+ *   imageSrc  {string}           - URL or object URL of the image to crop
+ *   aspect    {number}           - Crop aspect ratio (default 4/3)
+ *   onCancel  {() => void}
+ *   onApply   {(blob: Blob) => void}
+ */
+export default function CropModal({
+  imageSrc,
+  aspect = 4 / 3,
+  onCancel,
+  onApply,
+}) {
+  const [crop,              setCrop]              = useState({ x: 0, y: 0 });
+  const [zoom,              setZoom]              = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [applying, setApplying] = useState(false);
-  const [error, setError] = useState('');
+  const [applying,          setApplying]          = useState(false);
+  const [error,             setError]             = useState('');
 
   const onCropComplete = useCallback((_area, pixels) => {
     setCroppedAreaPixels(pixels);
@@ -87,7 +62,7 @@ export default function CropModal({ imageSrc, onCancel, onApply }) {
             image={imageSrc}
             crop={crop}
             zoom={zoom}
-            aspect={ASPECT}
+            aspect={aspect}
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}

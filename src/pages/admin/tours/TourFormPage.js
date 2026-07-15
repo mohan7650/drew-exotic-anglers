@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import AdminPageHeader from '../../../components/admin/ui/AdminPageHeader';
 import FormField from '../../../components/admin/ui/FormField';
 import ImageUpload from '../../../components/admin/ui/ImageUpload';
+import CropModal from '../../../components/admin/ui/CropModal';
 import AdminSpinner from '../../../components/admin/AdminSpinner';
 import { getTour, createTour, updateTour, slugify } from '../../../services/toursService';
 import { listSpecies } from '../../../services/speciesService';
@@ -11,7 +12,12 @@ import {
   addTourSpecies,
   removeTourSpecies,
 } from '../../../services/tourSpeciesService';
+import { fetchAsSrcUrl, blobToFile } from '../../../utils/cropImage';
 import './TourFormPage.css';
+
+// Tour cards are displayed in a 3-column grid with fixed height 560px.
+// Column width ≈ 387px at 1200px viewport → ratio ≈ 387:560, closest clean value is 5:7.
+const HERO_ASPECT = 5 / 7;
 
 const EMPTY = {
   title: '', slug: '', tag: '', meta: '',
@@ -27,12 +33,12 @@ function reducer(state, action) {
 
 // ── Species selector (edit mode only) ──────────────────────────────────────
 function SpeciesSelector({ tourId }) {
-  const [allSpecies,      setAllSpecies]      = useState([]);
-  const [selectedIds,     setSelectedIds]     = useState(new Set());
-  const [loading,         setLoading]         = useState(true);
-  const [error,           setError]           = useState('');
-  const [togglingId,      setTogglingId]      = useState(null);
-  const [toggleError,     setToggleError]     = useState('');
+  const [allSpecies,  setAllSpecies]  = useState([]);
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [loading,     setLoading]     = useState(true);
+  const [error,       setError]       = useState('');
+  const [togglingId,  setTogglingId]  = useState(null);
+  const [toggleError, setToggleError] = useState('');
 
   const load = useCallback(async () => {
     setError('');
@@ -58,7 +64,6 @@ function SpeciesSelector({ tourId }) {
     setToggleError('');
 
     const isSelected = selectedIds.has(speciesId);
-    // Optimistic update
     setSelectedIds(prev => {
       const next = new Set(prev);
       isSelected ? next.delete(speciesId) : next.add(speciesId);
@@ -72,7 +77,6 @@ function SpeciesSelector({ tourId }) {
         await addTourSpecies(tourId, speciesId);
       }
     } catch (e) {
-      // Revert optimistic update
       setSelectedIds(prev => {
         const next = new Set(prev);
         isSelected ? next.add(speciesId) : next.delete(speciesId);
@@ -84,9 +88,7 @@ function SpeciesSelector({ tourId }) {
     }
   }
 
-  if (loading) {
-    return <p className="tfp-species-loading">Loading species…</p>;
-  }
+  if (loading) return <p className="tfp-species-loading">Loading species…</p>;
 
   if (error) {
     return (
@@ -106,9 +108,7 @@ function SpeciesSelector({ tourId }) {
         Recommended: 2–3 species. {count > 0 && <strong>{count} selected</strong>}
       </p>
 
-      {toggleError && (
-        <p className="tfp-species-error">⚠ {toggleError}</p>
-      )}
+      {toggleError && <p className="tfp-species-error">⚠ {toggleError}</p>}
 
       <div className="tfp-species-list">
         {allSpecies.map(sp => {
@@ -161,27 +161,33 @@ function SpeciesSelector({ tourId }) {
 
 // ── Main component ─────────────────────────────────────────────────────────
 export default function TourFormPage() {
-  const { id }    = useParams();
-  const isEdit    = Boolean(id);
-  const navigate  = useNavigate();
+  const { id }   = useParams();
+  const isEdit   = Boolean(id);
+  const navigate = useNavigate();
 
-  const [fields,      dispatch]      = useReducer(reducer, EMPTY);
-  const [imageFile,   setImageFile]  = useState(null);
-  const [slugTouched, setSlugTouched] = useState(false);
+  const [fields,       dispatch]       = useReducer(reducer, EMPTY);
+  const [imageFile,    setImageFile]   = useState(null);
+  const [slugTouched,  setSlugTouched] = useState(false);
 
   const [loading,    setLoading]    = useState(isEdit);
   const [submitting, setSubmitting] = useState(false);
   const [errors,     setErrors]     = useState({});
   const [saveError,  setSaveError]  = useState('');
 
+  // ── Crop state ─────────────────────────────────────────────────────────
+  const [cropSrc,        setCropSrc]        = useState(null);
+  const [pendingObjUrl,  setPendingObjUrl]  = useState(null);
+  const [cropPreviewUrl, setCropPreviewUrl] = useState(null);
+  const [imgKey,         setImgKey]         = useState(0);
+
   useEffect(() => {
     if (!isEdit) return;
     getTour(id)
-      .then((tour) => {
+      .then(tour => {
         dispatch({ type: 'SET_ALL', payload: { ...EMPTY, ...tour } });
         setSlugTouched(true);
       })
-      .catch((e) => setSaveError(e.message))
+      .catch(e => setSaveError(e.message))
       .finally(() => setLoading(false));
   }, [id, isEdit]);
 
@@ -193,13 +199,47 @@ export default function TourFormPage() {
   }
 
   function set(field) {
-    return (e) => dispatch({ type: 'SET_FIELD', field, value: e.target.value });
+    return e => dispatch({ type: 'SET_FIELD', field, value: e.target.value });
   }
 
+  // ── Crop handlers ──────────────────────────────────────────────────────
+  function handleImageSelect(file) {
+    const url = URL.createObjectURL(file);
+    if (pendingObjUrl) URL.revokeObjectURL(pendingObjUrl);
+    setPendingObjUrl(url);
+    setCropSrc(url);
+  }
+
+  async function handleAdjustCrop() {
+    const src = cropPreviewUrl || fields.image_url;
+    if (!src) return;
+    const { objUrl } = await fetchAsSrcUrl(src);
+    if (pendingObjUrl) URL.revokeObjectURL(pendingObjUrl);
+    setPendingObjUrl(objUrl);
+    setCropSrc(objUrl);
+  }
+
+  function handleCropApply(blob) {
+    if (pendingObjUrl) { URL.revokeObjectURL(pendingObjUrl); setPendingObjUrl(null); }
+    setCropSrc(null);
+
+    setImageFile(blobToFile(blob, 'tour-hero'));
+    if (cropPreviewUrl) URL.revokeObjectURL(cropPreviewUrl);
+    setCropPreviewUrl(URL.createObjectURL(blob));
+    setImgKey(k => k + 1);
+  }
+
+  function handleCropCancel() {
+    if (pendingObjUrl) { URL.revokeObjectURL(pendingObjUrl); setPendingObjUrl(null); }
+    setCropSrc(null);
+    setImgKey(k => k + 1);
+  }
+
+  // ── Form submit ────────────────────────────────────────────────────────
   function validate() {
     const errs = {};
-    if (!fields.title.trim())  errs.title = 'Title is required.';
-    if (!fields.slug.trim())   errs.slug  = 'Slug is required.';
+    if (!fields.title.trim()) errs.title = 'Title is required.';
+    if (!fields.slug.trim())  errs.slug  = 'Slug is required.';
     if (!/^[a-z0-9-]+$/.test(fields.slug.trim())) {
       errs.slug = 'Slug may only contain lowercase letters, numbers, and hyphens.';
     }
@@ -238,6 +278,8 @@ export default function TourFormPage() {
   }
 
   if (loading) return <AdminSpinner />;
+
+  const currentImageSrc = cropPreviewUrl || fields.image_url;
 
   return (
     <div className="tfp-page">
@@ -279,10 +321,21 @@ export default function TourFormPage() {
         <div className="tfp-two-col">
           <div className="tfp-col">
             <ImageUpload
-              currentUrl={fields.image_url}
-              onChange={setImageFile}
+              key={imgKey}
+              currentUrl={currentImageSrc}
+              onChange={handleImageSelect}
               disabled={submitting}
             />
+            {currentImageSrc && (
+              <button
+                type="button"
+                className="tfp-btn-adjust-crop"
+                onClick={handleAdjustCrop}
+                disabled={submitting}
+              >
+                ✂ Adjust Crop
+              </button>
+            )}
           </div>
 
           <div className="tfp-col tfp-col--fields">
@@ -291,7 +344,7 @@ export default function TourFormPage() {
               label="Title"
               required
               value={fields.title}
-              onChange={(e) => handleTitleChange(e.target.value)}
+              onChange={e => handleTitleChange(e.target.value)}
               placeholder="Amazon Peacock Bass Expedition"
               disabled={submitting}
               error={errors.title}
@@ -301,7 +354,7 @@ export default function TourFormPage() {
               label="URL Slug"
               required
               value={fields.slug}
-              onChange={(e) => {
+              onChange={e => {
                 setSlugTouched(true);
                 set('slug')(e);
               }}
@@ -370,7 +423,7 @@ export default function TourFormPage() {
           />
         </fieldset>
 
-        {/* ── Section: Fish You'll Chase (edit mode only — requires tour ID) */}
+        {/* ── Section: Fish You'll Chase (edit mode only) */}
         {isEdit && (
           <fieldset className="tfp-section">
             <legend className="tfp-section-title">Fish You'll Chase</legend>
@@ -402,6 +455,16 @@ export default function TourFormPage() {
         </div>
 
       </form>
+
+      {/* ── Crop modal */}
+      {cropSrc && (
+        <CropModal
+          imageSrc={cropSrc}
+          aspect={HERO_ASPECT}
+          onCancel={handleCropCancel}
+          onApply={handleCropApply}
+        />
+      )}
     </div>
   );
 }

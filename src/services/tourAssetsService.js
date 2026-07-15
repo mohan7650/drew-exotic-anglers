@@ -58,6 +58,30 @@ export async function updateTourAssetAlt(id, alt) {
   return data;
 }
 
+// ── Update image (reposition / re-crop) ───────────────────────────────────
+
+export async function updateTourAssetImage(id, imageFile, oldImageUrl) {
+  if (!imageFile) throw new Error('An image file is required.');
+
+  const ext  = imageFile.name.split('.').pop();
+  const path = `assets/reposition-${id}-${Date.now()}.${ext}`;
+  const image_url = await uploadImage(BUCKET, imageFile, path);
+
+  const { data, error } = await supabase
+    .from(TABLE)
+    .update({ image_url })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  const oldPath = extractStoragePath(oldImageUrl, BUCKET);
+  if (oldPath) deleteImages(BUCKET, [oldPath]).catch(() => {});
+
+  return data;
+}
+
 // ── Reorder ────────────────────────────────────────────────────────────────
 
 export async function reorderTourAssets(updates) {
