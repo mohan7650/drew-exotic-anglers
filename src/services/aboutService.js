@@ -3,7 +3,7 @@ import { uploadImage, deleteImages, extractStoragePath } from './storageService'
 
 const TABLE    = 'about';
 const FT_TABLE = 'about_features';
-const BUCKET   = 'about-assets';
+const BUCKET   = 'about';
 
 // ── About (single row) ─────────────────────────────────────────────────────
 

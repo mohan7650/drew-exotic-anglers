@@ -2,7 +2,7 @@ import { supabase } from '../lib/supabase';
 import { uploadImage, deleteImages, extractStoragePath } from './storageService';
 
 const TABLE  = 'video_section';
-const BUCKET = 'video-section';
+const BUCKET = 'video';
 
 // ── Public ─────────────────────────────────────────────────────────────────
 // Returns the single active record, or null if none exists.
