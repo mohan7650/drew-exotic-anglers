@@ -8,7 +8,7 @@ export default function Contact() {
     firstName: '',
     lastName: '',
     email: '',
-    tripType: 'Urubaxi Full Week (Fri–Fri)',
+    tripType: 'Jurubaxi Full Week',
     groupSize: 'Solo (1 angler)',
     message: '',
   });
@@ -35,7 +35,7 @@ export default function Contact() {
       setSent(true);
       setFields({
         firstName: '', lastName: '', email: '',
-        tripType: 'Urubaxi Full Week (Fri–Fri)',
+        tripType: 'Jurubaxi',
         groupSize: 'Solo (1 angler)', message: '',
       });
       setTimeout(() => setSent(false), 8000);
@@ -52,13 +52,13 @@ export default function Contact() {
         <div className="section-tag-line">Get in Touch</div>
         <h2 className="section-title">Reserve Your <em>Expedition.</em></h2>
         <p className="section-sub">
-          Ready to fish the Urubaxi? Call Capt Drew directly, message on WhatsApp,
+          Call Capt Drew directly, message on WhatsApp,
           or fill out the form — Drew personally responds within 24 hours.
         </p>
 
         {[
-          { icon: '📍', text: 'Barcelos, Amazonas, Brazil — Base for Urubaxi River' },
-          { icon: '📞', text: '(786) 342-5791 — Capt Drew Direct', href: 'tel:7863425791' },
+          { icon: '📍', text: 'Miami, FL' },
+          { icon: '📞', text: '+1 (786) 342-5791 — Capt Drew Direct', href: 'tel:7863425791' },
           { icon: '💬', text: 'WhatsApp: +1 (786) 342-5791 — Preferred for international clients', whatsapp: true, href: 'https://wa.me/17863425791' },
           { icon: '🌐', text: 'drewsguideservice.com · Capt Drew Rodriguez' },
           { icon: '🗓️', text: 'Trips run 7 days' },
@@ -156,7 +156,7 @@ export default function Contact() {
               value={fields.tripType}
               onChange={handleChange}
             >
-              <option>Urubaxi Full Week (Fri–Fri)</option>
+              <option>Jurubaxi Full Week</option>
               <option>Kalua II Trophy Hunt</option>
               <option>Jurubaxi River Special</option>
               <option>Argentina Don Joaquin (Golden Dorado)</option>

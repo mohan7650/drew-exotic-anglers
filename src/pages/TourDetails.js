@@ -38,7 +38,7 @@ function GalleryCarousel({ images, tourTitle }) {
 
 const SITE       = 'https://drewsguideservice.com';
 const DEFAULT_TITLE = "Drew's Guide Service — Capt Drew Rodriguez · Orvis Endorsed";
-const DEFAULT_DESC  = "Capt Drew Rodriguez — 10 Years Orvis Endorsed. Exclusive Peacock Bass fishing on the Urubaxi River, Amazon Brazil. Aboard the Kalua II. Florida day trips. From the Canals to the World.";
+const DEFAULT_DESC  = "Capt Drew Rodriguez — 10 Years Orvis Endorsed. Exclusive Peacock Bass fishing on the Jurubaxi River, Amazon Brazil. Aboard the Kalua II. Florida day trips. From the Canals to the World.";
 
 function setMeta(sel, attr, value) {
   document.querySelector(sel)?.setAttribute(attr, value);
@@ -163,7 +163,7 @@ export default function TourDetails() {
       setMeta('meta[property="og:url"]',          'content', `${SITE}/`);
       setMeta('meta[property="og:image"]',        'content', `${SITE}/images/gallery/catch-1.webp`);
       setMeta('meta[name="twitter:title"]',       'content', "Drew's Guide Service — Orvis Endorsed Amazon Fishing");
-      setMeta('meta[name="twitter:description"]', 'content', "Exclusive Peacock Bass fishing on the Urubaxi River. 10 Years Orvis Endorsed. Capt Drew Rodriguez — Miami, FL.");
+      setMeta('meta[name="twitter:description"]', 'content', "Exclusive Peacock Bass fishing on the Jurubaxi River. 10 Years Orvis Endorsed. Capt Drew Rodriguez — Miami, FL.");
       setMeta('meta[name="twitter:image"]',       'content', `${SITE}/images/gallery/catch-1.webp`);
       setMeta('link[rel="canonical"]',            'href',    `${SITE}/`);
       document.getElementById('tour-jsonld')?.remove();

@@ -39,7 +39,7 @@ exports.handler = async (event) => {
           New Booking Request
         </h1>
         <p style="margin: 6px 0 0; color: rgba(250,246,238,0.7); font-size: 14px;">
-          Drew Guide Services · ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          Drew's Guide Service · ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
       </div>
 

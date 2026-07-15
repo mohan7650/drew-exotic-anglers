@@ -6,7 +6,7 @@ import './VideoSection.css';
 // Hardcoded fallbacks — shown when Supabase data is unavailable
 const FB = {
   eyebrow:     'Watch the Action',
-  title:       'See the <em>Urubaxi</em> in Action',
+  title:       'See the <em>Jurubaxi</em> in Action',
   subtitle:    'Real footage. Real fish. Real clients having the time of their lives aboard the Kalua II.',
   video_url:   'https://www.youtube.com/embed/_ycYRB8875A',
   description: '"This trip is the best guarantee for double-digit Peacock Bass at the best price in the world. I couldn\'t stress that enough."',
@@ -44,7 +44,7 @@ export default function VideoSection() {
 
       {/* GALLERY HEADER */}
       <div className="gallery-header">
-        <div className="section-tag-line center">From the Glades</div>
+        <div className="section-tag-line center">From the River</div>
         <h2 className="section-title">
           Real Catches, Real <em>Memories</em>
         </h2>
@@ -78,7 +78,7 @@ export default function VideoSection() {
       )}
 
       <p className="gallery-note">
-        All catches on the Urubaxi River — aboard the Kalua II with Capt Drew
+        All catches on the River with Drew
       </p>
 
       {/* VIDEO HEADER */}
