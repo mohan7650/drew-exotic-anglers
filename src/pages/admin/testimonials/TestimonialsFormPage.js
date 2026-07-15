@@ -3,16 +3,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AdminPageHeader from '../../../components/admin/ui/AdminPageHeader';
 import FormField from '../../../components/admin/ui/FormField';
 import ImageUpload from '../../../components/admin/ui/ImageUpload';
+import CropModal from '../../../components/admin/ui/CropModal';
 import AdminSpinner from '../../../components/admin/AdminSpinner';
 import {
   getTestimonial,
   createTestimonial,
   updateTestimonial,
 } from '../../../services/testimonialsService';
+import { fetchAsSrcUrl, blobToFile } from '../../../utils/cropImage';
 import './TestimonialsFormPage.css';
 
-// ── Form state ─────────────────────────────────────────────────────────────
+// Testimonial images are displayed as background-image on a 320×220 div in
+// WhyUs.css — ratio 320:220 = 16:11.
+const PHOTO_ASPECT = 16 / 11;
 
+// ── Form state ─────────────────────────────────────────────────────────────
 const EMPTY = {
   name:      '',
   location:  '',
@@ -30,7 +35,6 @@ function reducer(state, action) {
 }
 
 // ── Component ───────────────────────────────────────────────────────────────
-
 export default function TestimonialsFormPage() {
   const { id }   = useParams();
   const isEdit   = Boolean(id);
@@ -43,6 +47,12 @@ export default function TestimonialsFormPage() {
   const [submitting, setSubmitting] = useState(false);
   const [errors,     setErrors]     = useState({});
   const [saveError,  setSaveError]  = useState('');
+
+  // ── Crop state ─────────────────────────────────────────────────────────
+  const [cropSrc,        setCropSrc]        = useState(null);
+  const [pendingObjUrl,  setPendingObjUrl]  = useState(null);
+  const [cropPreviewUrl, setCropPreviewUrl] = useState(null);
+  const [imgKey,         setImgKey]         = useState(0);
 
   useEffect(() => {
     if (!isEdit) return;
@@ -60,6 +70,40 @@ export default function TestimonialsFormPage() {
     dispatch({ type: 'SET_FIELD', field, value: !fields[field] });
   }
 
+  // ── Crop handlers ──────────────────────────────────────────────────────
+  function handleImageSelect(file) {
+    const url = URL.createObjectURL(file);
+    if (pendingObjUrl) URL.revokeObjectURL(pendingObjUrl);
+    setPendingObjUrl(url);
+    setCropSrc(url);
+  }
+
+  async function handleAdjustCrop() {
+    const src = cropPreviewUrl || fields.image_url;
+    if (!src) return;
+    const { objUrl } = await fetchAsSrcUrl(src);
+    if (pendingObjUrl) URL.revokeObjectURL(pendingObjUrl);
+    setPendingObjUrl(objUrl);
+    setCropSrc(objUrl);
+  }
+
+  function handleCropApply(blob) {
+    if (pendingObjUrl) { URL.revokeObjectURL(pendingObjUrl); setPendingObjUrl(null); }
+    setCropSrc(null);
+
+    setImageFile(blobToFile(blob, 'testimonial-photo'));
+    if (cropPreviewUrl) URL.revokeObjectURL(cropPreviewUrl);
+    setCropPreviewUrl(URL.createObjectURL(blob));
+    setImgKey(k => k + 1);
+  }
+
+  function handleCropCancel() {
+    if (pendingObjUrl) { URL.revokeObjectURL(pendingObjUrl); setPendingObjUrl(null); }
+    setCropSrc(null);
+    setImgKey(k => k + 1);
+  }
+
+  // ── Validation + submit ────────────────────────────────────────────────
   function validate() {
     const errs = {};
     if (!fields.name.trim())   errs.name   = 'Name is required.';
@@ -99,6 +143,8 @@ export default function TestimonialsFormPage() {
 
   if (loading) return <AdminSpinner />;
 
+  const currentImageSrc = cropPreviewUrl || fields.image_url;
+
   return (
     <div className="tfm-page">
       <AdminPageHeader
@@ -119,11 +165,22 @@ export default function TestimonialsFormPage() {
         <div className="tfm-two-col">
           <div className="tfm-col">
             <ImageUpload
-              currentUrl={fields.image_url}
-              onChange={setImageFile}
+              key={imgKey}
+              currentUrl={currentImageSrc}
+              onChange={handleImageSelect}
               disabled={submitting}
               label="Customer Photo"
             />
+            {currentImageSrc && (
+              <button
+                type="button"
+                className="tfm-btn-adjust-crop"
+                onClick={handleAdjustCrop}
+                disabled={submitting}
+              >
+                ✂ Adjust Crop
+              </button>
+            )}
           </div>
 
           <div className="tfm-col tfm-col--fields">
@@ -165,7 +222,6 @@ export default function TestimonialsFormPage() {
           <legend className="tfm-section-title">Rating &amp; Visibility</legend>
           <div className="tfm-grid-3">
 
-            {/* Stars */}
             <div className="tfm-field-group">
               <label className="tfm-label" htmlFor="rating">Star Rating</label>
               <select
@@ -186,7 +242,6 @@ export default function TestimonialsFormPage() {
               </span>
             </div>
 
-            {/* Featured */}
             <div className="tfm-field-group">
               <label className="tfm-label">Featured</label>
               <button
@@ -206,7 +261,6 @@ export default function TestimonialsFormPage() {
               <p className="tfm-field-hint">Featured reviews may be highlighted on the site.</p>
             </div>
 
-            {/* Active */}
             <div className="tfm-field-group">
               <label className="tfm-label">Visibility</label>
               <button
@@ -249,6 +303,16 @@ export default function TestimonialsFormPage() {
         </div>
 
       </form>
+
+      {/* ── Crop modal */}
+      {cropSrc && (
+        <CropModal
+          imageSrc={cropSrc}
+          aspect={PHOTO_ASPECT}
+          onCancel={handleCropCancel}
+          onApply={handleCropApply}
+        />
+      )}
     </div>
   );
 }

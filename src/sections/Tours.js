@@ -21,10 +21,6 @@ export default function Tours() {
       <div className="tours-header">
         <div className="section-tag-line">Expeditions</div>
         <h2 className="section-title">Fish with <em>Capt Drew</em></h2>
-        <p className="section-sub">
-          Every trip runs 7 full days fishing the Jurubaxi.
-          Spots are strictly limited.
-        </p>
       </div>
 
       {loading && (

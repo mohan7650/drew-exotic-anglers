@@ -281,3 +281,24 @@
   0%, 100% { opacity: 0.4; }
   50%       { opacity: 1; }
 }
+
+/* ── Adjust Crop button under hero image upload */
+.tfp-btn-adjust-crop {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px 0;
+  background: rgba(46, 125, 82, 0.1);
+  border: 1px solid rgba(46, 125, 82, 0.22);
+  border-radius: 5px;
+  color: #4caf7d;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tfp-btn-adjust-crop:hover:not(:disabled) { background: rgba(46, 125, 82, 0.2); }
+.tfp-btn-adjust-crop:disabled { opacity: 0.38; cursor: not-allowed; }
