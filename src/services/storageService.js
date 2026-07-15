@@ -10,16 +10,47 @@ import { supabase } from '../lib/supabase';
  * @returns {Promise<string>} Public URL of the uploaded file
  */
 export async function uploadImage(bucket, file, path) {
+  // Diagnostic log — printed before every upload so failures are traceable in the console.
+  console.log('[Storage Upload] pre-flight', {
+    supabaseUrl: process.env.REACT_APP_SUPABASE_URL,
+    bucket,
+    path,
+    fileName: file?.name,
+    fileType: file?.type,
+    fileSize: file?.size,
+  });
+
   const { data, error } = await supabase.storage
     .from(bucket)
     .upload(path, file, { upsert: true, cacheControl: '3600' });
 
-  if (error) throw new Error(`Storage upload failed: ${error.message}`);
+  if (error) {
+    // Log the full Supabase error object — statusCode, error type, and message
+    // are all distinct fields that the SDK preserves but a plain .message throw discards.
+    console.error('[Storage Upload] failed', {
+      supabaseUrl: process.env.REACT_APP_SUPABASE_URL,
+      bucket,
+      path,
+      fileName: file?.name,
+      fileType: file?.type,
+      fileSize: file?.size,
+      statusCode: error.statusCode,
+      errorType: error.error,
+      message: error.message,
+      fullError: error,
+    });
+    throw new Error(
+      `Storage upload failed — bucket: "${bucket}", path: "${path}", ` +
+      `status: ${error.statusCode ?? 'unknown'}, ` +
+      `error: ${error.error ?? ''} — ${error.message}`
+    );
+  }
 
   const { data: { publicUrl } } = supabase.storage
     .from(bucket)
     .getPublicUrl(data.path);
 
+  console.log('[Storage Upload] success', { bucket, path, publicUrl });
   return publicUrl;
 }
 

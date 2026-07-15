@@ -84,7 +84,7 @@ const locations = [
     region: 'Miami · USA',
     flag: '🇺🇸',
     tag: 'Home Water',
-    cx: 566, cy: 324,
+    cx: 540, cy: 320,
     desc: "Drew's home water. Full-day freshwater trips through Miami's canals — Peacock Bass, Largemouth, twenty-plus species. Bookable online.",
     season: 'Year-round',
     species: ['Peacock Bass', 'Largemouth', 'Snakehead'],

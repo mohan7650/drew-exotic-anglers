@@ -5,14 +5,14 @@ import './Hero.css';
 // Hardcoded fallback — renders immediately without any network request.
 // Supabase data overwrites this once it arrives.
 const FALLBACK = {
-  eyebrow: 'Amazon · Florida · Orvis Endorsed',
-  title: "The World's Greatest <em>Peacock Bass</em> Fishing.",
+  eyebrow: '25+ years in the everglades - orvised endorsed guide Built In the glades exploring fisheries worldwide',
+  title: "From the Glades to the <em>World. Bass</em> ",
   subtitle:
-    'Capt Drew Rodriguez. 10 Years Orvis Endorsed. Urubaxi River, Amazon Brazil. From the Canals to the World.',
-  primary_cta_text: 'Plan My Expedition',
-  primary_cta_link: '#contact',
-  secondary_cta_text: 'See Expeditions',
-  secondary_cta_link: '#tours',
+    "Canada to South America. World-class fisheries across the Americas. Access you won't get anywhere else.",
+  primary_cta_text: 'Explore Tours',
+  primary_cta_link: '#tours',
+  secondary_cta_text: 'Book a Florida Day Trip',
+  secondary_cta_link: '#florida-day-trips',
   poster_image: null,
   background_video: null,
 };

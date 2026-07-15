@@ -2,7 +2,7 @@ import { supabase } from '../lib/supabase';
 import { uploadImage, deleteImages, extractStoragePath } from './storageService';
 
 const TABLE  = 'species';
-const BUCKET = 'species-images';
+const BUCKET = 'species';
 
 // ── Read ───────────────────────────────────────────────────────────────────
 
