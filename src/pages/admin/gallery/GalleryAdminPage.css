@@ -164,33 +164,6 @@
 }
 .gap-card-alt--empty { color: var(--text-muted); font-style: italic; }
 
-/* Size badge */
-.gap-size-badge {
-  align-self: flex-start;
-  padding: 2px 7px;
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-.gap-size-badge--small  {
-  background: rgba(99,179,237,0.1);
-  border: 1px solid rgba(99,179,237,0.25);
-  color: #63b3ed;
-}
-.gap-size-badge--medium {
-  background: rgba(212,137,26,0.12);
-  border: 1px solid rgba(212,137,26,0.25);
-  color: var(--amber);
-}
-.gap-size-badge--large  {
-  background: rgba(74,222,128,0.1);
-  border: 1px solid rgba(74,222,128,0.25);
-  color: #4ade80;
-}
-
 /* Card action buttons */
 .gap-card-actions {
   padding: 8px 10px 10px;

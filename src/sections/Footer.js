@@ -4,12 +4,14 @@ import './Footer.css';
 
 // Slugs match sitemap.xml and the Supabase tours table
 const EXPEDITION_LINKS = [
-  { label: 'Urubaxi River · Brazil',        to: '/tour/kalua-1-jurubaxi-river' },
+  { label: 'South Florida Day Trips',       to: '/#florida-day-trips' },
+  { label: 'St Jean Salmon Club · Canada',  to: '/tour/canada-st-jean-salmon-club' },
   { label: 'Eco Lodge da Barra · Brazil',   to: '/tour/brazil-eco-lodge-da-barra' },
   { label: 'Xingu River · Brazil',          to: '/tour/brazil-xingu-river' },
+  { label: 'Jurubaxi River · Brazil',        to: '/tour/kalua-1-jurubaxi-river' },
   { label: 'Don Joaquin Lodge · Argentina', to: '/tour/argentina-don-joaquin-river-lodge' },
-  { label: 'St Jean Salmon Club · Canada',  to: '/tour/canada-st-jean-salmon-club' },
-  { label: 'South Florida Day Trips',       to: '/#florida-day-trips' },
+  
+  
 ];
 
 /* SAME IMAGE LOGO AS NAVBAR */
@@ -66,7 +68,7 @@ export default function Footer() {
           <p className="footer-desc">
 
             U.S.C.G. Licensed guide from Miami, Florida.
-            Exclusive access to the Urubaxi River aboard the Kalua II.
+            Exclusive access to the Jurubaxi River aboard the Kalua II.
             Florida day trips. Global expeditions in Brazil,
             Argentina, and Canada.
 
@@ -151,7 +153,9 @@ export default function Footer() {
           <ul>
             {EXPEDITION_LINKS.map(({ label, to }) => (
               <li key={to}>
-                <Link to={to}>{label}</Link>
+                {to.startsWith('/#')
+                  ? <a href={to}>{label}</a>
+                  : <Link to={to}>{label}</Link>}
               </li>
             ))}
           </ul>

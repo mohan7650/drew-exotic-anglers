@@ -5,7 +5,7 @@ import './BookingRequestPage.css';
 
 const EXPEDITIONS = [
   'Florida Day Trip',
-  'Amazon – Urubaxi',
+  'Amazon – Jurubaxi',
   'Amazon – Kalua II',
   'Amazon – Jurubaxi',
   'Argentina – Don Joaquin',

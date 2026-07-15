@@ -323,7 +323,7 @@ export default function TourFormPage() {
               label="Short Description (listing card)"
               value={fields.meta}
               onChange={set('meta')}
-              placeholder="6 days • Peacock Bass • Urubaxi River"
+              placeholder="6 days • Peacock Bass • Jurubaxi River"
               disabled={submitting}
             />
           </div>

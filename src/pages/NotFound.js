@@ -23,7 +23,7 @@ export default function NotFound() {
           Lost on the <em>River?</em>
         </h1>
         <p className="not-found-sub">
-          This page doesn't exist — but the Urubaxi does.
+          This page doesn't exist — but the Jurubaxi does.
           Let's get you back on the water.
         </p>
         <div className="not-found-actions">

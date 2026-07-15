@@ -11,8 +11,8 @@ import { WORLD_PATH } from './worldPath';
 
 const locations = [
   {
-    id: 'urubaxi',
-    name: 'Urubaxi River',
+    id: 'Jurubaxi',
+    name: 'Jurubaxi River',
     region: 'Amazonas, Brazil',
     flag: '🇧🇷',
     flagship: true,
@@ -433,7 +433,7 @@ export default function LocationMap() {
                 <div className={styles.panelLegend}>
                   <div className={styles.legendRow}>
                     <span className={`${styles.legendPin} ${styles.legendPinGold}`} />
-                    <span className={styles.legendLabel}>Flagship · Urubaxi</span>
+                    <span className={styles.legendLabel}>Flagship · Jurubaxi</span>
                   </div>
                   <div className={styles.legendRow}>
                     <span className={`${styles.legendPin} ${styles.legendPinTeal}`} />

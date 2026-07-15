@@ -9,7 +9,7 @@ const BUCKET = 'gallery';
 export async function getGalleryPhotos() {
   const { data, error } = await supabase
     .from(TABLE)
-    .select('id, image_url, alt, size, created_at')
+    .select('id, image_url, alt, created_at')
     .order('created_at', { ascending: false });
   if (error) throw new Error(error.message);
   return data ?? [];
@@ -28,8 +28,7 @@ export async function createGalleryPhoto(fields, imageFile) {
     .from(TABLE)
     .insert({
       image_url,
-      alt:  fields.alt?.trim()  ?? '',
-      size: fields.size         ?? 'medium',
+      alt: fields.alt?.trim() ?? '',
     })
     .select()
     .single();
@@ -57,8 +56,7 @@ export async function updateGalleryPhoto(id, fields, imageFile, oldImageUrl) {
     .from(TABLE)
     .update({
       image_url,
-      alt:  fields.alt?.trim()  ?? '',
-      size: fields.size         ?? 'medium',
+      alt: fields.alt?.trim() ?? '',
     })
     .eq('id', id)
     .select()

@@ -13,7 +13,7 @@ import {
 import '../hero/HeroAdminPage.css';
 import './GalleryAdminPage.css';
 
-const EMPTY_FORM = { alt: '', size: 'medium', image_url: '' };
+const EMPTY_FORM = { alt: '', image_url: '' };
 
 export default function GalleryAdminPage() {
   // ── Photo list
@@ -60,7 +60,7 @@ export default function GalleryAdminPage() {
 
   function openEdit(photo) {
     setEditTarget(photo);
-    setFormFields({ alt: photo.alt || '', size: photo.size || 'medium', image_url: photo.image_url || '' });
+    setFormFields({ alt: photo.alt || '', image_url: photo.image_url || '' });
     setImageFile(null);
     setSaveError('');
     setFormOpen(true);
@@ -178,22 +178,10 @@ export default function GalleryAdminPage() {
                   label="Alt Text"
                   value={formFields.alt}
                   onChange={setField('alt')}
-                  placeholder="Peacock Bass catch on the Urubaxi River"
+                  placeholder="Peacock Bass catch on the Jurubaxi River"
                   disabled={saving}
                   hint="Describe the photo for accessibility and captions."
                 />
-                <FormField
-                  id="size"
-                  label="Display Size"
-                  as="select"
-                  value={formFields.size}
-                  onChange={setField('size')}
-                  disabled={saving}
-                >
-                  <option value="small">Small</option>
-                  <option value="medium">Medium</option>
-                  <option value="large">Large</option>
-                </FormField>
               </div>
             </div>
 
@@ -254,9 +242,6 @@ export default function GalleryAdminPage() {
                 <p className={`gap-card-alt${!photo.alt ? ' gap-card-alt--empty' : ''}`}>
                   {photo.alt || 'No alt text'}
                 </p>
-                <span className={`gap-size-badge gap-size-badge--${photo.size || 'medium'}`}>
-                  {photo.size || 'medium'}
-                </span>
               </div>
 
               <div className="gap-card-actions">

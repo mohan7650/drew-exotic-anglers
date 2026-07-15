@@ -136,7 +136,7 @@ export default function VideoSectionAdminPage() {
                   label="Title"
                   value={fields.title}
                   onChange={set('title')}
-                  placeholder="See the <em>Urubaxi</em> in Action"
+                  placeholder="See the <em>Jurubaxi</em> in Action"
                   disabled={submitting}
                   hint="HTML rendered — wrap words in <em> for italics."
                 />
