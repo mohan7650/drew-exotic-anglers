@@ -218,6 +218,61 @@
 }
 .gap-empty-cta:hover { color: var(--gold-light); }
 
+/* ── Reposition button on card */
+.gap-btn--reposition {
+  background: rgba(46, 125, 82, 0.1);
+  border: 1px solid rgba(46, 125, 82, 0.22);
+  color: #4caf7d;
+}
+.gap-btn--reposition:hover:not(:disabled) {
+  background: rgba(46, 125, 82, 0.2);
+}
+.gap-btn--reposition:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* Loading overlay on card while repositioning */
+.gap-card-repos-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Adjust Crop button below ImageUpload in form panel */
+.gap-btn-adjust-crop {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px 0;
+  background: rgba(46, 125, 82, 0.1);
+  border: 1px solid rgba(46, 125, 82, 0.22);
+  border-radius: 5px;
+  color: #4caf7d;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.gap-btn-adjust-crop:hover:not(:disabled) {
+  background: rgba(46, 125, 82, 0.2);
+}
+.gap-btn-adjust-crop:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
 /* ── Responsive */
 @media (max-width: 700px) {
   .gap-form-body { grid-template-columns: 1fr; }
