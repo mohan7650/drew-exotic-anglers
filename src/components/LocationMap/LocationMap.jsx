@@ -11,14 +11,14 @@ import { WORLD_PATH } from './worldPath';
 
 const locations = [
   {
-    id: 'Jurubaxi',
-    name: 'Jurubaxi River',
-    region: 'Amazonas, Brazil',
+    id: 'kalua',
+    name: 'Kalua I & II',
+    region: 'Jurubaxi River, Brazil',
     flag: '🇧🇷',
-    flagship: true,
-    tag: 'Flagship',
-    cx: 649, cy: 495,
-    desc: 'Two hundred and forty miles of private river aboard the Kalua I & II. World-record territory for Giant Peacock Bass — most fish here have never seen a lure.',
+    tag: 'Expedition Vessel',
+    cx: 657, cy: 504,
+    label_offset_x: 30, label_offset_y: -65,
+    desc: 'Twin expedition houseboats navigating 240 miles of private Jurubaxi River in the Amazon. The Kalua I & II serve as live-aboard base camp and transport for the flagship Peacock Bass expedition.',
     season: 'Sept – Jan',
     species: ['Peacock Bass', 'Payara', 'Arowana'],
     price: 'On Request',
@@ -30,8 +30,8 @@ const locations = [
     region: 'Amazon Basin, Brazil',
     flag: '🇧🇷',
     tag: 'Floating Lodge',
-    cx: 670, cy: 510,
-    label_offset_x: -48, label_offset_y: 0,
+    cx: 665, cy: 515,
+    label_offset_x: 0, label_offset_y: 14,
     desc: 'A floating lodge experience targeting Peacock Bass and twenty-plus Amazonian species. Comfort-focused, ideal for first journeys into the basin.',
     season: 'Sept – Mar',
     species: ['Peacock Bass', 'Arapaima', 'Catfish'],
@@ -44,7 +44,7 @@ const locations = [
     region: 'Pará, Brazil',
     flag: '🇧🇷',
     tag: 'Remote',
-    cx: 715, cy: 515,
+    cx: 717, cy: 513,
     label_offset_x: 44, label_offset_y: 6,
     desc: 'Truly remote expedition fishing on the Xingu — trophy Peacock Bass and Arapaima in waters that see almost no other anglers.',
     season: 'By Request',
@@ -54,24 +54,39 @@ const locations = [
   },
   {
     id: 'don-joaquin',
-    name: 'Don Joaquin Lodge',
-    region: 'Patagonia, Argentina',
+    name: 'Don Joaquín River',
+    region: 'Corrientes, Argentina',
     flag: '🇦🇷',
     tag: 'Trophy Waters',
-    cx: 613, cy: 758,
-    desc: 'World-class lodge fishing in Patagonia — Golden Dorado on the rivers, Brown Trout in the streams. One of the finest lodges in the Southern Hemisphere.',
+    cx: 688, cy: 677,
+    desc: 'World-class expedition fishing in Corrientes, Argentina — Golden Dorado on the legendary Don Joaquín River. One of the finest Golden Dorado destinations in the world.',
     season: 'Nov – Mar',
-    species: ['Golden Dorado', 'Brown Trout', 'Rainbow'],
+    species: ['Golden Dorado', 'Pacu', 'Surubí'],
+    price: 'On Request',
+    bookHref: '#contact',
+  },
+  {
+    id: 'gaspe',
+    name: 'Gaspé Peninsula',
+    region: 'Quebec, Canada',
+    flag: '🇨🇦',
+    tag: 'Remote Salmon',
+    cx: 700, cy: 150,
+    label_offset_x: 38, label_offset_y: 0,
+    desc: 'Atlantic Salmon fishing on the legendary rivers of the Gaspé Peninsula. Remote Quebec wilderness — world-class fly fishing in pristine headwaters above the Gulf of St. Lawrence.',
+    season: 'Jun – Sep',
+    species: ['Atlantic Salmon', 'Brook Trout', 'Landlocked Salmon'],
     price: 'On Request',
     bookHref: '#contact',
   },
   {
     id: 'st-jean',
-    name: 'St Jean Salmon Lodge',
+    name: 'St. Jean Salmon Club',
     region: 'Quebec, Canada',
     flag: '🇨🇦',
     tag: 'Northern Trophy',
-    cx: 615, cy: 178,
+    cx: 638, cy: 177,
+    label_offset_x: -42, label_offset_y: 0,
     desc: 'Atlantic Salmon and trophy trout on a remote Quebec river — summer trips when the Amazon is off-season.',
     season: 'Jun – Sep',
     species: ['Atlantic Salmon', 'Brook Trout'],
@@ -81,11 +96,12 @@ const locations = [
   {
     id: 'florida',
     name: 'South Florida',
-    region: 'Miami · USA',
+    region: 'South Florida · USA',
     flag: '🇺🇸',
+    flagship: true,
     tag: 'Home Water',
-    cx: 540, cy: 320,
-    desc: "Drew's home water. Full-day freshwater trips through Miami's canals — Peacock Bass, Largemouth, twenty-plus species. Bookable online.",
+    cx: 540, cy: 334,
+    desc: "Drew's home water. Full-day freshwater trips through South Florida's canals — Peacock Bass, Largemouth, twenty-plus species. Bookable online.",
     season: 'Year-round',
     species: ['Peacock Bass', 'Largemouth', 'Snakehead'],
     price: '$900 · Day Trip',
@@ -159,7 +175,7 @@ export default function LocationMap() {
             <div className={styles.mapMeta}>
               <span className={styles.coords}>25°46′N · 80°11′W</span>
               <span className={styles.metaDivider}>·</span>
-              <span className={styles.metaLabel}>HOME PORT · MIAMI</span>
+              <span className={styles.metaLabel}>HOME PORT · SOUTH FLORIDA</span>
             </div>
 
             <svg
@@ -317,9 +333,9 @@ export default function LocationMap() {
                         cy={l.cy}
                         r={isActive || isHover ? 16 : 13}
                         fill="none"
-                        stroke={l.flagship ? '#d4a017' : '#5dcaa5'}
-                        strokeWidth="1"
-                        opacity="0.55"
+                        stroke={isActive || isHover ? '#d4a017' : l.flagship ? '#d4a017' : '#5dcaa5'}
+                        strokeWidth={isActive || isHover ? 1.5 : 1}
+                        opacity={isActive || isHover ? 0.85 : 0.55}
                         className={styles.pinRing}
                       />
 
@@ -328,10 +344,10 @@ export default function LocationMap() {
                         cx={l.cx}
                         cy={l.cy}
                         r={isActive || isHover ? 9 : 7}
-                        fill={l.flagship ? '#d4a017' : '#0f6e56'}
+                        fill={isActive || isHover ? '#d4a017' : l.flagship ? '#d4a017' : '#0f6e56'}
                         stroke="#f5ecd6"
                         strokeWidth="1.5"
-                        filter={l.flagship ? 'url(#goldGlow)' : 'url(#pinGlow)'}
+                        filter="url(#goldGlow)"
                         className={styles.pinCore}
                       />
 
@@ -340,7 +356,7 @@ export default function LocationMap() {
                         cx={l.cx}
                         cy={l.cy}
                         r="2.5"
-                        fill={l.flagship ? '#fff5dc' : '#a8e6c8'}
+                        fill={isActive || isHover ? '#fff5dc' : l.flagship ? '#fff5dc' : '#a8e6c8'}
                       />
 
                       {/* Connecting line to label */}
@@ -349,7 +365,7 @@ export default function LocationMap() {
                         y1={l.cy + (l.cy > 500 ? 18 : -18)}
                         x2={l.cx}
                         y2={l.cy + (l.cy > 500 ? 32 : -32)}
-                        stroke={l.flagship ? '#d4a017' : '#5dcaa5'}
+                        stroke={isActive || isHover ? '#d4a017' : l.flagship ? '#d4a017' : '#5dcaa5'}
                         strokeWidth="0.8"
                         opacity="0.6"
                       />
@@ -363,12 +379,12 @@ export default function LocationMap() {
                         fontFamily="'Cormorant Garamond', 'Playfair Display', serif"
                         fontStyle="italic"
                         fontWeight="500"
-                        fill={l.flagship ? '#f0c668' : '#a8e6c8'}
+                        fill={isActive || isHover ? '#f0c668' : l.flagship ? '#f0c668' : '#a8e6c8'}
                         className={styles.pinLabel}
                       >
                         {l.name}
                       </text>
-                      {l.flagship && (
+                      {l.flagship && l.id !== 'florida' && (
                         <text
                           x={l.cx}
                           y={l.cy + (l.cy > 500 ? 60 : -50)}
@@ -430,16 +446,6 @@ export default function LocationMap() {
                   </p>
                 </div>
 
-                <div className={styles.panelLegend}>
-                  <div className={styles.legendRow}>
-                    <span className={`${styles.legendPin} ${styles.legendPinGold}`} />
-                    <span className={styles.legendLabel}>Flagship · Jurubaxi</span>
-                  </div>
-                  <div className={styles.legendRow}>
-                    <span className={`${styles.legendPin} ${styles.legendPinTeal}`} />
-                    <span className={styles.legendLabel}>Standard Destination</span>
-                  </div>
-                </div>
 
                 <div className={styles.chipsWrap}>
                   <div className={styles.chipsLabel}>Index</div>
