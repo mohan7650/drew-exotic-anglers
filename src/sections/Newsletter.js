@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE } from '../lib/apiBase';
 import './Newsletter.css';
 
 export default function Newsletter() {
@@ -14,7 +15,7 @@ export default function Newsletter() {
     setError('');
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/subscribe`, {
+      const res = await fetch(`${API_BASE}/api/subscribe`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),

@@ -22,71 +22,31 @@ router.post('/', async (req, res) => {
 
   const headers = brevoHeaders(apiKey);
 
-  let checkRes;
+  // Single idempotent upsert. `updateEnabled: true` creates the contact if new,
+  // or updates it and adds it to the list if it already exists. This replaces
+  // the previous GET /contacts/{email} existence-check + conditional create/add
+  // flow: that lookup endpoint is intermittently slow on Brevo's side (~30s
+  // stalls behind their Cloudflare edge) and was surfacing as user-facing 502s.
+  // The POST /contacts upsert responds reliably in ~0.4s.
   try {
-    checkRes = await fetch(`${BREVO_API}/contacts/${encodeURIComponent(email)}`, {
+    const upsertRes = await fetch(`${BREVO_API}/contacts`, {
+      method: 'POST',
       headers,
-      signal: AbortSignal.timeout(8000),
+      body: JSON.stringify({ email, listIds: [listId], updateEnabled: true }),
+      signal: AbortSignal.timeout(12000),
     });
+
+    // 201 = created (new contact), 204 = updated/added to list — both success.
+    if (upsertRes.status === 201 || upsertRes.status === 204 || upsertRes.ok) {
+      return res.status(200).json({ message: "You're subscribed! Welcome to the Drewsletter." });
+    }
+
+    const err = await upsertRes.json().catch(() => ({}));
+    console.error('[subscribe] Brevo upsert error:', upsertRes.status, err);
+    return res.status(500).json({ message: 'Failed to subscribe. Please try again.' });
   } catch (err) {
-    console.error('[subscribe] Brevo GET timeout/network error:', err.message);
+    console.error('[subscribe] Brevo network/timeout error:', err.message);
     return res.status(502).json({ message: 'Network error. Please try again.' });
-  }
-
-  try {
-    if (checkRes.status === 404) {
-      // New contact — create and add to list in one call
-      const createRes = await fetch(`${BREVO_API}/contacts`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ email, listIds: [listId], updateEnabled: false }),
-        signal: AbortSignal.timeout(8000),
-      });
-
-      if (createRes.status === 204 || createRes.ok) {
-        return res.status(200).json({ message: "You're subscribed! Welcome to the Drewsletter." });
-      }
-
-      const err = await createRes.json().catch(() => ({}));
-      console.error('[subscribe] Brevo create error:', createRes.status, err);
-      return res.status(500).json({ message: 'Failed to subscribe. Please try again.' });
-    }
-
-    if (checkRes.ok) {
-      // Existing contact — check if already in this list
-      const contact = await checkRes.json();
-      const inList = Array.isArray(contact.listIds) && contact.listIds.includes(listId);
-
-      if (inList) {
-        return res.status(200).json({
-          message: "You're already subscribed!",
-          alreadySubscribed: true,
-        });
-      }
-
-      // Add existing contact to list
-      const addRes = await fetch(`${BREVO_API}/contacts/lists/${listId}/contacts/add`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ emails: [email] }),
-        signal: AbortSignal.timeout(8000),
-      });
-
-      if (addRes.ok || addRes.status === 204) {
-        return res.status(200).json({ message: "You're subscribed! Welcome to the Drewsletter." });
-      }
-
-      const err = await addRes.json().catch(() => ({}));
-      console.error('[subscribe] Brevo add-to-list error:', addRes.status, err);
-      return res.status(500).json({ message: 'Failed to subscribe. Please try again.' });
-    }
-
-    // Unexpected status from Brevo
-    console.error('[subscribe] Brevo unexpected status:', checkRes.status);
-    return res.status(502).json({ message: 'Service unavailable. Please try again.' });
-  } catch (err) {
-    console.error('[subscribe] Unexpected error:', err.message);
-    return res.status(500).json({ message: 'An unexpected error occurred. Please try again.' });
   }
 });
 

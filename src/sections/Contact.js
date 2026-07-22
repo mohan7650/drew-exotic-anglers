@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAvailability } from '../hooks/useAvailability';
+import { API_BASE } from '../lib/apiBase';
 import './Contact.css';
 
 export default function Contact() {
@@ -26,7 +27,7 @@ export default function Contact() {
     setError(false);
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
+      const res = await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fields),

@@ -39,12 +39,17 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
   message: { message: 'Too many requests. Please try again later.' },
 });
-app.use('/api', apiLimiter);
+// NOTE: In production the Enhance panel proxies this app at path "/api" and
+// STRIPS that prefix before forwarding, so requests arrive as /booking-notify,
+// /subscribe, /contact. Local dev (and any direct call) uses the /api/* form.
+// Mount both so the app works behind the proxy AND locally. Do not remove the
+// bare-path mounts on a git redeploy or live email delivery breaks.
+app.use(['/api', '/booking-notify', '/subscribe', '/contact'], apiLimiter);
 
 // ── Routes ────────────────────────────────────────────────────────────────────
-app.use('/api/booking-notify', bookingNotifyRoute);
-app.use('/api/subscribe',      subscribeRoute);
-app.use('/api/contact',        contactRoute);
+app.use(['/api/booking-notify', '/booking-notify'], bookingNotifyRoute);
+app.use(['/api/subscribe', '/subscribe'],           subscribeRoute);
+app.use(['/api/contact', '/contact'],               contactRoute);
 
 // ── Health check ──────────────────────────────────────────────────────────────
 app.get('/health', (req, res) => res.json({ status: 'ok' }));

@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { createBookingRequest } from '../services/bookingRequestService';
+import { API_BASE } from '../lib/apiBase';
 import './BookingRequestPage.css';
 
 const EXPEDITIONS = [
@@ -133,7 +134,7 @@ export default function BookingRequestPage() {
       await createBookingRequest(payload);
 
       // Fire-and-forget email notification (non-blocking)
-      fetch(`${process.env.REACT_APP_API_URL}/api/booking-notify`, {
+      fetch(`${API_BASE}/api/booking-notify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
