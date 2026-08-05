@@ -316,12 +316,14 @@
     position: static;
     max-height: none;
   }
+  .brl-th--hide-md, .brl-td--hide-md { display: none; }
 }
 @media (max-width: 700px) {
   .brl-th--hide-sm, .brl-td--hide-sm { display: none; }
 }
-@media (max-width: 900px) {
-  .brl-th--hide-md, .brl-td--hide-md { display: none; }
+@media (max-width: 600px) {
+  .brl-table-wrap { -webkit-overflow-scrolling: touch; }
+  .brl-filter { min-width: 0; flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
   .brl-skeleton, .brl-updating-msg { animation: none; }

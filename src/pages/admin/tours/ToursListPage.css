@@ -264,4 +264,18 @@
 @media (max-width: 700px) { .tl-th--hide-sm, .tl-td--hide-sm { display: none; } }
 @media (max-width: 900px) { .tl-th--hide-md, .tl-td--hide-md { display: none; } }
 
+@media (max-width: 600px) {
+  .tl-action-group {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .tl-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+  .tl-th--actions { width: auto; }
+  .tl-table-wrap { -webkit-overflow-scrolling: touch; }
+}
+
 @media (prefers-reduced-motion: reduce) { .tl-skeleton { animation: none; } }

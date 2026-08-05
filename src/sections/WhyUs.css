@@ -61,6 +61,9 @@
 
   overflow: hidden;
 
+  display: flex;
+  flex-direction: column;
+
   box-shadow:
     0 10px 30px rgba(0,0,0,0.28);
 
@@ -150,6 +153,11 @@
   color: #f4efe6;
 
   margin-bottom: 22px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 12;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* DIVIDER */

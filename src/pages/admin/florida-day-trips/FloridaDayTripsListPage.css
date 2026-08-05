@@ -206,4 +206,109 @@
 }
 
 @media (max-width: 700px) { .fdl-th--hide-sm, .fdl-td--hide-sm { display: none; } }
+
+@media (max-width: 600px) {
+  .fdl-action-group { flex-wrap: wrap; gap: 4px; }
+  .fdl-btn { padding: 5px 8px; font-size: 11px; letter-spacing: 0; }
+  .fdl-th--actions { width: auto; }
+  .fdl-table-wrap { -webkit-overflow-scrolling: touch; }
+}
+
 @media (prefers-reduced-motion: reduce) { .fdl-skeleton { animation: none; } }
+
+/* ── Numeric column */
+.fdl-th--num { width: 90px; text-align: center; }
+.fdl-td--num { text-align: center; }
+
+/* ── Availability section */
+.fdl-avail-section {
+  margin-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 28px;
+}
+.fdl-avail-header { margin-bottom: 16px; }
+.fdl-avail-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.fdl-avail-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.fdl-avail-sub strong { color: var(--amber); }
+
+/* ── Availability add/edit form row */
+.fdl-avail-add {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 4px;
+}
+.fdl-avail-input {
+  background: var(--dark-1, rgba(0,0,0,0.4));
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 7px 10px;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.fdl-avail-input:focus { border-color: var(--amber); }
+.fdl-avail-input--trip { flex: 1 1 220px; }
+.fdl-avail-input--num  { width: 80px; flex: 0 0 80px; text-align: center; }
+.fdl-avail-of { font-size: 12px; color: var(--text-muted); flex-shrink: 0; }
+.fdl-avail-check {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; color: var(--text-muted); cursor: pointer; flex-shrink: 0;
+}
+.fdl-avail-check input { accent-color: var(--amber); }
+
+.fdl-btn--avail-add {
+  background: var(--amber);
+  border: none !important;
+  color: var(--dark-1);
+  margin-left: auto;
+}
+.fdl-btn--avail-add:hover:not(:disabled) { filter: brightness(1.1); }
+.fdl-btn--avail-add:disabled { opacity: 0.5; cursor: not-allowed; }
+.fdl-btn--avail-save {
+  background: var(--amber);
+  border: none !important;
+  color: var(--dark-1);
+}
+.fdl-btn--avail-save:disabled { opacity: 0.5; cursor: not-allowed; }
+.fdl-btn--avail-cancel {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  color: var(--text-muted);
+}
+
+.fdl-avail-err {
+  font-size: 12px;
+  color: #f87171;
+  margin-bottom: 8px;
+}
+.fdl-avail-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 20px 0;
+  text-align: center;
+}
+.fdl-avail-urgent { color: #f87171; font-weight: 700; }
+
+@media (max-width: 600px) {
+  .fdl-avail-add { flex-direction: column; align-items: stretch; }
+  .fdl-avail-input--trip, .fdl-avail-input--num { width: 100%; flex: unset; }
+  .fdl-btn--avail-add { width: 100%; justify-content: center; margin-left: 0; }
+}
