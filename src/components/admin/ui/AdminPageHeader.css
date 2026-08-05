@@ -45,6 +45,21 @@
   align-self: center;
 }
 
+@media (max-width: 480px) {
+  .aph-root {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .aph-right {
+    width: 100%;
+    align-self: stretch;
+  }
+  .aph-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .aph-btn {
   display: inline-flex;
   align-items: center;

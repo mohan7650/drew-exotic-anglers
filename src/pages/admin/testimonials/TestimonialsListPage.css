@@ -298,4 +298,12 @@
 
 /* ── Responsive */
 @media (max-width: 800px) { .tlp-th--hide-sm, .tlp-td--hide-sm { display: none; } }
+
+@media (max-width: 600px) {
+  .tlp-action-group { flex-wrap: wrap; gap: 4px; }
+  .tlp-btn { padding: 5px 8px; font-size: 11px; letter-spacing: 0; }
+  .tlp-th--actions { width: auto; }
+  .tlp-table-wrap { -webkit-overflow-scrolling: touch; }
+}
+
 @media (prefers-reduced-motion: reduce) { .tlp-skeleton, .tlp-saving-bar { animation: none; } }

@@ -258,4 +258,12 @@
 
 /* ── Responsive */
 @media (max-width: 700px) { .sl-th--hide-sm, .sl-td--hide-sm { display: none; } }
+
+@media (max-width: 600px) {
+  .sl-action-group { flex-wrap: wrap; gap: 4px; }
+  .sl-btn { padding: 5px 8px; font-size: 11px; letter-spacing: 0; }
+  .sl-th--actions { width: auto; }
+  .sl-table-wrap { -webkit-overflow-scrolling: touch; }
+}
+
 @media (prefers-reduced-motion: reduce) { .sl-skeleton, .sl-saving-bar { animation: none; } }

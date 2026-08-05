@@ -223,13 +223,37 @@
 
   .admin-main {
     margin-left: 0;
+    min-width: 0;
   }
 
   .admin-hamburger {
     display: flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .admin-topbar {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .admin-topbar-user {
+    display: none;
   }
 
   .admin-content {
-    padding: 20px 16px;
+    padding: 16px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-content {
+    padding: 12px 8px;
+  }
+
+  .admin-topbar-title {
+    font-size: 13px;
   }
 }
