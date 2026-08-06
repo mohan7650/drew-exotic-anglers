@@ -208,13 +208,33 @@ export default function BookingRequestPage() {
             <div className="brp-grid brp-grid--2">
 
               <Field label="Selected Date" error={errors.selected_date}>
-                <input
-                  type="text"
-                  placeholder="e.g. Monday, Jul 14, 2025"
-                  value={form.selected_date}
-                  onChange={set('selected_date')}
-                  className={errors.selected_date ? 'brp-input--error' : ''}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="text"
+                    readOnly
+                    placeholder="Click to pick a date"
+                    value={form.selected_date}
+                    onClick={() => document.getElementById('brp-date-picker').showPicker()}
+                    className={errors.selected_date ? 'brp-input--error' : ''}
+                    style={{ cursor: 'pointer' }}
+                  />
+                  <input
+                    type="date"
+                    id="brp-date-picker"
+                    min={new Date().toISOString().split('T')[0]}
+                    style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0, top: 0, left: 0 }}
+                    onChange={e => {
+                      if (!e.target.value) return;
+                      const [year, month, day] = e.target.value.split('-').map(Number);
+                      const picked = new Date(year, month - 1, day);
+                      const formatted = picked.toLocaleDateString('en-US', {
+                        weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
+                      });
+                      dispatch({ field: 'selected_date', value: formatted });
+                      if (errors.selected_date) setErrors(prev => { const n = { ...prev }; delete n.selected_date; return n; });
+                    }}
+                  />
+                </div>
               </Field>
 
               <Field label="Expedition *" error={errors.expedition}>
