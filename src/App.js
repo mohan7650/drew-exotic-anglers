@@ -100,7 +100,7 @@ function App() {
             {/* ── Admin: protected area */}
             <Route element={<ProtectedRoute />}>
               <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<DashboardPage />} />
+                <Route index element={<BookingRequestsListPage />} />
                 <Route path="tours"               element={<ToursListPage />} />
                 <Route path="tours/new"           element={<TourFormPage />} />
                 <Route path="tours/:id/edit"      element={<TourFormPage />} />
