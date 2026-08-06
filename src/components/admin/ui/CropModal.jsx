@@ -41,6 +41,19 @@ export default function CropModal({
     }
   }
 
+  async function handleUseOriginal() {
+    setApplying(true);
+    setError('');
+    try {
+      const res = await fetch(imageSrc);
+      const blob = await res.blob();
+      onApply(blob);
+    } catch {
+      setError('Could not load the original image. Try selecting the file again.');
+      setApplying(false);
+    }
+  }
+
   return (
     <div
       className="cm-overlay"
@@ -98,6 +111,14 @@ export default function CropModal({
             disabled={applying}
           >
             Cancel
+          </button>
+          <button
+            className="cm-btn cm-btn--original"
+            type="button"
+            onClick={handleUseOriginal}
+            disabled={applying}
+          >
+            Use Original
           </button>
           <button
             className="cm-btn cm-btn--apply"

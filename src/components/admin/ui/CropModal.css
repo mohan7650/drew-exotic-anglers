@@ -126,6 +126,16 @@
   background: rgba(255, 255, 255, 0.11);
 }
 
+.cm-btn--original {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #cde8d8;
+}
+
+.cm-btn--original:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.13);
+}
+
 .cm-btn--apply {
   background: #2e7d52;
   color: #fff;

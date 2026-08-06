@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import './AdminLayout.css';
 
 const NAV_ITEMS = [
-  { to: '/admin',        label: 'Dashboard', icon: '◈',  end: true },
+  { to: '/admin',        label: 'Booking Requests', icon: '📋', end: true },
   { to: '/admin/hero',   label: 'Hero',      icon: '◎' },
   { to: '/admin/tours',  label: 'Tours',     icon: '🎣' },
   { to: '/admin/about',   label: 'About',   icon: '👤' },
@@ -13,7 +13,6 @@ const NAV_ITEMS = [
   { to: '/admin/florida-day-trips',  label: 'Florida Day Trips', icon: '🌴' },
   { to: '/admin/video-section',      label: 'Video Section',     icon: '🎬' },
   { to: '/admin/gallery',            label: 'Gallery',           icon: '🖼' },
-  { to: '/admin/booking-requests',   label: 'Booking Requests',  icon: '📋' },
 ];
 
 export default function AdminLayout() {
