@@ -143,27 +143,37 @@ export default function FloridaTrips() {
             <div className="florida-cal-header">
               <span>📅</span>
               <span>Check Availability · Next 14 Days</span>
-              <button
-                className="florida-cal-pick-date"
-                onClick={() => document.getElementById('florida-date-input').showPicker()}
-              >
-                📆 Pick a Date
-              </button>
-              <input
-                type="date"
-                id="florida-date-input"
-                style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0 }}
-                min={new Date().toISOString().split('T')[0]}
-                onChange={e => {
-                  if (!e.target.value) return;
-                  const [year, month, day] = e.target.value.split('-').map(Number);
-                  const picked = new Date(year, month - 1, day);
-                  const formatted = picked.toLocaleDateString('en-US', {
-                    weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
-                  });
-                  navigate('/booking-request', { state: { date: formatted, expedition: 'Florida Day Trip' } });
-                }}
-              />
+              <div className="florida-cal-pick-date-wrap" style={{ position: 'relative', display: 'inline-block' }}>
+                <button
+                  className="florida-cal-pick-date"
+                  onClick={() => {
+                    const input = document.getElementById('florida-date-input');
+                    if (input.showPicker) {
+                      input.showPicker();
+                    } else {
+                      input.focus();
+                      input.click();
+                    }
+                  }}
+                >
+                  📆 Pick a Date
+                </button>
+                <input
+                  type="date"
+                  id="florida-date-input"
+                  style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', border: 0, pointerEvents: 'none' }}
+                  min={new Date().toISOString().split('T')[0]}
+                  onChange={e => {
+                    if (!e.target.value) return;
+                    const [year, month, day] = e.target.value.split('-').map(Number);
+                    const picked = new Date(year, month - 1, day);
+                    const formatted = picked.toLocaleDateString('en-US', {
+                      weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
+                    });
+                    navigate('/booking-request', { state: { date: formatted, expedition: 'Florida Day Trip' } });
+                  }}
+                />
+              </div>
             </div>
             <div className="florida-cal-grid">
               {days.map((d, i) => {
