@@ -26,3 +26,19 @@ export async function updateBookingRequestStatus(id, status) {
     .eq('id', id);
   if (error) throw error;
 }
+
+export async function archiveBookingRequest(id) {
+  const { error } = await supabase
+    .from('booking_requests')
+    .update({ archived_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function restoreBookingRequest(id) {
+  const { error } = await supabase
+    .from('booking_requests')
+    .update({ archived_at: null })
+    .eq('id', id);
+  if (error) throw error;
+}
