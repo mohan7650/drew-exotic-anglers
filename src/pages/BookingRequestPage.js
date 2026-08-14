@@ -7,7 +7,6 @@ const EXPEDITIONS = [
   'Florida Day Trip',
   'Amazon – Jurubaxi',
   'Amazon – Kalua II',
-  'Amazon – Jurubaxi',
   'Argentina – Don Joaquin',
   'Canada – St Jean River',
   'Other / Custom',
@@ -214,7 +213,15 @@ export default function BookingRequestPage() {
                     readOnly
                     placeholder="Click to pick a date"
                     value={form.selected_date}
-                    onClick={() => document.getElementById('brp-date-picker').showPicker()}
+                    onClick={() => {
+                      const input = document.getElementById('brp-date-picker');
+                      if (input.showPicker) {
+                        input.showPicker();
+                      } else {
+                        input.focus();
+                        input.click();
+                      }
+                    }}
                     className={errors.selected_date ? 'brp-input--error' : ''}
                     style={{ cursor: 'pointer' }}
                   />
@@ -222,7 +229,7 @@ export default function BookingRequestPage() {
                     type="date"
                     id="brp-date-picker"
                     min={new Date().toISOString().split('T')[0]}
-                    style={{ position: 'absolute', opacity: 0, pointerEvents: 'none', width: 0, height: 0, top: 0, left: 0 }}
+                    style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', border: 0, pointerEvents: 'none' }}
                     onChange={e => {
                       if (!e.target.value) return;
                       const [year, month, day] = e.target.value.split('-').map(Number);
