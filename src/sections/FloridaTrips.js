@@ -23,11 +23,47 @@ export default function FloridaTrips() {
   // FareHarbor placeholder — date selector UI only, no backend
   const [selectedDate, setSelectedDate] = useState(null);
   const today = new Date();
-  const days = Array.from({ length: 14 }, (_, i) => {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i + 1);
-    return d;
+  today.setHours(0, 0, 0, 0);
+
+  const WEEKS_VISIBLE = 4;
+  const DAYS_VISIBLE  = WEEKS_VISIBLE * 7;
+  const [viewStart, setViewStart] = useState(today);
+
+  const ALL_WEEKDAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  // Rotate so the header lines up with viewStart's weekday, since the grid always
+  // begins on viewStart (today, or today + a 4-week jump) rather than a Sunday.
+  const weekdayLabels = [
+    ...ALL_WEEKDAY_LABELS.slice(viewStart.getDay()),
+    ...ALL_WEEKDAY_LABELS.slice(0, viewStart.getDay()),
+  ];
+
+  const calendarCells = Array.from({ length: DAYS_VISIBLE }, (_, i) => {
+    const d = new Date(viewStart.getFullYear(), viewStart.getMonth(), viewStart.getDate() + i);
+    return { date: d, inMonth: true };
   });
+
+  function goPrevWeeks() {
+    setViewStart(prev => {
+      const next = new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() - DAYS_VISIBLE);
+      return next < today ? today : next;
+    });
+  }
+
+  function goNextWeeks() {
+    setViewStart(prev => new Date(prev.getFullYear(), prev.getMonth(), prev.getDate() + DAYS_VISIBLE));
+  }
+
+  function isPastDate(d) {
+    return d < today;
+  }
+
+  function isSameDate(a, b) {
+    return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
+
+  const rangeLabel = `${viewStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} – ${
+    calendarCells[calendarCells.length - 1].date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  }`;
 
   useEffect(() => {
     getActiveFloridaDayTrip()
@@ -47,8 +83,8 @@ export default function FloridaTrips() {
 
   function handleCheckAvailability() {
     const state = { expedition: 'Florida Day Trip' };
-    if (selectedDate !== null) {
-      state.date = days[selectedDate].toLocaleDateString('en-US', {
+    if (selectedDate) {
+      state.date = selectedDate.toLocaleDateString('en-US', {
         weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
       });
     }
@@ -141,65 +177,56 @@ export default function FloridaTrips() {
           {/* CALENDAR — FareHarbor placeholder */}
           <div className="florida-calendar">
             <div className="florida-cal-header">
-              <span>📅</span>
-              <span>Check Availability · Next 14 Days</span>
-              <div className="florida-cal-pick-date-wrap" style={{ position: 'relative', display: 'inline-block' }}>
-                <button
-                  className="florida-cal-pick-date"
-                  onClick={() => {
-                    const input = document.getElementById('florida-date-input');
-                    if (input.showPicker) {
-                      input.showPicker();
-                    } else {
-                      input.focus();
-                      input.click();
-                    }
-                  }}
-                >
-                  📆 Pick a Date
-                </button>
-                <input
-                  type="date"
-                  id="florida-date-input"
-                  style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', border: 0, pointerEvents: 'none' }}
-                  min={new Date().toISOString().split('T')[0]}
-                  onChange={e => {
-                    if (!e.target.value) return;
-                    const [year, month, day] = e.target.value.split('-').map(Number);
-                    const picked = new Date(year, month - 1, day);
-                    const formatted = picked.toLocaleDateString('en-US', {
-                      weekday: 'long', month: 'short', day: 'numeric', year: 'numeric'
-                    });
-                    navigate('/booking-request', { state: { date: formatted, expedition: 'Florida Day Trip' } });
-                  }}
-                />
+              <button
+                type="button"
+                className="florida-cal-nav"
+                onClick={goPrevWeeks}
+                aria-label="Previous 4 weeks"
+                disabled={isSameDate(viewStart, today)}
+              >
+                ←
+              </button>
+              <div className="florida-cal-title">
+                <span className="florida-cal-title-eyebrow">📅 Select Your Trip Date</span>
+                <span className="florida-cal-title-month">{rangeLabel}</span>
               </div>
+              <button type="button" className="florida-cal-nav" onClick={goNextWeeks} aria-label="Next 4 weeks">→</button>
             </div>
+
+            <div className="florida-cal-weekdays">
+              {weekdayLabels.map((w, i) => <div key={`${w}-${i}`} className="florida-cal-weekday-label">{w}</div>)}
+            </div>
+
             <div className="florida-cal-grid">
-              {days.map((d, i) => {
-                const day     = d.getDate();
-                const month   = d.toLocaleDateString('en-US', { month: 'short' });
-                const weekday = d.toLocaleDateString('en-US', { weekday: 'short' });
-                const isSelected = selectedDate === i;
+              {calendarCells.map(({ date, inMonth }, i) => {
+                const disabled   = !inMonth || isPastDate(date);
+                const isSelected = !disabled && isSameDate(date, selectedDate);
                 return (
                   <button
                     key={i}
-                    className={`florida-cal-day ${isSelected ? 'selected' : ''}`}
-                    onClick={() => setSelectedDate(i)}
+                    type="button"
+                    className={`florida-cal-day ${isSelected ? 'selected' : ''} ${disabled ? 'unavailable' : ''}`}
+                    disabled={disabled}
+                    onClick={() => setSelectedDate(date)}
                   >
-                    <div className="cal-weekday">{weekday}</div>
-                    <div className="cal-date">{day}</div>
-                    <div className="cal-month">{month}</div>
+                    <div className="cal-date">{date.getDate()}</div>
+                    <div className="cal-month">{date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}</div>
                   </button>
                 );
               })}
             </div>
-            <div className="florida-cal-note">Live booking calendar — instant confirmation via FareHarbor at launch.</div>
+
+            <div className="florida-cal-legend">
+              <span className="florida-cal-legend-item"><span className="florida-cal-swatch available" /> Available</span>
+              <span className="florida-cal-legend-item"><span className="florida-cal-swatch unavailable" /> Unavailable</span>
+            </div>
+
+            <div className="florida-cal-note">Bookings are open year-round. Use the arrows to view the next 4 weeks.</div>
           </div>
 
           <button type="button" className="btn-amber-full" onClick={handleCheckAvailability}>
-            {selectedDate !== null
-              ? `Reserve ${days[selectedDate].toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} →`
+            {selectedDate
+              ? `Reserve ${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })} →`
               : ctaText}
           </button>
           <p className="florida-trust">Capt Drew personally responds to every inquiry within 24 hours.</p>
