@@ -24,6 +24,7 @@ import ProtectedRoute from './components/admin/ProtectedRoute';
 
 // Non-home routes — lazy loaded (split into separate chunks, not in initial bundle)
 const TourDetails          = lazy(() => import('./pages/TourDetails'));
+const EcolodgePage         = lazy(() => import('./pages/ecolodge/EcolodgePage'));
 const BookingRequestPage   = lazy(() => import('./pages/BookingRequestPage'));
 const NotFound             = lazy(() => import('./pages/NotFound'));
 
@@ -91,6 +92,8 @@ function App() {
           <Routes>
             {/* ── Public site */}
             <Route path="/" element={<HomePage />} />
+            {/* Dedicated design for this lodge — a static path always wins over /tour/:slug */}
+            <Route path="/tour/brazil-eco-lodge-da-barra" element={<EcolodgePage />} />
             <Route path="/tour/:slug" element={<TourDetails />} />
             <Route path="/booking-request" element={<BookingRequestPage />} />
 
