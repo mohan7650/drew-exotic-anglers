@@ -1,0 +1,438 @@
+/* Figma frame 145540 (1920 × 1042 incl. the 129px nav) + bands 145522 / 145543.
+   Art positions are Figma px × var(--u) (1 at 1920 wide), measured against
+   complete_design_screenshot.png. */
+.eco-hero {
+  background: var(--olive-600);
+  color: var(--cream-50);
+}
+
+.eco-hero__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: max(calc(913 * var(--u)), 700px);
+  overflow: hidden;
+  /* Jungle background art (hero frame minus copy/fish), scaled with the Figma unit and
+     bottom-anchored like the art layers. The 1px strip extends its top edge upward when
+     the copy makes the stage taller than the art; the side colours cover > 1920px. */
+  background:
+    var(--hero-bg) center bottom / calc(1920 * var(--u)) auto no-repeat,
+    var(--hero-bg-top) center top / calc(1920 * var(--u)) 100% no-repeat,
+    linear-gradient(90deg, #212d05 50%, #121a08 50%);
+}
+
+/* ---- art (bottom-anchored so the blob always meets the olive band) ---- */
+.eco-hero__art {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 367 * var(--u)); /* Figma x 593 */
+  width: calc(1327 * var(--u));
+  height: calc(913 * var(--u));
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.eco-hero__art > * {
+  position: absolute;
+  display: block;
+  max-width: none;
+}
+
+/* Group 11 — concentric rings, top right */
+/* rings + dark wedge are baked into the desktop background; used only in the stacked layout */
+.eco-hero__target,
+.eco-hero__shade {
+  display: none;
+}
+
+.eco-hero__target {
+  left: calc(1040 * var(--u));
+  top: calc(70 * var(--u));
+  width: calc(253 * var(--u));
+  height: calc(253 * var(--u));
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    #121908 0 24%,
+    var(--green-900) 24% 41%,
+    #413705 41% 67%,
+    var(--green-800) 67% 85%,
+    var(--green-900) 85% 100%
+  );
+}
+
+/* dark jungle wedge that frames the blob (Figma vectors 525×673 / 550×1079) */
+.eco-hero__shade {
+  left: calc(131 * var(--u));
+  top: calc(75 * var(--u));
+  width: calc(1099 * var(--u));
+  height: calc(1086 * var(--u));
+  background: #121908;
+  transform: scale(1.2);
+  transform-origin: 92% 72%;
+  -webkit-mask: var(--blob) center / 100% 100% no-repeat;
+  mask: var(--blob) center / 100% 100% no-repeat;
+}
+
+/* Ellipse 6 — sunset river blob */
+.eco-hero__blob {
+  left: calc(131 * var(--u));
+  top: calc(75 * var(--u));
+  width: calc(1099 * var(--u));
+  height: calc(1086 * var(--u));
+}
+
+/* Rectangle 11 masked by Ellipse 8 (same shape as the blob) */
+.eco-hero__anglers {
+  left: 0;
+  top: calc(-82 * var(--u));
+  width: calc(1506 * var(--u));
+  height: calc(1257 * var(--u));
+  -webkit-mask: var(--blob) calc(131 * var(--u)) calc(157 * var(--u)) / calc(1099 * var(--u))
+    calc(1086 * var(--u)) no-repeat;
+  mask: var(--blob) calc(131 * var(--u)) calc(157 * var(--u)) / calc(1099 * var(--u))
+    calc(1086 * var(--u)) no-repeat;
+}
+
+/* Rectangle 12 — un-masked upper half */
+.eco-hero__anglers-top {
+  left: 0;
+  top: calc(-82 * var(--u));
+  width: calc(1506 * var(--u));
+  height: calc(803 * var(--u));
+}
+
+/* peacock-bass silhouette sitting on the olive band, just above "The Amazon is calling"
+   (Figma vector 431 × 111 visible; the image has 12px of transparent padding on the left) */
+.eco-hero__fish {
+  position: absolute;
+  left: calc(max(var(--gutter), 50% - 720px) - 19 * var(--u));
+  bottom: 0;
+  width: calc(431 * var(--u));
+  min-width: 280px;
+  pointer-events: none;
+}
+
+.eco-hero__fish img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Figma Ellipse 13 — the 13px eye, centred at (349, 95) inside the 431 × 111 fish */
+.eco-hero__fish::after {
+  content: '';
+  position: absolute;
+  left: calc(342.5 / 431 * 100%);
+  bottom: calc(9.5 / 111 * 100%);
+  width: calc(13 / 431 * 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--olive-700);
+}
+
+/* ---- copy (Figma Group 10) ---- */
+.eco-hero__content {
+  position: relative;
+  z-index: 1;
+  padding-top: max(calc(133 * var(--u)), 56px);
+  padding-bottom: max(calc(214 * var(--u)), 96px);
+}
+
+.eco-hero__content > * {
+  max-width: min(720px, 44vw);
+}
+
+.eco-hero__eyebrow {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime-500);
+  margin-bottom: 46px; /* Kalam's tall ascender overflows the 89px line box */
+}
+
+.eco-hero__title {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 104px;
+  line-height: 89px;
+  color: var(--white);
+}
+
+.eco-hero__title span {
+  margin-left: -21px; /* Kalam's trailing side-bearing; Figma sets the suffix tight */
+  font-family: var(--font-sans);
+  font-size: 28px;
+  line-height: 41px;
+  font-weight: 400;
+}
+
+.eco-hero__tagline {
+  margin: 41px 0 50px;
+  font-family: var(--font-script);
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 30px;
+  letter-spacing: 0.1em;
+  color: var(--yellow-400);
+}
+
+.eco-hero__content > .eco-hero__body {
+  max-width: min(618px, 44vw);
+}
+
+.eco-hero__body {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+  color: var(--cream-50);
+  margin-bottom: 48px;
+}
+
+.eco-hero__cta {
+  min-width: 311px;
+}
+
+/* ---- callout band (Figma frame 145522: 120px) ---- */
+.eco-hero__callout {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 120px;
+}
+
+.eco-hero__play {
+  flex-shrink: 0;
+  color: var(--white);
+}
+
+.eco-hero__callout-label {
+  font-size: clamp(24px, 1.9vw, 32px);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-right: 20px;
+}
+
+.eco-hero__callout-link {
+  font-family: var(--font-script);
+  font-size: 22px;
+  line-height: 26px;
+  color: var(--yellow-400);
+}
+
+.eco-hero__callout-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---- stats (Figma frame 145543: 273px, cards 325 × 172, radius 12) ---- */
+.eco-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 48px;
+  padding: 28px 0 73px;
+}
+
+.eco-stats__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  min-height: 172px;
+  padding: 35px 33px;
+  border-radius: var(--radius-sm);
+  background: var(--olive-650);
+  transition: background 0.25s var(--ease);
+}
+
+.eco-stats__item:hover {
+  background: #59600a;
+}
+
+.eco-stats__top {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  color: var(--yellow-400);
+}
+
+.eco-stats__icon {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+}
+
+.eco-stats__value {
+  font-size: 62px;
+  font-weight: 200;
+  line-height: 42px;
+  color: var(--cream-50);
+}
+
+.eco-stats__label {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---- responsive ---- */
+@media (max-width: 1440px) {
+  .eco-stats {
+    gap: 24px;
+  }
+
+  .eco-stats__item {
+    padding: 28px 26px;
+  }
+
+  .eco-stats__top {
+    gap: 24px;
+  }
+
+  .eco-stats__label {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  /* stack: copy first, then the art at full width */
+  .eco-hero__stage {
+    background:
+      radial-gradient(ellipse 40% 55% at 22% 45%, rgba(48, 64, 8, 0.55), transparent 70%),
+      var(--green-850);
+  }
+
+  .eco-hero__stage {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+
+  .eco-hero__content {
+    order: 1;
+    padding-top: 64px;
+    padding-bottom: 40px;
+  }
+
+  .eco-hero__content > *,
+  .eco-hero__content > .eco-hero__body {
+    max-width: 640px;
+  }
+
+  .eco-hero__art {
+    --u: calc(100vw / 1327);
+    position: relative;
+    order: 2;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    /* same jungle art as desktop: the right-hand 1327px of the 1920 × 913 hero frame
+       (Figma x 593 onward), so phones/tablets match the desktop hero */
+    background: var(--hero-bg) calc(-593 * var(--u)) bottom / calc(1920 * var(--u)) auto no-repeat;
+  }
+
+  .eco-hero__fish {
+    display: none;
+  }
+
+  .eco-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 2 per row: top-align so icons/numbers line up even when a label wraps to 2 lines */
+  .eco-stats__item {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .eco-hero__eyebrow {
+    margin-bottom: 16px;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+  }
+
+  .eco-hero__title {
+    font-size: 68px;
+    line-height: 72px;
+  }
+
+  .eco-hero__title span {
+    display: block;
+    margin: 4px 0 0;
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .eco-hero__tagline {
+    margin: 28px 0 28px;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+  }
+
+  .eco-hero__body {
+    font-size: 16px;
+    line-height: 26px;
+    margin-bottom: 32px;
+  }
+
+  .eco-hero__cta {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .eco-hero__callout {
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding: 24px 0 8px;
+    min-height: 0;
+  }
+
+  .eco-hero__play {
+    width: 30px;
+    height: 30px;
+  }
+
+  .eco-hero__callout-label {
+    font-size: 17px;
+    letter-spacing: 0.16em;
+    margin-right: 0;
+  }
+
+  .eco-stats {
+    gap: 12px;
+    padding: 20px 0 48px;
+  }
+
+  .eco-stats__item {
+    min-height: 0;
+    gap: 14px;
+    padding: 20px 18px;
+  }
+
+  .eco-stats__top {
+    gap: 12px;
+  }
+
+  .eco-stats__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .eco-stats__value {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .eco-stats__label {
+    font-size: 12px;
+    line-height: 1.3;
+  }
+}

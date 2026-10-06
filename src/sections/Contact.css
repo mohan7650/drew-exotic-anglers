@@ -1,4 +1,5 @@
 .contact {
+  font-family: var(--font-body); /* keeps the site font when embedded in pages with their own (e.g. EcoLodge) */
   background: #0a1a14; padding: 100px 60px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
 }
