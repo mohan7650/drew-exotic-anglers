@@ -1,0 +1,283 @@
+/* Figma frame 1437256060: 1920 × 994 on #1A240B, tag band 1920 × 239 on #273504 */
+.eco-species {
+  position: relative;
+  padding-top: 117px;
+  background: var(--green-900);
+  color: var(--cream-50);
+  overflow: hidden;
+}
+
+/* jungle leaves down the left edge (Figma: 351 × 994 at 0,0, full section height) */
+.eco-species__leaves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* keep content above the leaves */
+.eco-species > :not(.eco-species__leaves) {
+  position: relative;
+}
+
+.eco-species__head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Figma: title 40/700 (lh 46), 742 wide */
+.eco-species__title {
+  max-width: 742px;
+  font-size: clamp(28px, 2.8vw, 40px);
+  line-height: 1.15;
+  color: var(--white);
+}
+
+/* Figma: subtext 16/400 (lh 26), 501 wide, right aligned */
+.eco-species__intro {
+  max-width: 501px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: right;
+  color: var(--cream-50);
+}
+
+.eco-species__controls {
+  margin-top: 46px;
+}
+
+.eco-species__rule {
+  margin: 0 0 38px;
+  border: 0;
+  border-top: 1px solid rgba(254, 255, 235, 0.12);
+}
+
+/* Track starts at the container's left edge and bleeds off the right */
+.eco-bleed {
+  padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  padding-right: var(--gutter);
+  scroll-padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+}
+
+.eco-species__track {
+  gap: 26px;
+  margin: 56px 0 0;
+  padding-bottom: 21px;
+}
+
+/* Figma: 633 × 330, radius 12, pad 30, gap 24, photo 270 */
+.eco-species-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: 633px;
+  min-height: 330px;
+  padding: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--green-750);
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.eco-species-card:hover {
+  transform: translateY(-4px);
+  background: #34460a;
+}
+
+.eco-species-card__img {
+  flex: 0 0 270px;
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.eco-species-card__body {
+  width: 260px;
+}
+
+.eco-species-card__body h3 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.eco-species-card__latin {
+  margin: 12px 0 28px;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 15px;
+  color: #a6ab94;
+}
+
+.eco-species-card__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--cream-50);
+}
+
+/* ---- full list band ---- */
+.eco-species__band {
+  background: var(--green-800);
+}
+
+.eco-species__list {
+  display: grid;
+  grid-template-columns: 345px minmax(0, 1fr);
+  align-items: center;
+  gap: 99px;
+  min-height: 239px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.eco-species__list-label {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.eco-species__list-head h3 {
+  margin-top: 12px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 36px;
+  color: var(--white);
+}
+
+/* Figma tag: 42px tall, radius 100, 14/500 */
+.eco-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px 22px;
+  max-width: 996px;
+}
+
+.eco-chip {
+  display: inline-flex;
+  align-items: center;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(254, 255, 235, 0.2);
+  background: var(--green-700);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--cream-50);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.eco-chip:hover {
+  border-color: var(--yellow-400);
+}
+
+.eco-chip--active {
+  background: var(--olive-600);
+  border-color: rgba(254, 255, 235, 0.35);
+}
+
+@media (max-width: 1200px) {
+  .eco-species {
+    padding-top: 88px;
+  }
+
+  .eco-species__title,
+  .eco-species__intro {
+    flex: 1 1 0;
+  }
+
+  .eco-species__list {
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .eco-chips {
+    gap: 10px 12px;
+  }
+}
+
+@media (max-width: 860px) {
+  .eco-species {
+    padding-top: 72px;
+  }
+
+  .eco-species__leaves {
+    display: none;
+  }
+
+  .eco-species__head {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .eco-species__intro {
+    text-align: left;
+  }
+
+  .eco-species__controls {
+    margin-top: 32px;
+  }
+
+  .eco-species__rule {
+    margin-bottom: 24px;
+  }
+
+  .eco-species__track {
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .eco-species-card {
+    width: min(84vw, 360px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .eco-species-card__img {
+    flex-basis: auto;
+    width: 200px;
+    height: 200px;
+    align-self: center;
+  }
+
+  .eco-species-card__body {
+    width: auto;
+  }
+
+  .eco-species-card__latin {
+    margin-bottom: 14px;
+  }
+
+  .eco-species__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+
+  .eco-species__list-head h3 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .eco-chip {
+    height: 38px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+}

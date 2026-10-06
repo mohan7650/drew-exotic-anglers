@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import { useAvailability } from '../hooks/useAvailability';
 import './Contact.css';
 
-export default function Contact() {
+// Express backend base URL (backend/server.js serves POST /api/contact, default port 3001).
+// Falls back to the local backend in development so the URL never contains "undefined".
+const API_BASE = (
+  process.env.REACT_APP_API_URL ||
+  (process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '')
+).replace(/\/+$/, '');
+
+export default function Contact({ id = 'contact', defaultTripType = 'Florida Day Trip' }) {
   const availability = useAvailability();
   const [fields, setFields] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    tripType: 'Jurubaxi Full Week',
+    tripType: defaultTripType,
     groupSize: 'Solo (1 angler)',
     message: '',
   });
@@ -26,7 +33,8 @@ export default function Contact() {
     setError(false);
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
+      if (!API_BASE) throw new Error('REACT_APP_API_URL is not set');
+      const res = await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fields),
@@ -35,7 +43,7 @@ export default function Contact() {
       setSent(true);
       setFields({
         firstName: '', lastName: '', email: '',
-        tripType: 'Jurubaxi',
+        tripType: defaultTripType,
         groupSize: 'Solo (1 angler)', message: '',
       });
       setTimeout(() => setSent(false), 8000);
@@ -47,7 +55,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="contact">
+    <section id={id} className="contact">
       <div className="contact-info">
         <div className="section-tag-line">Get in Touch</div>
         <h2 className="section-title">Reserve Your <em>Expedition.</em></h2>
@@ -159,6 +167,7 @@ export default function Contact() {
               <option>Jurubaxi Full Week</option>
               <option>Kalua II Trophy Hunt</option>
               <option>Jurubaxi River Special</option>
+              <option>Brazil, Eco Lodge da Barra</option>
               <option>Argentina Don Joaquin (Golden Dorado)</option>
               <option>Canada St Jean Salmon</option>
               <option>Florida Day Trip</option>

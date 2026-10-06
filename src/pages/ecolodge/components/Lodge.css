@@ -1,0 +1,214 @@
+/* Figma frame 1437256072 (top half): head 144, controls, 334 × 490 slides, amenities */
+.eco-lodge {
+  padding: 107px 0 0;
+  background: var(--cream-50);
+}
+
+.eco-lodge__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Figma: title 32/700 (lh 34), 555 wide */
+.eco-lodge__title {
+  max-width: 600px;
+  margin-top: 30px;
+  font-size: clamp(26px, 2.25vw, 32px);
+  line-height: 34px;
+  color: var(--green-900);
+}
+
+/* Figma: subtext 16/400 (lh 30), 678 wide, right aligned */
+.eco-lodge__intro {
+  max-width: 678px;
+  margin-top: 44px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: right;
+  color: var(--ink-600);
+}
+
+.eco-lodge__controls {
+  margin-top: 58px;
+}
+
+.eco-lodge__track {
+  gap: 20px;
+  margin-top: 44px;
+}
+
+/* Figma car-slide: 334 × 490, radius 14 */
+.eco-lodge-photo {
+  position: relative;
+  width: 334px;
+  height: 490px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* the last two slides carry a drop shadow in the Figma */
+.eco-lodge-photo:nth-child(n + 6) {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+.eco-lodge-photo__img {
+  height: 100%;
+}
+
+.eco-lodge-photo__img img {
+  transition: transform 0.6s var(--ease);
+}
+
+.eco-lodge-photo:hover .eco-lodge-photo__img img {
+  transform: scale(1.05);
+}
+
+/* Figma photo-tag: 34px tall, radius 999, 11/700, 6px dot */
+.eco-tag {
+  position: absolute;
+  left: 12px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 14px 0 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(254, 255, 235, 0.25);
+  background: var(--olive-600);
+  color: var(--cream-50);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.eco-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow-400);
+}
+
+/* ---- amenities (Figma frame 1437256078: head 33 + gap 20 + 44px pills) ---- */
+.eco-lodge__amenities {
+  margin-top: 63px;
+}
+
+.eco-lodge__amenities-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-height: 33px;
+  margin-bottom: 20px;
+}
+
+.eco-lodge__amenities-head h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--ink-900);
+}
+
+.eco-lodge__amenities-head p {
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--ink-400);
+}
+
+.eco-lodge__amenities-head strong {
+  color: var(--green-900);
+  font-weight: 600;
+}
+
+.eco-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Figma amenity: 44px tall, radius 999, 14/500, 20px icon */
+.eco-amenity {
+  display: inline-flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 16px 0 14px;
+  border-radius: var(--radius-pill);
+  background: var(--green-800);
+  color: var(--cream-50);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+/* pills only stretch to fill the row while they fit on one line */
+@media (max-width: 1500px) {
+  .eco-amenity {
+    flex: 0 0 auto;
+    padding: 0 14px 0 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .eco-lodge {
+    padding-top: 88px;
+  }
+
+  .eco-lodge__head > * {
+    flex: 1 1 0;
+  }
+}
+
+@media (max-width: 860px) {
+  .eco-lodge {
+    padding-top: 72px;
+  }
+
+  .eco-lodge__head {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .eco-lodge__title {
+    line-height: 1.2;
+  }
+
+  .eco-lodge__intro {
+    margin-top: 0;
+    text-align: left;
+    line-height: 26px;
+  }
+
+  .eco-lodge__track {
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .eco-lodge-photo {
+    width: 240px;
+    height: 352px;
+  }
+
+  .eco-lodge__amenities-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .eco-amenity {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+}

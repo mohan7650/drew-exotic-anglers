@@ -1,0 +1,124 @@
+/* Figma frame 1437256056: 1920 × 786, text 713 wide, gap 98, circles 478 / 348 gap 22 */
+.eco-intro {
+  position: relative;
+  padding: 184px 0 121px;
+  background: var(--cream-50);
+  overflow: hidden;
+}
+
+/* jungle vine hanging into the top-left corner (Figma: 606 × 191 at 0,0) */
+.eco-intro__vine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(606 * var(--u));
+  min-width: 300px;
+  height: auto;
+  max-width: none;
+  pointer-events: none;
+}
+
+.eco-intro__grid {
+  position: relative;
+  display: grid;
+  /* proportional columns so the circles keep a usable size on laptops/tablets too */
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(40px, 5.1vw, 98px);
+}
+
+/* Figma: circles top at 184, eyebrow box top at 201 → 17px below the circles' top */
+.eco-intro__text {
+  container-type: inline-size; /* lets the title size itself to this column */
+  max-width: 713px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 17px;
+}
+
+.eco-intro__eyebrow {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 30px;
+}
+
+.eco-intro__text .eco-section-title {
+  margin-bottom: 40px;
+  /* always the two Figma lines: "Sand beaches in the morning" is ~15.4× the font size
+     wide, so 6.45cqi keeps it on one line in any column width (max 46px as in Figma) */
+  font-size: min(46px, 6.45cqi);
+}
+
+.eco-intro__text .eco-section-title span {
+  display: block;
+  white-space: nowrap;
+}
+
+.eco-intro__text .eco-section-title span + span::before {
+  content: none;
+}
+
+.eco-intro__paras {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+
+.eco-intro__paras .eco-body-copy {
+  line-height: 30px; /* measured from the Figma frame export */
+  text-align: justify;
+  hyphens: auto;
+  color: #5b6a5a;
+}
+
+/* Both circles share the column in the Figma 484 : 354 ratio (incl. the 6px baked-in
+   shadow) so they always fit on screen instead of bleeding past the right edge. */
+.eco-intro__media {
+  display: grid;
+  grid-template-columns: 484fr 354fr;
+  align-items: center;
+  gap: calc(22px - 6px); /* 6px of each image is the baked-in shadow */
+  width: 100%;
+  max-width: calc(484px + 354px + 16px);
+}
+
+.eco-intro__circle {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+@media (max-width: 1200px) {
+  .eco-intro {
+    /* always clear the vine (191 Figma px tall) */
+    padding: max(96px, calc(191 * var(--u) + 28px)) 0 96px;
+  }
+}
+
+@media (max-width: 900px) {
+  .eco-intro {
+    padding: 104px 0 72px;
+  }
+
+  .eco-intro__vine {
+    width: 240px;
+    min-width: 0;
+  }
+
+  .eco-intro__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .eco-intro__text {
+    margin-top: 0;
+  }
+
+  .eco-intro__paras .eco-body-copy {
+    text-align: left;
+  }
+
+  .eco-intro__media {
+    max-width: 560px;
+  }
+}
