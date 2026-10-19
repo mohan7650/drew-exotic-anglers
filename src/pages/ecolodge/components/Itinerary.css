@@ -1,0 +1,206 @@
+/* Figma frame 1437256072 (bottom half): text column 414 wide, circles 262 × 4 gap 22 */
+.eco-itinerary {
+  padding: 61px 0 57px;
+  background: var(--cream-50);
+}
+
+.eco-itinerary__grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+  align-items: start;
+  gap: 0;
+}
+
+.eco-itinerary__title {
+  max-width: 400px;
+  margin: 30px 0 32px;
+  font-size: clamp(26px, 2.25vw, 32px);
+  line-height: 34px;
+  color: var(--ink-900);
+}
+
+/* Figma list: 16/400 (lh 22), gap 20, 20px "chk" circles */
+.eco-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.eco-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--ink-600);
+}
+
+.eco-checklist__chk {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f3efb0;
+  border: 1.5px solid #dccd2c;
+  color: var(--olive-600);
+}
+
+.eco-checklist li.is-muted {
+  opacity: 0.6;
+}
+
+/* Figma: 356 × 59, 16/700, 26px arrow */
+.eco-itinerary__cta {
+  min-width: 356px;
+  padding: 10px 26px;
+  background: linear-gradient(90deg, var(--green-900) 0%, var(--green-800) 55%, var(--olive-600) 100%);
+}
+
+.eco-itinerary__cta:hover {
+  background: linear-gradient(90deg, var(--green-800) 0%, var(--olive-600) 100%);
+}
+
+/* ---- circles ---- */
+.eco-itinerary__steps {
+  /* circles extend up to 81px past the container on wide screens, as in the Figma */
+  --bleed: clamp(0px, calc((100vw - var(--container)) / 2), 81px);
+  margin-right: calc(var(--bleed) * -1);
+  padding-top: 123px;
+}
+
+.eco-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 262px));
+  justify-content: end;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eco-step {
+  aspect-ratio: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* text sizes below use cqi (= 1% of this circle's width) so the copy always fits
+     inside the circle, whatever size the circle shrinks to */
+  container-type: inline-size;
+  padding: 6% 14%; /* % of the circle width; keeps text inside the round edge */
+  border-radius: 50%;
+  background: var(--olive-600);
+  color: var(--white);
+  text-align: center;
+  transition: transform 0.3s var(--ease);
+}
+
+/* Figma alternates olive / deep green */
+.eco-step:nth-child(even) {
+  background: var(--green-800);
+}
+
+.eco-step:hover {
+  transform: scale(1.04);
+}
+
+.eco-step__kicker {
+  margin-bottom: 11cqi;
+  font-size: clamp(8px, 4.2cqi, 11px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eco-step__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5cqi;
+}
+
+.eco-step__title {
+  font-size: clamp(11px, 7cqi, 18px);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.eco-step__text {
+  font-size: clamp(8.5px, 5.5cqi, 14px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--cream-50);
+}
+
+.eco-itinerary__note {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 43px;
+  font-size: 13px;
+  line-height: 16px;
+  color: #92988f;
+}
+
+.eco-itinerary__note svg {
+  color: var(--olive-600);
+}
+
+@media (max-width: 1200px) {
+  .eco-itinerary__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  .eco-itinerary__steps {
+    margin-right: 0;
+    padding-top: 0;
+  }
+
+  .eco-steps {
+    justify-content: start;
+  }
+
+  .eco-itinerary__note {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .eco-steps {
+    max-width: 560px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .eco-itinerary {
+    padding: 56px 0 72px;
+  }
+
+  .eco-steps {
+    max-width: 560px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .eco-itinerary__cta {
+    min-width: 0;
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .eco-step__kicker {
+    letter-spacing: 0.04em;
+  }
+}

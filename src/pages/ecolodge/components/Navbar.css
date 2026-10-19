@@ -1,0 +1,508 @@
+/* =========================================================
+   ECOLODGE NAVBAR
+   Desktop values based on extracted Figma specification.
+
+   Figma:
+   Outer nav:      1920 × 129
+   Inner row:      1440 × 59
+   Logo:           200 × 52
+   Nav links:      Montserrat 16px / 600
+   Link gap:       25px
+   Links → CTA:    60px
+   CTA:            217 × 59
+   CTA radius:     84px
+   ========================================================= */
+
+
+/* =========================
+   NAVBAR WRAPPER
+   ========================= */
+
+.eco-navbar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 50;
+
+  width: 100%;
+  height: 129px;
+
+  display: flex;
+  align-items: center;
+
+  background: #1a240b;
+
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+
+.eco-navbar--scrolled {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================
+   INNER NAVBAR
+
+   Figma:
+   1440 × 59
+   ========================= */
+
+.eco-navbar__inner {
+  width: calc(100% - 48px);
+  max-width: 1440px;
+  height: 59px;
+
+  margin: 0 auto;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 174px;
+}
+
+
+/* =========================================================
+   LOGO
+   Figma frame: 200 × 52
+   ========================================================= */
+
+.eco-logo {
+  width: 200px;
+  height: 52px;
+
+  display: inline-flex;
+  align-items: center;
+
+  flex: 0 0 200px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+}
+
+
+/* Exported logo image fills the logo box at every breakpoint */
+.eco-logo__img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: left center;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   Figma right frame: 966 × 59
+   ========================================================= */
+
+.eco-navbar__nav {
+  height: 59px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 60px;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   NAVIGATION LINKS
+
+   Figma links frame:
+   width: 689px
+   height: 22px
+   gap: 25px
+   ========================= */
+
+.eco-navbar__links {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 25px;
+
+  list-style: none;
+}
+
+
+.eco-navbar__links li {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+
+/* Figma gives each link a fixed-width box (142 / 130 / 107 / 109 / 101),
+   which is what produces the uneven spacing in the design. */
+
+.eco-navbar__links li:nth-child(1) { width: 142px; }
+.eco-navbar__links li:nth-child(2) { width: 130px; }
+.eco-navbar__links li:nth-child(3) { width: 107px; }
+.eco-navbar__links li:nth-child(4) { width: 109px; }
+.eco-navbar__links li:nth-child(5) { width: 101px; }
+
+
+.eco-navbar__links a {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 22px;
+
+  letter-spacing: 0;
+
+  white-space: nowrap;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  color: #ffffff;
+
+  transition: color 0.25s ease;
+}
+
+
+/* Optional hover interaction.
+   Does not alter the Figma layout. */
+
+.eco-navbar__links a::after {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  bottom: -6px;
+
+  width: 100%;
+  height: 2px;
+
+  background: var(--yellow-400, #d7df23);
+
+  transform: scaleX(0);
+  transform-origin: left center;
+
+  transition: transform 0.25s ease;
+}
+
+
+.eco-navbar__links a:hover::after,
+.eco-navbar__links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+
+/* =========================================================
+   DATES & PRICING BUTTON
+
+   Figma:
+   217 × 59
+   Radius: 84
+   Montserrat 16px / 700
+   ========================================================= */
+
+.eco-navbar__cta {
+  width: 217px;
+  min-width: 217px;
+
+  height: 59px;
+  min-height: 59px;
+
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+
+  border: 2px solid #636a04;
+  border-radius: 84px;
+
+  background: transparent;
+
+  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  line-height: 19px;
+
+  white-space: nowrap;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  color: #ffffff;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.eco-navbar__cta:hover,
+.eco-navbar__cta:focus-visible {
+  background: #636a04;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   MOBILE MENU BUTTON
+   Hidden on desktop
+   ========================================================= */
+
+.eco-navbar__toggle {
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SMALLER DESKTOP
+   ========================================================= */
+
+@media (max-width: 1500px) {
+
+  .eco-navbar__inner {
+    width: 100%;
+
+    padding-left: 40px;
+    padding-right: 40px;
+
+    box-sizing: border-box;
+
+    gap: 50px;
+  }
+
+
+  .eco-navbar__nav {
+    gap: 35px;
+  }
+
+
+  .eco-navbar__links {
+    gap: 20px;
+  }
+
+
+  /* below the Figma width the fixed link boxes would crowd the row */
+  .eco-navbar__links li:nth-child(n) {
+    width: auto;
+  }
+}
+
+
+/* =========================================================
+   LAPTOP
+   ========================================================= */
+
+@media (max-width: 1280px) {
+
+  .eco-navbar__inner {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    gap: 30px;
+  }
+
+
+  .eco-navbar__nav {
+    gap: 25px;
+  }
+
+
+  .eco-navbar__links {
+    gap: 16px;
+  }
+
+
+  .eco-navbar__links a {
+    font-size: 14px;
+  }
+
+
+  .eco-navbar__cta {
+    width: 180px;
+    min-width: 180px;
+
+    font-size: 14px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE / TABLET NAVIGATION
+   ========================================================= */
+
+@media (max-width: 960px) {
+
+  .eco-navbar {
+    height: 80px;
+  }
+
+
+  .eco-navbar__inner {
+    width: 100%;
+    height: 80px;
+
+    padding-left: 20px;
+    padding-right: 20px;
+
+    gap: 20px;
+  }
+
+
+  /* ----- Logo ----- */
+
+  .eco-logo {
+    width: 160px;
+    height: 42px;
+
+    flex-basis: 160px;
+  }
+
+
+  /* ----- Hamburger ----- */
+
+  .eco-navbar__toggle {
+    display: inline-flex;
+
+    flex-shrink: 0;
+  }
+
+
+  /* ----- Mobile menu ----- */
+
+  .eco-navbar__nav {
+    position: fixed;
+
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: auto;
+
+    box-sizing: border-box;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 32px;
+
+    padding: 40px 20px;
+
+    background: #1a240b;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-12px);
+
+    overflow-y: auto;
+
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+
+  .eco-navbar__nav.is-open {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+  }
+
+
+  .eco-navbar__links {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 24px;
+  }
+
+
+  .eco-navbar__links a {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+
+  .eco-navbar__cta {
+    width: 217px;
+    min-width: 217px;
+
+    height: 59px;
+    min-height: 59px;
+
+    font-size: 16px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .eco-navbar__inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+
+  .eco-logo {
+    width: 145px;
+    height: 40px;
+
+    flex-basis: 145px;
+  }
+
+
+  .eco-navbar__nav {
+    padding: 32px 20px;
+  }
+}

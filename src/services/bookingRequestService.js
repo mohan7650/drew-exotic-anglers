@@ -1,13 +1,12 @@
 import { supabase } from '../lib/supabase';
 
+// Insert only — no .select() back, so this keeps working once the public (anon) role
+// is allowed to INSERT booking requests but not read them.
 export async function createBookingRequest(data) {
-  const { data: result, error } = await supabase
+  const { error } = await supabase
     .from('booking_requests')
-    .insert([data])
-    .select()
-    .single();
+    .insert([data]);
   if (error) throw error;
-  return result;
 }
 
 export async function listBookingRequests() {

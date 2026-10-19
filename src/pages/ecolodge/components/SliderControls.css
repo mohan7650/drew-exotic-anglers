@@ -1,0 +1,24 @@
+/* Figma carousel-controls: hint 14/400 italic, 48px round prev/next buttons */
+.eco-slider-controls--light {
+  color: #6d7413;
+}
+
+.eco-slider-controls--dark {
+  color: var(--cream-50);
+}
+
+.eco-slider-controls .eco-icon-btn--next {
+  background: var(--olive-600);
+  color: var(--white);
+}
+
+.eco-slider-controls--light .eco-icon-btn--prev {
+  background: var(--green-900);
+  color: var(--white);
+}
+
+.eco-slider-controls--dark .eco-icon-btn--prev {
+  background: var(--green-800);
+  border: 1px solid rgba(254, 255, 235, 0.18);
+  color: var(--white);
+}

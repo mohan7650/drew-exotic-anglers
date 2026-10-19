@@ -1,0 +1,291 @@
+/* Element resets use :where(.eco) so they keep element-level specificity and
+   never override the eco- component classes below.
+   Everything is scoped under .eco so this page never affects the rest of the site,
+   and every class is prefixed eco- so the site's own .navbar/.footer/.section-title
+   rules never reach in here. */
+.eco,
+:where(.eco) *,
+:where(.eco) *::before,
+:where(.eco) *::after {
+  box-sizing: border-box;
+}
+
+.eco {
+  padding-top: var(--nav-h); /* room for the fixed navbar */
+  overflow-x: clip;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--ink-900);
+  background: var(--cream-50);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+:where(.eco) section[id] {
+  scroll-margin-top: var(--nav-h);
+}
+
+:where(.eco) img {
+  display: block;
+  max-width: 100%;
+}
+
+:where(.eco) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(.eco) h1,
+:where(.eco) h2,
+:where(.eco) h3,
+:where(.eco) h4,
+:where(.eco) p {
+  margin: 0;
+}
+
+:where(.eco) ul,
+:where(.eco) ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.eco) button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.eco-container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- shared type (Figma: eyebrow 12/700, h2 46/700, body 16/24) ---------- */
+.eco-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--olive-600);
+}
+
+.eco-section-title {
+  font-size: clamp(30px, 3.2vw, 46px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--green-800);
+}
+
+.eco-section-title span {
+  display: block;
+}
+
+/* below desktop the Figma line breaks leave orphans — let the lines flow instead */
+@media (max-width: 1200px) {
+  .eco-section-title span {
+    display: inline;
+  }
+
+  .eco-section-title span + span::before {
+    content: ' ';
+  }
+}
+
+.eco-body-copy {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--ink-600);
+}
+
+/* ---------- buttons (Figma: pill radius 84, 59px tall, 16/700) ---------- */
+.eco-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 59px;
+  padding: 10px 50px;
+  border-radius: 84px;
+  border: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.2s var(--ease), filter 0.2s var(--ease), box-shadow 0.2s var(--ease),
+    background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.eco-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* small variant — Figma "View Trip Planner" / "Contact Drew": 43px tall, 14/700 */
+.eco-btn--sm {
+  min-height: 43px;
+  padding: 10px 24px 10px 26px;
+  font-size: 14px;
+}
+
+.eco-btn:focus-visible,
+.eco-icon-btn:focus-visible,
+:where(.eco) a:focus-visible {
+  outline: 2px solid var(--yellow-400);
+  outline-offset: 3px;
+}
+
+.eco-btn--olive {
+  background: var(--btn-gradient);
+  color: var(--white);
+}
+
+.eco-btn--olive:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 8px 20px rgba(17, 23, 7, 0.3);
+}
+
+.eco-btn--dark {
+  background: var(--green-800);
+  color: var(--white);
+}
+
+.eco-btn--dark:hover {
+  background: var(--olive-600);
+}
+
+.eco-btn--outline {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid var(--lime-500);
+}
+
+.eco-btn--outline:hover {
+  background: var(--lime-500);
+  color: var(--green-900);
+}
+
+.eco-btn svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+}
+
+.eco-btn--sm svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ---------- carousel controls (Figma: hint 14/400 italic, 48px round buttons) ---------- */
+.eco-slider-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 17px;
+}
+
+.eco-slider-controls > span {
+  margin-right: 4px;
+}
+
+.eco-icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0;
+  transition: transform 0.2s var(--ease), opacity 0.2s;
+}
+
+.eco-icon-btn:hover:not(:disabled) {
+  transform: scale(1.08);
+}
+
+.eco-icon-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.eco-icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- image fallbacks ----------
+   Every photo sits on a tinted background so the layout still reads
+   correctly before real images are dropped into /public/images. */
+.eco-img-frame {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--olive-600), var(--green-800));
+}
+
+.eco-img-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.eco-img-frame img.is-missing {
+  visibility: hidden;
+}
+
+/* ---------- horizontal scroller ---------- */
+.eco-scroller {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+.eco-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.eco-scroller > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ---------- reveal on scroll ---------- */
+.eco-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.eco-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .eco-btn,
+  .eco-icon-btn {
+    transition: none;
+  }
+}
+
+.eco-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,50 @@
+.eco {
+  /* Greens — exact values from FIGMA_DESIGN_SPECIFICATIONS.md / screenshot */
+  --green-975: #0f1406; /* footer base */
+  --green-950: #111707; /* footer (frame-1437256102) */
+  --green-900: #1a240b; /* nav, species section (bg-nav) */
+  --green-850: #222d05; /* hero background */
+  --green-800: #273504; /* itinerary dark circles, card header, amenity pills, tag band */
+  --green-750: #2d3d05; /* species cards (frame-1437256075) */
+  --green-700: #2e3b0c; /* species tag pills */
+  --olive-600: #636a04; /* stats band, olive circles, eyebrows (frame-145543) */
+  --olive-650: #5f6604; /* stat cards (frame-1437256050) */
+  --olive-500: #7c7a03; /* button gradient end */
+  --olive-700: #3f4a04; /* button gradient start */
+  --lime-500: #a4b007; /* hero eyebrow */
+  --yellow-400: #e8d202; /* accent: script, stat icons, tag dots, host eyebrow */
+
+  --cream-50: #feffeb; /* light section bg (col-card) */
+  --cream-100: #f1f2df; /* info section bg (frame-1437256090) */
+
+  --ink-900: #14201a; /* headings on cream */
+  --ink-600: #5b665e; /* body copy on cream */
+  --ink-400: #8a9188; /* notes */
+  --white: #ffffff;
+
+  --btn-gradient: linear-gradient(90deg, var(--olive-700) 0%, var(--olive-500) 100%);
+
+  /* Type */
+  --font-sans: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-script: 'Kalam', 'Segoe Print', 'Comic Neue', cursive;
+
+  /* Layout — 1440 content column inside the 1920 Figma frame */
+  --container: 1520px; /* 1440 content + 2 × 40px gutters */
+  --gutter: clamp(16px, 4vw, 40px);
+  --radius-sm: 12px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+
+  /* Figma px → screen px. 1 at ≥1920px, scales down below that. */
+  --u: calc(min(100vw, 1920px) / 1920);
+
+  --nav-h: 129px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* keep in sync with .eco-navbar height in Navbar.css */
+@media (max-width: 960px) {
+  .eco {
+    --nav-h: 80px;
+  }
+}

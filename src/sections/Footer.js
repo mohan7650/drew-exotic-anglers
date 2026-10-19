@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Icon from '../pages/ecolodge/components/Icon.jsx';
 import './Footer.css';
 
 // Slugs match sitemap.xml and the Supabase tours table
@@ -96,38 +97,34 @@ export default function Footer() {
 
           <div className="footer-social">
 
-            {/* TODO: replace href with real Instagram handle when available */}
             <a
-              href="https://www.instagram.com/"
+              href="https://www.instagram.com/drews_guide_service/"
               target="_blank"
               rel="noopener noreferrer"
               className="social-btn"
-              aria-label="Drew's Guide Service on Instagram (coming soon)"
-              title="Instagram — coming soon"
+              aria-label="Drew's Guide Service on Instagram"
             >
-              <span className="social-circle">📷</span>
+              <span className="social-circle"><Icon name="instagram" size={18} /></span>
             </a>
 
-            {/* TODO: replace href with real Facebook page URL when available */}
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/captdrewsguideservice/"
               target="_blank"
               rel="noopener noreferrer"
               className="social-btn"
-              aria-label="Drew's Guide Service on Facebook (coming soon)"
-              title="Facebook — coming soon"
+              aria-label="Drew's Guide Service on Facebook"
             >
-              <span className="social-circle">📘</span>
+              <span className="social-circle"><Icon name="facebook" size={18} /></span>
             </a>
 
             <a
-              href="https://youtube.com/@captdrew1986"
+              href="https://www.youtube.com/@captdrew1986"
               target="_blank"
               rel="noopener noreferrer"
               className="social-btn"
               aria-label="Drew's Guide Service on YouTube"
             >
-              <span className="social-circle">▶️</span>
+              <span className="social-circle"><Icon name="youtube" size={18} /></span>
             </a>
 
             <a
@@ -137,7 +134,7 @@ export default function Footer() {
               className="social-btn social-btn--whatsapp"
               aria-label="Message Capt Drew on WhatsApp"
             >
-              <span className="social-circle">💬</span>
+              <span className="social-circle"><Icon name="whatsapp" size={18} /></span>
             </a>
 
           </div>
