@@ -45,6 +45,13 @@ export default function FishingIntro() {
               className={`eco-intro__circle ${i === 0 ? 'eco-intro__circle--lg' : 'eco-intro__circle--sm'}`}
             />
           ))}
+          <img
+            src={fishingIntro.smallImage.src}
+            alt={fishingIntro.smallImage.alt}
+            loading="lazy"
+            decoding="async"
+            className="eco-intro__circle eco-intro__circle--xs"
+          />
         </div>
       </div>
     </section>

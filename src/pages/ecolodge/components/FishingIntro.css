@@ -89,6 +89,20 @@
   aspect-ratio: 1;
 }
 
+/* small third circle centred under the gap between the two circles (the gap sits at
+   484 / 838 ≈ 57.8% of the row); % margins resolve against the row width. Unlike the
+   Figma exports this photo has no baked-in shadow, so the olive offset is drawn here */
+.eco-intro__circle--xs {
+  grid-column: 1 / -1;
+  justify-self: start;
+  width: 32%;
+  margin-left: calc(57.8% - 16%);
+  margin-top: -6%; /* tuck it up into the dip between the two circles */
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: -6px 6px 0 var(--olive-600);
+}
+
 @media (max-width: 1200px) {
   .eco-intro {
     /* always clear the vine (191 Figma px tall) */

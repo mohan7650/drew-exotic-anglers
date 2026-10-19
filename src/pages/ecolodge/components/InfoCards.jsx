@@ -34,7 +34,7 @@ export default function InfoCards() {
         <div className="eco-info__grid">
           <ListCard card={included} />
           <ListCard card={prepare}>
-            <a href={prepare.cta.href} className="eco-btn eco-btn--olive eco-btn--sm eco-info-card__btn">
+            <a href={prepare.cta.href} download={prepare.cta.download} className="eco-btn eco-btn--olive eco-btn--sm eco-info-card__btn">
               {prepare.cta.label}
               <Icon name="arrowRight" strokeWidth={2.2} />
             </a>

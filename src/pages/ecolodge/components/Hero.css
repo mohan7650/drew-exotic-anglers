@@ -80,6 +80,10 @@
   top: calc(75 * var(--u));
   width: calc(1099 * var(--u));
   height: calc(1086 * var(--u));
+  /* background video clipped to the blob shape (the blob still image doubles as poster) */
+  object-fit: cover;
+  -webkit-mask: var(--blob) center / 100% 100% no-repeat;
+  mask: var(--blob) center / 100% 100% no-repeat;
 }
 
 /* Rectangle 11 masked by Ellipse 8 (same shape as the blob) */
@@ -201,6 +205,7 @@
   align-items: center;
   gap: 20px;
   min-height: 120px;
+  text-decoration: none;
 }
 
 .eco-hero__play {
@@ -225,7 +230,7 @@
   color: var(--yellow-400);
 }
 
-.eco-hero__callout-link:hover {
+.eco-hero__callout:hover .eco-hero__callout-link {
   text-decoration: underline;
   text-underline-offset: 4px;
 }

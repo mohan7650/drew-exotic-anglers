@@ -16,7 +16,18 @@ export default function Hero() {
         <div className="eco-hero__art">
           <span className="eco-hero__target" aria-hidden="true" />
           <span className="eco-hero__shade" aria-hidden="true" style={{ '--blob': `url(${art.blob})` }} />
-          <img className="eco-hero__blob" src={art.blob} alt="" aria-hidden="true" fetchpriority="high" />
+          <video
+            className="eco-hero__blob"
+            src={art.video}
+            poster={art.blob}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            style={{ '--blob': `url(${art.blob})` }}
+          />
           <img
             className="eco-hero__anglers"
             src={art.anglers}
@@ -45,18 +56,16 @@ export default function Hero() {
 
       <div className="eco-hero__band">
         <div className="eco-container">
-          <div className="eco-hero__callout">
+          <a
+            href={callout.link.href}
+            className="eco-hero__callout"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Icon name="playSolid" size={38} className="eco-hero__play" />
             <span className="eco-hero__callout-label">{callout.label}</span>
-            <a
-              href={callout.link.href}
-              className="eco-hero__callout-link"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {callout.link.label}
-            </a>
-          </div>
+            <span className="eco-hero__callout-link">{callout.link.label}</span>
+          </a>
 
           <ul className="eco-stats">
             {stats.map((s) => (

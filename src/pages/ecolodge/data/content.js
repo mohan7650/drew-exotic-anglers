@@ -22,6 +22,7 @@ export const hero = {
   cta: { label: 'Explore the Fishing', href: '#fishing' },
   art: {
     blob: '/images/ecolodge/fg-hero-blob.webp',
+    video: '/videos/ecolodge_hero_video.mp4',
     anglers: '/images/ecolodge/fg-hero-anglers.webp',
     anglersTop: '/images/ecolodge/fg-hero-anglers-top.webp',
     fish: '/images/ecolodge/fg-hero-fish.webp',
@@ -59,6 +60,8 @@ export const fishingIntro = {
     // intro-angler-peacock.webp (wider crop, both anglers) with the olive shadow baked in.
     { src: '/images/ecolodge/fg-intro-2.webp', alt: 'Two anglers holding peacock bass on the boat' },
   ],
+  // small third circle below the pair — plain photo, the olive shadow is added in CSS
+  smallImage: { src: '/images/ecolodge/fg-strip-2.webp', alt: 'Anglers celebrating a peacock bass catch' },
 };
 
 export const speciesSection = {
@@ -194,7 +197,7 @@ export const infoCards = {
       'What to expect at the lodge',
       'And much more',
     ],
-    cta: { label: 'View Trip Planner', href: '#' },
+    cta: { label: 'View Trip Planner', href: '/Ecolodge-Pre-TripGuide.pdf', download: 'Ecolodge-Pre-TripGuide.pdf' },
   },
   host: {
     image: '/images/ecolodge/fg-host-full.webp', // full uncropped photo (3:4)
