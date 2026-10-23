@@ -181,14 +181,58 @@
   background: linear-gradient(90deg, var(--olive-700) 0%, var(--olive-600) 100%);
 }
 
-/* ---- photo strip (Figma rectangles 19 / 20 / 21: 470 / 980 / 471 × 404) ---- */
+/* ---- gallery heading above the photo strip: matches the main site gallery header
+   (VideoSection "From the River / Real Catches, Real Memories"), using its global tokens ---- */
+.eco-strip-heading {
+  padding: 80px var(--gutter) 48px;
+  text-align: center;
+  background: var(--cream-100); /* light page cream, same as the cards above */
+}
+
+.eco-strip-heading__tag {
+  margin-bottom: 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal-bright);
+}
+
+.eco-strip-heading__title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--green-800); /* dark text on the light background */
+}
+
+.eco-strip-heading__title em {
+  font-style: italic; /* same colour as the rest of the title */
+}
+
+/* ---- 3 × 3 photo gallery (tiles like the main site gallery: 4:3, 3px gap, hover zoom) ---- */
 .eco-strip {
   display: grid;
-  grid-template-columns: 470fr 980fr 471fr;
-  grid-template-rows: 1fr;
-  /* same 1921 × 404 shape on every screen, so all three photos keep the Figma crop */
-  aspect-ratio: 1921 / 404;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  padding: 0 0 80px;
+  /* lines up with the page content column on wide screens */
+  padding-inline: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
   background: var(--cream-100);
+}
+
+.eco-strip__item {
+  aspect-ratio: 4 / 3;
+  border-radius: 2px;
+}
+
+.eco-strip__item img {
+  transition: transform 0.6s ease;
+}
+
+.eco-strip__item:hover img {
+  transform: scale(1.07);
 }
 
 @media (max-width: 1440px) {

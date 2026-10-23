@@ -71,13 +71,13 @@
   color: #5b6a5a;
 }
 
-/* Both circles share the column in the Figma 484 : 354 ratio (incl. the 6px baked-in
-   shadow) so they always fit on screen instead of bleeding past the right edge. */
+/* Both circles share the column in the Figma 484 : 354 ratio (incl. the 6px Figma
+   shadow strip) so they always fit on screen instead of bleeding past the right edge. */
 .eco-intro__media {
   display: grid;
   grid-template-columns: 484fr 354fr;
   align-items: center;
-  gap: calc(22px - 6px); /* 6px of each image is the baked-in shadow */
+  gap: calc(22px - 6px); /* 6px of each cell is the reserved shadow strip */
   width: 100%;
   max-width: calc(484px + 354px + 16px);
 }
@@ -89,9 +89,19 @@
   aspect-ratio: 1;
 }
 
+/* both circles are plain photos with no shadow; each sits top-right of its grid cell,
+   which still reserves the Figma 6px shadow strip so the row keeps its proportions */
+.eco-intro__circle--lg,
+.eco-intro__circle--sm {
+  justify-self: end;
+  width: calc(100% - 6px);
+  margin-bottom: 6px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* small third circle centred under the gap between the two circles (the gap sits at
-   484 / 838 ≈ 57.8% of the row); % margins resolve against the row width. Unlike the
-   Figma exports this photo has no baked-in shadow, so the olive offset is drawn here */
+   484 / 838 ≈ 57.8% of the row); % margins resolve against the row width. Plain photo, no shadow */
 .eco-intro__circle--xs {
   grid-column: 1 / -1;
   justify-self: start;
@@ -100,7 +110,6 @@
   margin-top: -6%; /* tuck it up into the dip between the two circles */
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: -6px 6px 0 var(--olive-600);
 }
 
 @media (max-width: 1200px) {

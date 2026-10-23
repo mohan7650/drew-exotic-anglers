@@ -55,13 +55,21 @@ export const fishingIntro = {
     'One minute you’re working a white sand beach with surface flies; the next, casting toward a rocky point or quiet backwater in search of peacock bass, payara, arowana and other Amazon species. Every stretch of water calls for a different presentation, making each day on the fly completely different.',
   ],
   images: [
-    { src: '/images/ecolodge/fg-intro-1.webp', alt: 'Peacock bass taking a popper fly' },
-    // The Figma export of this circle (…tapajs-2.png) is the wrong photo; fg-intro-2 is cut from
-    // intro-angler-peacock.webp (wider crop, both anglers) with the olive shadow baked in.
-    { src: '/images/ecolodge/fg-intro-2.webp', alt: 'Two anglers holding peacock bass on the boat' },
+    // fg-intro-1 cropped to just the photo circle (baked-in olive shadow trimmed off)
+    { src: '/images/ecolodge/fg-intro-1-plain.jpg', alt: 'Peacock bass taking a popper fly' },
+    // portrait photo, no shadow — cropped to a circle in CSS
+    {
+      src: '/images/ecolodge/Ecolodge_2nd_photo.jpg',
+      alt: 'Angler holding a peacock bass on a white sand beach',
+      position: '50% 60%',
+    },
   ],
-  // small third circle below the pair — plain photo, the olive shadow is added in CSS
-  smallImage: { src: '/images/ecolodge/fg-strip-2.webp', alt: 'Anglers celebrating a peacock bass catch' },
+  // small third circle below the pair — plain photo, no shadow
+  smallImage: {
+    src: '/images/ecolodge/Ecolodge_3rd_photo.jpg',
+    alt: 'Angler holding a payara on the boat',
+    position: '50% 45%',
+  },
 };
 
 export const speciesSection = {
@@ -74,7 +82,8 @@ export const speciesSection = {
       name: 'Peacock Bass',
       latin: 'Cichla temensis',
       text: 'The Amazon’s most iconic gamefish. Aggressive, powerful and perfect on fly.',
-      image: '/images/ecolodge/fg-species-peacock-bass.webp',
+      image: '/images/ecolodge/peacock%20bass.jpg', // "peacock bass.jpg" (space URL-encoded)
+      imagePosition: '50% 60%', // portrait photo: keep the angler's face and the whole fish in the circle
     },
     {
       name: 'Payara',
@@ -196,7 +205,8 @@ export const infoCards = {
       'What to expect at the lodge',
       'And much more',
     ],
-    cta: { label: 'View Trip Planner', href: '/Ecolodge-Pre-TripGuide.pdf', download: 'Ecolodge-Pre-TripGuide.pdf' },
+    // opens the booking request form with EcoLodge pre-selected (same as TourDetails "Book Now")
+    cta: { label: 'View Trip Planner', to: '/booking-request', state: { expedition: 'Amazon – EcoLodge da Barra' } },
   },
   host: {
     image: '/images/ecolodge/fg-host-full.webp', // full uncropped photo (3:4)
@@ -208,10 +218,24 @@ export const infoCards = {
   },
 };
 
+export const photoStripHeading = {
+  eyebrow: 'EcoLodge Gallery',
+  // same treatment as the main site's "Real Catches, Real Memories": last word italic
+  title: 'Memories in the',
+  titleEm: 'Wild',
+};
+
+// 3 × 3 gallery — resized copies (900px) of the photos in ecolodge_gallery/
 export const photoStrip = [
-  { src: '/images/ecolodge/fg-strip-1.webp', alt: 'Peacock bass on a popper' },
-  { src: '/images/ecolodge/fg-strip-2.webp', alt: 'Anglers celebrating a peacock bass catch' },
-  { src: '/images/ecolodge/fg-strip-3.webp', alt: 'Two anglers with peacock bass on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-1.jpg', alt: 'Two anglers with a peacock bass on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-2.jpg', alt: 'Arowana close-up with a fly in its mouth' },
+  { src: '/images/ecolodge/gallery/gallery-3.jpg', alt: 'Two anglers holding a payara' },
+  { src: '/images/ecolodge/gallery/gallery-4.jpg', alt: 'Payara close-up with a colourful streamer fly' },
+  { src: '/images/ecolodge/gallery/gallery-5.jpg', alt: 'Angler holding a peacock bass on the river' },
+  { src: '/images/ecolodge/gallery/gallery-6.jpg', alt: 'Two anglers each holding a peacock bass' },
+  { src: '/images/ecolodge/gallery/gallery-7.jpg', alt: 'Angler holding a payara on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-8.jpg', alt: 'Angler holding an arowana on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-9.jpg', alt: 'Angler holding a fish on the open river' },
 ];
 
 export const ctaBanner = {

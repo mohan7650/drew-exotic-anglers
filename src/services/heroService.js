@@ -64,8 +64,18 @@ export async function getStats(activeOnly = false) {
   return data ?? [];
 }
 
+// A bulk upsert sends one column list for every row, so a row without an id
+// gets an explicit NULL instead of the gen_random_uuid() default (error 23502).
+// Every row therefore carries an id: existing rows keep theirs, new rows get a
+// fresh UUID generated here.
+function rowId(item) {
+  return item.id || crypto.randomUUID();
+}
+
 // Saves the full stats list: deletes removed ids, upserts the rest.
 // sort_order is recomputed from array position so the caller never has to manage it.
+// The upsert is a single statement, so if it fails nothing is written and the
+// caller keeps its unsaved items; retrying is safe because new ids are regenerated.
 export async function saveStats(items, deletedIds = []) {
   if (deletedIds.length) {
     const { error } = await supabase.from('hero_stats').delete().in('id', deletedIds);
@@ -73,13 +83,13 @@ export async function saveStats(items, deletedIds = []) {
   }
   if (!items.length) return;
   const rows = items.map((item, i) => ({
-    ...(item.id ? { id: item.id } : {}),
+    id:          rowId(item),
     stat_number: item.stat_number,
     stat_label:  item.stat_label,
     sort_order:  i + 1,
     active:      item.active,
   }));
-  const { error } = await supabase.from('hero_stats').upsert(rows);
+  const { error } = await supabase.from('hero_stats').upsert(rows, { onConflict: 'id' });
   if (error) throw new Error(error.message);
 }
 
@@ -103,13 +113,13 @@ export async function savePartners(items, deletedIds = []) {
   }
   if (!items.length) return;
   const rows = items.map((item, i) => ({
-    ...(item.id ? { id: item.id } : {}),
+    id:            rowId(item),
     partner_text:  item.partner_text,
     style_variant: item.style_variant ?? 'default',
     sort_order:    i + 1,
     active:        item.active,
   }));
-  const { error } = await supabase.from('hero_partners').upsert(rows);
+  const { error } = await supabase.from('hero_partners').upsert(rows, { onConflict: 'id' });
   if (error) throw new Error(error.message);
 }
 

@@ -33,6 +33,19 @@
   border-color: #25D366;
   color: #fff;
 }
+/* preferred-contact highlight when email is the preferred channel (EcoLodge page) */
+.contact-detail--email {
+  background: rgba(29,158,117,0.1);
+  border: 1px solid rgba(29,158,117,0.4);
+  border-radius: 2px;
+  padding: 12px 16px;
+  margin-left: -16px; margin-right: -16px;
+}
+.contact-detail--email .contact-icon {
+  background: var(--teal-bright);
+  border-color: var(--teal-bright);
+  color: #fff;
+}
 .contact-icon {
   width: 44px; height: 44px; border: 1px solid rgba(93,202,165,0.3);
   border-radius: 50%; display: flex; align-items: center;
@@ -138,7 +151,8 @@
   /* WhatsApp row: the intentional negative margins (-16px each side) bleed
      the box to full width within 24px section padding. On 16px padding at
      480px we adjust margins to match the tighter padding. */
-  .contact-detail--whatsapp {
+  .contact-detail--whatsapp,
+  .contact-detail--email {
     margin-left: -16px;
     margin-right: -16px;
     padding: 12px 16px;
