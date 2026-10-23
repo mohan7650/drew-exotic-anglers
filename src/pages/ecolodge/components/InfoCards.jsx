@@ -65,7 +65,20 @@ export default function InfoCards() {
       </header>
       <div className="eco-strip" aria-label="Photo gallery">
         {photoStrip.map((p) => (
-          <Img key={p.src} src={p.src} alt={p.alt} className="eco-strip__item" />
+          p.fit === 'contain' ? (
+            // whole photo uncropped; a blurred copy of it fills the sides of the tile
+            <div key={p.src} className="eco-strip__item eco-strip__item--contain" style={{ '--photo': `url("${p.src}")` }}>
+              <Img src={p.src} alt={p.alt} className="eco-strip__contain-img" />
+            </div>
+          ) : (
+            <Img
+              key={p.src}
+              src={p.src}
+              alt={p.alt}
+              className="eco-strip__item"
+              style={p.position ? { objectPosition: p.position } : undefined}
+            />
+          )
         ))}
       </div>
     </>

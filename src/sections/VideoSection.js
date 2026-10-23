@@ -9,6 +9,7 @@ const FB = {
   title:       'See the <em>Jurubaxi</em> in Action',
   subtitle:    'Real footage. Real fish. Real clients having the time of their lives aboard the Kalua II.',
   video_url:   'https://www.youtube.com/embed/_ycYRB8875A',
+  video_url_2: 'https://www.youtube.com/embed/TSkPYETQXLI', // right-hand video (no admin field yet)
   description: '"This trip is the best guarantee for double-digit Peacock Bass at the best price in the world. I couldn\'t stress that enough."',
   cta_text:    'Plan My Expedition →',
   cta_link:    '#contact',
@@ -94,16 +95,22 @@ export default function VideoSection() {
       {/* VIDEO + FOUNDER */}
       <div className="video-section-wrapper">
 
-        {/* VIDEO */}
-        <div className="video-frame">
-          <iframe
-            src={vs.video_url || FB.video_url}
-            title="Voyage across the Amazon — Capt Drew Rodriguez, Drew's Guide Service"
-            frameBorder="0"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+        {/* VIDEOS — two side by side in the one frame */}
+        <div className="video-frame video-frame--pair">
+          {[
+            { src: vs.video_url || FB.video_url, title: "Voyage across the Amazon — Capt Drew Rodriguez, Drew's Guide Service" },
+            { src: FB.video_url_2, title: "Amazon fly fishing with Capt Drew Rodriguez, Drew's Guide Service" },
+          ].map(v => (
+            <iframe
+              key={v.src}
+              src={v.src}
+              title={v.title}
+              frameBorder="0"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ))}
         </div>
 
         {/* FOUNDER CARD */}
