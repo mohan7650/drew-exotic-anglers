@@ -32,7 +32,7 @@ export default function FishingIntro() {
           </div>
         </div>
 
-        {/* Circle photos are exported from Figma with their -6px 6px olive shadow baked in */}
+        {/* All three are plain photos cropped to circles in CSS, no shadow */}
         <div className="eco-intro__media">
           {fishingIntro.images.map((img, i) => (
             <img
@@ -42,6 +42,7 @@ export default function FishingIntro() {
               aria-hidden={img.alt ? undefined : 'true'}
               loading="lazy"
               decoding="async"
+              style={img.position ? { objectPosition: img.position } : undefined}
               className={`eco-intro__circle ${i === 0 ? 'eco-intro__circle--lg' : 'eco-intro__circle--sm'}`}
             />
           ))}
@@ -50,6 +51,7 @@ export default function FishingIntro() {
             alt={fishingIntro.smallImage.alt}
             loading="lazy"
             decoding="async"
+            style={fishingIntro.smallImage.position ? { objectPosition: fishingIntro.smallImage.position } : undefined}
             className="eco-intro__circle eco-intro__circle--xs"
           />
         </div>

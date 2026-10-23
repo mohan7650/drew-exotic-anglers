@@ -9,7 +9,10 @@ const API_BASE = (
   (process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '')
 ).replace(/\/+$/, '');
 
-export default function Contact({ id = 'contact', defaultTripType = 'Florida Day Trip' }) {
+// preferredContact: 'whatsapp' (main site) or 'email' (EcoLodge page) — that row gets the highlight
+export default function Contact({ id = 'contact', defaultTripType = 'Florida Day Trip', preferredContact = 'whatsapp' }) {
+  const emailPreferred = preferredContact === 'email';
+
   const availability = useAvailability();
   const [fields, setFields] = useState({
     firstName: '',
@@ -60,27 +63,33 @@ export default function Contact({ id = 'contact', defaultTripType = 'Florida Day
         <div className="section-tag-line">Get in Touch</div>
         <h2 className="section-title">Reserve Your <em>Expedition.</em></h2>
         <p className="section-sub">
-          Call Capt Drew directly, message on WhatsApp,
-          or fill out the form — Drew personally responds within 24 hours.
+          {emailPreferred
+            ? 'Email Capt Drew, call him directly, or fill out the form — Drew personally responds within 24 hours.'
+            : 'Call Capt Drew directly, message on WhatsApp, or fill out the form — Drew personally responds within 24 hours.'}
         </p>
 
         {[
           { icon: '📍', text: 'Miami, FL' },
+          ...(emailPreferred
+            ? [{ icon: '✉️', text: 'Email: drew@drewsguideservice.com — Preferred contact', email: true, href: 'mailto:drew@drewsguideservice.com' }]
+            : []),
           { icon: '📞', text: '+1 (786) 342-5791 — Capt Drew Direct', href: 'tel:7863425791' },
-          { icon: '💬', text: 'WhatsApp: +1 (786) 342-5791 — Preferred for international clients', whatsapp: true, href: 'https://wa.me/17863425791' },
+          emailPreferred
+            ? { icon: '💬', text: 'WhatsApp: +1 (786) 342-5791', href: 'https://wa.me/17863425791', external: true }
+            : { icon: '💬', text: 'WhatsApp: +1 (786) 342-5791 — Preferred for international clients', whatsapp: true, href: 'https://wa.me/17863425791', external: true },
           { icon: '🌐', text: 'drewsguideservice.com · Capt Drew Rodriguez' },
           { icon: '🗓️', text: 'Trips run 7 days' },
         ].map(d => (
           <div
-            className={`contact-detail ${d.whatsapp ? 'contact-detail--whatsapp' : ''}`}
+            className={`contact-detail ${d.whatsapp ? 'contact-detail--whatsapp' : ''} ${d.email ? 'contact-detail--email' : ''}`}
             key={d.text}
           >
             <div className="contact-icon" aria-hidden="true">{d.icon}</div>
             {d.href ? (
               <a
                 href={d.href}
-                target={d.whatsapp ? '_blank' : undefined}
-                rel={d.whatsapp ? 'noopener noreferrer' : undefined}
+                target={d.external ? '_blank' : undefined}
+                rel={d.external ? 'noopener noreferrer' : undefined}
               >
                 {d.text}
               </a>

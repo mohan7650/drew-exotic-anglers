@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import Img from './Img.jsx';
 import Icon from './Icon.jsx';
-import { infoCards, photoStrip } from '../data/content.js';
+import { infoCards, photoStrip, photoStripHeading } from '../data/content.js';
 import './InfoCards.css';
 
 function ListCard({ card, children }) {
@@ -34,10 +35,10 @@ export default function InfoCards() {
         <div className="eco-info__grid">
           <ListCard card={included} />
           <ListCard card={prepare}>
-            <a href={prepare.cta.href} download={prepare.cta.download} className="eco-btn eco-btn--olive eco-btn--sm eco-info-card__btn">
+            <Link to={prepare.cta.to} state={prepare.cta.state} className="eco-btn eco-btn--olive eco-btn--sm eco-info-card__btn">
               {prepare.cta.label}
               <Icon name="arrowRight" strokeWidth={2.2} />
-            </a>
+            </Link>
           </ListCard>
 
           <article className="eco-host" id="contact">
@@ -56,6 +57,12 @@ export default function InfoCards() {
         </div>
       </section>
 
+      <header className="eco-strip-heading">
+        <p className="eco-strip-heading__tag">{photoStripHeading.eyebrow}</p>
+        <h2 className="eco-strip-heading__title">
+          {photoStripHeading.title} <em>{photoStripHeading.titleEm}</em>
+        </h2>
+      </header>
       <div className="eco-strip" aria-label="Photo gallery">
         {photoStrip.map((p) => (
           <Img key={p.src} src={p.src} alt={p.alt} className="eco-strip__item" />

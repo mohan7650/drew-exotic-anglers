@@ -34,7 +34,14 @@ export default function Species() {
       <ul ref={scroller.ref} className="eco-scroller eco-bleed eco-species__track">
         {s.species.map((f) => (
           <li key={f.name} className="eco-species-card">
-            <img src={f.image} alt={f.name} loading="lazy" decoding="async" className="eco-species-card__img" />
+            <img
+              src={f.image}
+              alt={f.name}
+              loading="lazy"
+              decoding="async"
+              style={f.imagePosition ? { objectPosition: f.imagePosition } : undefined}
+              className="eco-species-card__img"
+            />
             <div className="eco-species-card__body">
               <h3>{f.name}</h3>
               <p className="eco-species-card__latin">{f.latin}</p>

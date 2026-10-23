@@ -41,7 +41,7 @@ export const callout = {
 export const stats = [
   // Figma stat icons (60 × 60, #E8D202 on transparent)
   { icon: '/images/ecolodge/fg-stat-calendar.png', value: '5', label: 'Full days fishing' },
-  { icon: '/images/ecolodge/fg-stat-bed.png', value: '16', label: 'Private rooms' },
+  { icon: '/images/ecolodge/fg-stat-bed.png', value: '12', label: 'Private rooms' },
   { icon: '/images/ecolodge/fg-stat-fish.png', value: '20+', label: 'Game species' },
   { icon: '/images/ecolodge/fg-stat-angler.png', value: '2', label: 'Anglers per guide' },
 ];
@@ -55,13 +55,21 @@ export const fishingIntro = {
     'One minute you’re working a white sand beach with surface flies; the next, casting toward a rocky point or quiet backwater in search of peacock bass, payara, arowana and other Amazon species. Every stretch of water calls for a different presentation, making each day on the fly completely different.',
   ],
   images: [
-    { src: '/images/ecolodge/fg-intro-1.webp', alt: 'Peacock bass taking a popper fly' },
-    // The Figma export of this circle (…tapajs-2.png) is the wrong photo; fg-intro-2 is cut from
-    // intro-angler-peacock.webp (wider crop, both anglers) with the olive shadow baked in.
-    { src: '/images/ecolodge/fg-intro-2.webp', alt: 'Two anglers holding peacock bass on the boat' },
+    // fg-intro-1 cropped to just the photo circle (baked-in olive shadow trimmed off)
+    { src: '/images/ecolodge/fg-intro-1-plain.jpg', alt: 'Peacock bass taking a popper fly' },
+    // portrait photo, no shadow — cropped to a circle in CSS
+    {
+      src: '/images/ecolodge/Ecolodge_2nd_photo.jpg',
+      alt: 'Angler holding a peacock bass on a white sand beach',
+      position: '50% 60%',
+    },
   ],
-  // small third circle below the pair — plain photo, the olive shadow is added in CSS
-  smallImage: { src: '/images/ecolodge/fg-strip-2.webp', alt: 'Anglers celebrating a peacock bass catch' },
+  // small third circle below the pair — plain photo, no shadow
+  smallImage: {
+    src: '/images/ecolodge/Ecolodge_3rd_photo.jpg',
+    alt: 'Angler holding a payara on the boat',
+    position: '50% 45%',
+  },
 };
 
 export const speciesSection = {
@@ -74,31 +82,31 @@ export const speciesSection = {
       name: 'Peacock Bass',
       latin: 'Cichla temensis',
       text: 'The Amazon’s most iconic gamefish. Aggressive, powerful and perfect on fly.',
-      image: '/images/ecolodge/fg-species-peacock-bass.webp',
+      image: '/images/ecolodge/peacock%20bass.jpg', // "peacock bass.jpg" (space URL-encoded)
+      imagePosition: '50% 60%', // portrait photo: keep the angler's face and the whole fish in the circle
     },
     {
       name: 'Payara',
       latin: 'Hydrolycus scomberoides',
-      text: 'The “vampire fish”. Big teeth, explosive strikes, and incredible fights in current.',
+      text: 'The “Vampire Fish” massive teeth, savage strikes, brutal fights against powerful currents, and explosive jumps',
       image: '/images/ecolodge/fg-species-payara.webp',
     },
+
     {
       name: 'Arowana',
       latin: 'Osteoglossum bicirrhosum',
-      text: 'One of the Amazon’s most exotic fish and an unforgettable target on fly.',
+      text: 'A prime target for sight-casting with a fly rod. Watching them sip a fly off the surface is half the fun',
       image: '/images/ecolodge/fg-species-arowana.webp',
     },
     {
       name: 'Bicuda',
       latin: 'Boulengerella cuvieri',
-      text: 'Speed, attitude and sharp teeth. Built to attack and fun to catch.',
-      image: '/images/ecolodge/fg-species-bicuda.webp',
+      text: "The Amazon's needlefish. Sleek, fast, and ready to chase your fly across open water.",      image: '/images/ecolodge/fg-species-bicuda.webp',
     },
     {
       name: 'Piranha',
       latin: 'Pygocentrus nattereri',
-      text: 'A legendary part of the Amazon and one of the many species you may encounter.',
-      image: '/images/ecolodge/fg-species-piranha.webp',
+      text: "One of the Amazon's most iconic fish, fun to catch on light tackle and a solid bonus species.",      image: '/images/ecolodge/fg-species-piranha.webp',
     },
   ],
   fullListLabel: 'The full list',
@@ -112,7 +120,7 @@ export const speciesSection = {
 
 export const lodge = {
   eyebrow: 'The lodge',
-  title: ['It floats — so it follows the season,', 'not the other way around.'],
+  title: ['Where Comfort Rises and Falls With the River.'],
   intro:
     'EcoLodge da Barra is a floating lodge with sixteen air-conditioned private rooms, each with its own bathroom and a river view — the whole structure repositions to stay on top of the fish as water levels change through the season.',
   gallery: [
@@ -127,7 +135,7 @@ export const lodge = {
   amenitiesTitle: 'Everything included in your stay',
   amenitiesNote: { strong: 'All-inclusive', rest: '— nothing extra to arrange' },
   amenities: [
-    { icon: 'door', label: '16 private rooms' },
+    { icon: 'door', label: '12 private rooms' },
     { icon: 'snow', label: 'Air conditioning' },
     { icon: 'shower', label: 'Hot showers' },
     { icon: 'wifi', label: 'Starlink internet' },
@@ -149,8 +157,8 @@ export const itinerary = {
   ],
   cta: { label: 'Plan your fly fishing trip', href: '#eco-contact' },
   steps: [
-    { kicker: 'Step 1', title: 'Be in Manaus', text: 'Arrive in Manaus. We’ll handle the rest.' },
-    { kicker: 'Step 2', title: 'Manaus to EcoLodge', text: 'Charter flight to the lodge. Settle in and get ready.' },
+    { kicker: 'Step 1', title: 'Arrive in Manaus, Brazil', text: 'Your Amazon adventure begins here. We’ll take care of the rest.' },
+    { kicker: 'Step 2', title: 'Manaus to EcoLodge', text: 'Take a 2.5-hour charter flight to the lodge. Settle in and get ready for your adventure.' },
     {
       kicker: 'Core of the trip',
       title: '5 Full Days',
@@ -197,11 +205,12 @@ export const infoCards = {
       'What to expect at the lodge',
       'And much more',
     ],
-    cta: { label: 'View Trip Planner', href: '/Ecolodge-Pre-TripGuide.pdf', download: 'Ecolodge-Pre-TripGuide.pdf' },
+    // opens the booking request form with EcoLodge pre-selected (same as TourDetails "Book Now")
+    cta: { label: 'View Trip Planner', to: '/booking-request', state: { expedition: 'Amazon – EcoLodge da Barra' } },
   },
   host: {
     image: '/images/ecolodge/fg-host-full.webp', // full uncropped photo (3:4)
-    eyebrow: 'Your host & booking contact',
+    eyebrow: 'Booking contact',
     name: 'Capt. Drew Rodriguez',
     badge: 'Orvis Endorsed Guide',
     text: 'From the first question to the final cast, Drew is your point of contact for dates, reservations, travel, tackle and everything in between.',
@@ -209,15 +218,29 @@ export const infoCards = {
   },
 };
 
+export const photoStripHeading = {
+  eyebrow: 'EcoLodge Gallery',
+  // same treatment as the main site's "Real Catches, Real Memories": last word italic
+  title: 'Memories in the',
+  titleEm: 'Wild',
+};
+
+// 3 × 3 gallery — resized copies (900px) of the photos in ecolodge_gallery/
 export const photoStrip = [
-  { src: '/images/ecolodge/fg-strip-1.webp', alt: 'Peacock bass on a popper' },
-  { src: '/images/ecolodge/fg-strip-2.webp', alt: 'Anglers celebrating a peacock bass catch' },
-  { src: '/images/ecolodge/fg-strip-3.webp', alt: 'Two anglers with peacock bass on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-1.jpg', alt: 'Two anglers with a peacock bass on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-2.jpg', alt: 'Arowana close-up with a fly in its mouth' },
+  { src: '/images/ecolodge/gallery/gallery-3.jpg', alt: 'Two anglers holding a payara' },
+  { src: '/images/ecolodge/gallery/gallery-4.jpg', alt: 'Payara close-up with a colourful streamer fly' },
+  { src: '/images/ecolodge/gallery/gallery-5.jpg', alt: 'Angler holding a peacock bass on the river' },
+  { src: '/images/ecolodge/gallery/gallery-6.jpg', alt: 'Two anglers each holding a peacock bass' },
+  { src: '/images/ecolodge/gallery/gallery-7.jpg', alt: 'Angler holding a payara on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-8.jpg', alt: 'Angler holding an arowana on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-9.jpg', alt: 'Angler holding a fish on the open river' },
 ];
 
 export const ctaBanner = {
   eyebrow: 'Amazon fly fishing season · Late May to September',
-  title: 'Clients come fishing',
+  title: 'Guests come fishing',
   titleAccent: 'Friends come back',
   body:
     'You come for the fly fishing. You leave with stories, friendships and an Amazon experience you’ll never forget.',

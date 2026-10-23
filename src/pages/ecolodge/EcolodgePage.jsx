@@ -73,7 +73,7 @@ export default function EcolodgePage() {
         <InfoCards />
         <CtaBanner />
         {/* Same reservation form as the home page; distinct id since InfoCards owns #contact here. */}
-        <Contact id="eco-contact" defaultTripType="Brazil, Eco Lodge da Barra" />
+        <Contact id="eco-contact" defaultTripType="Brazil, Eco Lodge da Barra" preferredContact="email" />
       </main>
       <Footer />
     </div>
