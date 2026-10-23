@@ -235,6 +235,30 @@
   transform: scale(1.07);
 }
 
+/* uncropped tile: blurred copy of the photo behind, the photo itself fitted inside */
+.eco-strip__item--contain {
+  position: relative;
+  overflow: hidden;
+}
+
+.eco-strip__item--contain::before {
+  content: '';
+  position: absolute;
+  inset: -20px; /* hide the blur's soft edge */
+  background: var(--photo) center / cover;
+  filter: blur(18px) brightness(0.85);
+}
+
+.eco-strip__contain-img {
+  position: relative;
+  height: 100%;
+  background: none;
+}
+
+.eco-strip__contain-img img {
+  object-fit: contain;
+}
+
 @media (max-width: 1440px) {
   .eco-info__grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr);

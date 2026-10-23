@@ -225,17 +225,17 @@ export const photoStripHeading = {
   titleEm: 'Wild',
 };
 
-// 3 × 3 gallery — resized copies (900px) of the photos in ecolodge_gallery/
+// 3 × 3 gallery — gallery-1…9.jpeg; portrait shots get `position` so faces stay in the 4:3 tile
 export const photoStrip = [
-  { src: '/images/ecolodge/gallery/gallery-1.jpg', alt: 'Two anglers with a peacock bass on the boat' },
-  { src: '/images/ecolodge/gallery/gallery-2.jpg', alt: 'Arowana close-up with a fly in its mouth' },
-  { src: '/images/ecolodge/gallery/gallery-3.jpg', alt: 'Two anglers holding a payara' },
-  { src: '/images/ecolodge/gallery/gallery-4.jpg', alt: 'Payara close-up with a colourful streamer fly' },
-  { src: '/images/ecolodge/gallery/gallery-5.jpg', alt: 'Angler holding a peacock bass on the river' },
-  { src: '/images/ecolodge/gallery/gallery-6.jpg', alt: 'Two anglers each holding a peacock bass' },
-  { src: '/images/ecolodge/gallery/gallery-7.jpg', alt: 'Angler holding a payara on the boat' },
-  { src: '/images/ecolodge/gallery/gallery-8.jpg', alt: 'Angler holding an arowana on the boat' },
-  { src: '/images/ecolodge/gallery/gallery-9.jpg', alt: 'Angler holding a fish on the open river' },
+  { src: '/images/ecolodge/gallery/gallery-1.jpeg', alt: 'Angler holding a peacock bass on the river' },
+  { src: '/images/ecolodge/gallery/gallery-2.jpeg', alt: 'Angler holding a peacock bass on the boat', fit: 'contain' }, // show the whole photo, not a zoomed crop
+  { src: '/images/ecolodge/gallery/gallery-3.jpeg', alt: 'Angler with a tiger catfish on the sand bank', position: '50% 40%' },
+  { src: '/images/ecolodge/gallery/gallery-4.jpeg', alt: 'Angler holding a peacock bass on the boat', position: '50% 40%' },
+  { src: '/images/ecolodge/gallery/gallery-5.jpeg', alt: 'Angler holding a colourful Amazon fish on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-6.jpeg', alt: 'Angler holding a tiger catfish on the boat' },
+  { src: '/images/ecolodge/gallery/gallery-7.jpeg', alt: 'Angler holding a silver Amazon fish caught on a fly' },
+  { src: '/images/ecolodge/gallery/gallery-8.jpeg', alt: 'Two anglers with a redtail catfish on the boat', position: '50% 40%' },
+  { src: '/images/ecolodge/gallery/gallery-9.jpeg', alt: 'Angler holding a redtail catfish on the boat' },
 ];
 
 export const ctaBanner = {
