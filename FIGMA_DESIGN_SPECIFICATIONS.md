@@ -1185,7 +1185,7 @@ Format: `[TYPE] Name WxH | property:value ...`
                 [FRAME] svg | 16x16
                   [VECTOR] Vector | 12x9
                   [VECTOR] Vector | 11x4
-                [TEXT] Link | 297x24 | "drew@drewsguideservice.com" | font:Montserrat/14px/w400 | align:LEFT
+                [TEXT] Link | 297x24 | "drewsbaitshack@gmail.com" | font:Montserrat/14px/w400 | align:LEFT
               [FRAME] footer-contact-row | 238x24
                 [FRAME] svg | 16x16
                   [VECTOR] Vector | 12x12

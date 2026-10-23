@@ -214,7 +214,7 @@ export const infoCards = {
     name: 'Capt. Drew Rodriguez',
     badge: 'Orvis Endorsed Guide',
     text: 'From the first question to the final cast, Drew is your point of contact for dates, reservations, travel, tackle and everything in between.',
-    cta: { label: 'Contact Drew', href: 'mailto:drew@drewsguideservice.com' },
+    cta: { label: 'Contact Drew', href: 'mailto:drewsbaitshack@gmail.com' },
   },
 };
 
@@ -261,7 +261,7 @@ export const footer = {
     { label: 'Dates & Pricing', href: '#eco-contact' },
     { label: 'Contact', href: '#eco-contact' },
   ],
-  email: 'drew@drewsguideservice.com',
+  email: 'drewsbaitshack@gmail.com',
   phone: '+1 (786) 342-5791',
   phoneHref: 'tel:+17863425791',
   socials: [
