@@ -211,25 +211,24 @@ export default function BookingRequestPage() {
                   <input
                     type="text"
                     readOnly
-                    placeholder="Click to pick a date"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    placeholder="Tap to pick a date"
                     value={form.selected_date}
-                    onClick={() => {
-                      const input = document.getElementById('brp-date-picker');
-                      if (input.showPicker) {
-                        input.showPicker();
-                      } else {
-                        input.focus();
-                        input.click();
-                      }
-                    }}
                     className={errors.selected_date ? 'brp-input--error' : ''}
-                    style={{ cursor: 'pointer' }}
                   />
+                  {/* The real date input sits invisibly on top so taps reach it directly —
+                      mobile browsers (iOS Safari especially) only open their calendar on a
+                      real tap; showPicker() covers desktop browsers that need it */}
                   <input
                     type="date"
                     id="brp-date-picker"
+                    aria-label="Selected date"
                     min={new Date().toISOString().split('T')[0]}
-                    style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', border: 0, pointerEvents: 'none' }}
+                    style={{ position: 'absolute', inset: 0, opacity: 0, width: '100%', height: '100%', border: 0, margin: 0, padding: 0, fontSize: 16, cursor: 'pointer', WebkitAppearance: 'none', appearance: 'none' }}
+                    onClick={e => {
+                      try { e.currentTarget.showPicker?.(); } catch { /* not supported — native tap handles it */ }
+                    }}
                     onChange={e => {
                       if (!e.target.value) return;
                       const [year, month, day] = e.target.value.split('-').map(Number);
