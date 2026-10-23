@@ -33,7 +33,7 @@
   border-color: #25D366;
   color: #fff;
 }
-/* preferred-contact highlight when email is the preferred channel (EcoLodge page) */
+/* preferred-contact highlight for the email row */
 .contact-detail--email {
   background: rgba(29,158,117,0.1);
   border: 1px solid rgba(29,158,117,0.4);

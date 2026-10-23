@@ -11,6 +11,7 @@ import InfoCards from './components/InfoCards.jsx';
 import CtaBanner from './components/CtaBanner.jsx';
 import Footer from './components/Footer.jsx';
 import Contact from '../../sections/Contact';
+import EmailButton from '../../components/EmailButton';
 
 // Fonts are added with a <link> (not a CSS @import) so a blocked font request can
 // never fail the lazy CSS chunk and crash the route. Only loaded on this page.
@@ -73,9 +74,10 @@ export default function EcolodgePage() {
         <InfoCards />
         <CtaBanner />
         {/* Same reservation form as the home page; distinct id since InfoCards owns #contact here. */}
-        <Contact id="eco-contact" defaultTripType="Brazil, Eco Lodge da Barra" preferredContact="email" />
+        <Contact id="eco-contact" defaultTripType="Brazil, Eco Lodge da Barra" />
       </main>
       <Footer />
+      <EmailButton />
     </div>
   );
 }

@@ -9,8 +9,8 @@ const API_BASE = (
   (process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : '')
 ).replace(/\/+$/, '');
 
-// preferredContact: 'whatsapp' (main site) or 'email' (EcoLodge page) — that row gets the highlight
-export default function Contact({ id = 'contact', defaultTripType = 'Florida Day Trip', preferredContact = 'whatsapp' }) {
+// preferredContact: 'email' (default, main site + EcoLodge) or 'whatsapp' — that row gets the highlight
+export default function Contact({ id = 'contact', defaultTripType = 'Florida Day Trip', preferredContact = 'email' }) {
   const emailPreferred = preferredContact === 'email';
 
   const availability = useAvailability();
@@ -71,7 +71,7 @@ export default function Contact({ id = 'contact', defaultTripType = 'Florida Day
         {[
           { icon: '📍', text: 'Miami, FL' },
           ...(emailPreferred
-            ? [{ icon: '✉️', text: 'Email: drew@drewsguideservice.com — Preferred contact', email: true, href: 'mailto:drew@drewsguideservice.com' }]
+            ? [{ icon: '✉️', text: 'Email: drewsbaitshack@gmail.com — Preferred contact', email: true, href: 'mailto:drewsbaitshack@gmail.com' }]
             : []),
           { icon: '📞', text: '+1 (786) 342-5791 — Capt Drew Direct', href: 'tel:7863425791' },
           emailPreferred

@@ -16,7 +16,7 @@ import VideoSection from './sections/VideoSection';
 import Newsletter from './sections/Newsletter';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
+import EmailButton from './components/EmailButton';
 
 // Auth shell is small — keep eager so ProtectedRoute works without suspense boundary
 import { AuthProvider } from './contexts/AuthContext';
@@ -79,7 +79,7 @@ function HomePage() {
         <Contact />
       </main>
       <Footer />
-      <WhatsAppButton />
+      <EmailButton />
     </>
   );
 }
