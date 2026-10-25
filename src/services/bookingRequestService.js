@@ -19,11 +19,17 @@ export async function listBookingRequests() {
 }
 
 export async function updateBookingRequestStatus(id, status) {
-  const { error } = await supabase
+  // .select() so a row blocked by RLS (e.g. expired session) surfaces as an error
+  // instead of silently updating nothing.
+  const { data, error } = await supabase
     .from('booking_requests')
     .update({ status })
-    .eq('id', id);
+    .eq('id', id)
+    .select('id');
   if (error) throw error;
+  if (!data || data.length === 0) {
+    throw new Error('Status was not saved. Your session may have expired — please log in again.');
+  }
 }
 
 export async function archiveBookingRequest(id) {

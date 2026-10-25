@@ -54,6 +54,15 @@ export default function BookingRequestsListPage() {
 
   useEffect(() => { load(); }, [load]);
 
+  // On narrow screens the detail panel stacks below the table — bring it into view
+  // and clear any stale save error when a different request is opened.
+  const selectedId = selected?.id;
+  useEffect(() => {
+    setUpdateError('');
+    if (!selectedId || !window.matchMedia('(max-width: 900px)').matches) return;
+    document.querySelector('.brl-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [selectedId]);
+
   // ── Active / archived split ──────────────────────────────────────────────
 
   const active   = all.filter(r => !r.archived_at);
@@ -548,6 +557,11 @@ export default function BookingRequestsListPage() {
               </select>
               {updating && <span className="brl-updating-msg">Saving…</span>}
             </div>
+            {updateError && (
+              <div className="brl-alert brl-detail-alert" role="alert">
+                <span>⚠</span> {updateError}
+              </div>
+            )}
 
             <div className="brl-detail-body">
 
