@@ -402,6 +402,9 @@
   font-weight: 600;
   cursor: pointer;
 }
+/* Native option lists (Android/iOS pickers) don't inherit the dark background */
+.brl-status-select option { color: #1a1a1a; background: #ffffff; }
+.brl-detail-alert { margin: 0 20px 12px; }
 .brl-status-select:focus { outline: none; border-color: var(--amber, #D4891A); }
 .brl-status-select:disabled { opacity: 0.5; cursor: not-allowed; }
 .brl-updating-msg {
@@ -605,6 +608,8 @@
 @media (max-width: 600px) {
   .brl-table-wrap { -webkit-overflow-scrolling: touch; }
   .brl-filter { min-width: 0; flex: 1; }
+  /* 16px stops iOS Safari from zooming in on focus */
+  .brl-status-select { font-size: 16px; }
   .brl-attention-item {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas: "name go" "meta go" "submitted go";
