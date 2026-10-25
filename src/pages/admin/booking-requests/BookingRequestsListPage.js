@@ -38,6 +38,7 @@ export default function BookingRequestsListPage() {
   const [selectMode, setSelectMode] = useState(false);
   const [checked,    setChecked]    = useState(() => new Set());
   const [view,       setView]       = useState('active'); // 'active' | 'archived'
+  const [jumpId,     setJumpId]     = useState(null);     // row to scroll to + flash
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -69,6 +70,33 @@ export default function BookingRequestsListPage() {
     acc[s] = active.filter(r => r.status === s).length;
     return acc;
   }, {});
+
+  // ── Attention needed: new (Pending) requests, newest submitted first ──────
+
+  const attention = active
+    .filter(r => r.status === 'Pending')
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+  // Clear anything that could hide the row, open it, then scroll to it in its month group
+  function goToRequest(r) {
+    setView('active');
+    setSearch('');
+    setFilterStatus('');
+    setFilterTrip('');
+    setSelectMode(false);
+    setChecked(new Set());
+    setSelected(r);
+    setJumpId(r.id);
+  }
+
+  useEffect(() => {
+    if (!jumpId) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(`brl-row-${jumpId}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    const timer = setTimeout(() => setJumpId(null), 2400); // end of the flash
+    return () => { cancelAnimationFrame(frame); clearTimeout(timer); };
+  }, [jumpId]);
 
   // ── Filtering ─────────────────────────────────────────────────────────────
 
@@ -191,6 +219,40 @@ export default function BookingRequestsListPage() {
         title="Booking Requests"
         subtitle={`${active.length} request${active.length !== 1 ? 's' : ''}`}
       />
+
+      {/* Attention needed — every new (Pending) request; click jumps to its row in the month list */}
+      {!loading && !error && (
+        <section className="brl-attention" aria-label="Attention needed">
+          <div className="brl-attention-head">
+            <h2 className="brl-attention-title">
+              <span className="brl-attention-dot" aria-hidden="true" />
+              Attention needed
+            </h2>
+            <span className="brl-attention-count">
+              {attention.length === 0
+                ? 'All caught up'
+                : `${attention.length} new request${attention.length !== 1 ? 's' : ''}`}
+            </span>
+          </div>
+
+          {attention.length > 0 && (
+            <ul className="brl-attention-list">
+              {attention.map(r => (
+                <li key={r.id}>
+                  <button type="button" className="brl-attention-item" onClick={() => goToRequest(r)}>
+                    <span className="brl-attention-name">{r.first_name} {r.last_name}</span>
+                    <span className="brl-attention-meta">
+                      {r.expedition || 'No expedition'} · {r.selected_date || 'No date given'}
+                    </span>
+                    <span className="brl-attention-submitted">Submitted {fmt(r.created_at)}</span>
+                    <span className="brl-attention-go" aria-hidden="true">→</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
 
       {/* Active / Archived view toggle */}
       {!loading && all.length > 0 && (
@@ -381,7 +443,8 @@ export default function BookingRequestsListPage() {
                     {group.rows.map(r => (
                       <tr
                         key={r.id}
-                        className={`brl-tr${selected?.id === r.id ? ' brl-tr--selected' : ''}`}
+                        id={`brl-row-${r.id}`}
+                        className={`brl-tr${selected?.id === r.id ? ' brl-tr--selected' : ''}${jumpId === r.id ? ' brl-tr--flash' : ''}`}
                         onClick={() => selectMode ? toggleChecked(r.id) : setSelected(r.id === selected?.id ? null : r)}
                         tabIndex={0}
                         onKeyDown={e => e.key === 'Enter' && setSelected(r.id === selected?.id ? null : r)}

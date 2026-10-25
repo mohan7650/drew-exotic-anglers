@@ -510,6 +510,84 @@
 .brl-detail-restore-btn:hover:not(:disabled) { background: rgba(74,222,128,0.1); }
 .brl-detail-restore-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+/* ── Attention needed (top of page) */
+.brl-attention {
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  background: rgba(212,137,26,0.06);
+  border: 1px solid rgba(212,137,26,0.3);
+  border-radius: 8px;
+}
+.brl-attention-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.brl-attention-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-body, sans-serif);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber, #D4891A);
+}
+.brl-attention-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber, #D4891A);
+  box-shadow: 0 0 0 4px rgba(212,137,26,0.2);
+}
+.brl-attention-count {
+  font-family: var(--font-body, sans-serif);
+  font-size: 13px;
+  color: var(--text-muted, #8a9a94);
+}
+.brl-attention-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.brl-attention-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas: "name submitted go" "meta submitted go";
+  align-items: center;
+  column-gap: 16px;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--dark-2, #0e1f1a);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  text-align: left;
+  font-family: var(--font-body, sans-serif);
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+.brl-attention-item:hover,
+.brl-attention-item:focus-visible { border-color: var(--amber, #D4891A); background: rgba(212,137,26,0.08); }
+.brl-attention-name      { grid-area: name; font-size: 14px; font-weight: 700; color: var(--cream, #faf6ee); }
+.brl-attention-meta      { grid-area: meta; font-size: 12px; color: var(--text-muted, #8a9a94); }
+.brl-attention-submitted { grid-area: submitted; font-size: 12px; color: var(--text-muted, #8a9a94); white-space: nowrap; }
+.brl-attention-go        { grid-area: go; font-size: 16px; color: var(--amber, #D4891A); }
+
+/* row flash after jumping to it from Attention needed — on the cells, because the
+   selected row's !important background would override an animation on the row */
+.brl-tr--flash td { animation: brl-flash 2.4s ease-out; }
+@keyframes brl-flash {
+  0%, 30% { background: rgba(212,137,26,0.28); }
+  100%    { background: rgba(212,137,26,0.07); }
+}
+
 /* ── Responsive */
 @media (max-width: 900px) {
   .brl-layout--split {
@@ -527,7 +605,11 @@
 @media (max-width: 600px) {
   .brl-table-wrap { -webkit-overflow-scrolling: touch; }
   .brl-filter { min-width: 0; flex: 1; }
+  .brl-attention-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "name go" "meta go" "submitted go";
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .brl-skeleton, .brl-updating-msg { animation: none; }
+  .brl-skeleton, .brl-updating-msg, .brl-tr--flash td { animation: none; }
 }
