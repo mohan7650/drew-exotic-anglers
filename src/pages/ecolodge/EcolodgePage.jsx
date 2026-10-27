@@ -57,8 +57,19 @@ export default function EcolodgePage() {
     else window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     const prevTitle = document.title;
     document.title = 'EcoLodge da Barra — Amazon Fly Fishing | Drew’s Guide Service';
+    // Eco lodge tab icon on this page only; the site icon comes back on leave.
+    const icon = document.querySelector('link[rel="icon"]');
+    const prevIcon = icon && { href: icon.getAttribute('href'), type: icon.getAttribute('type') };
+    if (icon) {
+      icon.setAttribute('type', 'image/png');
+      icon.setAttribute('href', '/images/ecolodge/favicon-ecolodge.png');
+    }
     return () => {
       document.title = prevTitle;
+      if (icon && prevIcon) {
+        icon.setAttribute('type', prevIcon.type);
+        icon.setAttribute('href', prevIcon.href);
+      }
     };
   }, []);
 
