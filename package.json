@@ -13,6 +13,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "node scripts/og-pages.js",
     "test": "react-scripts test"
   },
   "browserslist": {
